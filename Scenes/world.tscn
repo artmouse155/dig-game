@@ -286,15 +286,15 @@ player_texture = NodePath("Player")
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Player" instance=ExtResource("15_8pfsl")]
 
+[node name="DrillCenter" type="Node2D" parent="SubViewportContainer/SubViewport/Player/Player"]
+position = Vector2(0, 60)
+
 [node name="camera" type="Camera2D" parent="SubViewportContainer/SubViewport/Player" groups=["camera"]]
 
 [node name="Sprite" type="Sprite2D" parent="SubViewportContainer/SubViewport/Player"]
 visible = false
 z_index = 1
 texture = ExtResource("5_uf3c3")
-
-[node name="DrillCenter" type="Node2D" parent="SubViewportContainer/SubViewport/Player/Sprite"]
-position = Vector2(15, 0)
 
 [node name="ChunkRegion" type="Path2D" parent="SubViewportContainer/SubViewport/Player"]
 curve = SubResource("Curve2D_enevc")

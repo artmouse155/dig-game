@@ -52,8 +52,8 @@ var light_source_id = 2
 
 const LIGHT_RADIUS = 9
 
-const DRILL_RADIUS = 1.8
-const PLAYER_RADIUS = DRILL_RADIUS - .3
+var drill_radius = 1.8
+var player_radius = 1.5
 const BOMB_RADIUS = 9
 
 #inside of light_radius
@@ -185,27 +185,28 @@ func _process(delta):
 		var center_tile = tilemap.local_to_map(%Player.position)
 		light_up_around_coords(center_tile)
 		
-		center_tile = tilemap.local_to_map(%Player/Sprite/DrillCenter.global_position)
+		center_tile = tilemap.local_to_map(%Player.player_texture.get_drill_center().global_position)
 		var resistance = false
 		var colliding = false
 
 		var min_damage = %Player.drill_speed
 		var max_damage = min_damage * %Player.player_closeness_drill_speed_multiplier
 
-		for x in range(1 + (2 * DRILL_RADIUS)):
-			for y in range(1 + (2 * DRILL_RADIUS)):
-				var tile_pos = center_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * floor(DRILL_RADIUS))
-				var tile_distance = tilemap.map_to_local(tile_pos).distance_to(%Player/Sprite/DrillCenter.global_position) / Game.TILE_WIDTH
+		for x in range(1 + (2 * drill_radius)):
+			for y in range(1 + (2 * drill_radius)):
+				var tile_pos = center_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * floor(drill_radius))
+				var tile_distance = ((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH).distance_to(%Player.player_texture.get_drill_center().global_position) / Game.TILE_WIDTH
 
 				#the ratio of closeness to center of driller: 0 is outside, 1 is inside
-				#var closeness_ratio = 1 - (tile_distance - PLAYER_RADIUS) / float(DRILL_RADIUS - PLAYER_RADIUS)
+				#var closeness_ratio = 1 - (tile_distance - player_radius) / float(drill_radius - player_radius)
 				var closeness_ratio = 0
 				var damage = (closeness_ratio * (max_damage - min_damage)) + min_damage
 
-				if tile_distance <= (DRILL_RADIUS):
+				if tile_distance <= (drill_radius):
+				#if %Player/Player.is_global_point_in_polygon((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH):
 					if tile_exists(tile_pos):
 						resistance = true
-						if tilemap.map_to_local(tile_pos).distance_to(%Player/Sprite.global_position) / Game.TILE_WIDTH <= (PLAYER_RADIUS):
+						if tilemap.map_to_local(tile_pos).distance_to(%Player.player_texture.global_position) / Game.TILE_WIDTH <= (player_radius):
 							colliding = true
 					damage_tile(tile_pos, damage * delta)
 		%Player.experiencing_resistance = resistance
@@ -241,29 +242,6 @@ func _input(ev):
 
 						if tile_distance <= (BOMB_RADIUS):
 							damage_tile(tile_pos, 999)
-
-	#if ev is InputEventMouseMotion:
-		#var center_tile = tilemap.local_to_map(get_local_mouse_position())
-		#light_up_around_coords(center_tile)
-
-func reset():
-	chunks = {}
-	for i in gen_data:
-		i.noise_res.seed = randi()
-
-	gameover.hide()
-	%Player.position = %Player.starting_pos
-	%Player/Sprite.rotation = %Player.base_angle
-	%Player.velocity = 0
-	%Player.durability = %Player.BASE_DURABILITY
-	%Player.energy = %Player.BASE_ENERGY
-	tilemap.clear()
-	generate_chunk(Vector2.ZERO)
-	score = 0
-	get_points(0)
-	Game.paused = false
-	
-	%HFollow/PB.position.y = Game.player_data.record_depth * Game.TILE_WIDTH
 
 func mine_tile(coords, points):
 	if tile_exists(coords):

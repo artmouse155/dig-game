@@ -29,24 +29,27 @@ var camera_pos = Vector2.ZERO
 var experiencing_resistance = false
 var colliding = false
 
-var BASE_ENERGY = 100
+var total_energy = 100
 const ENERGY_DECAY_RATE = 10
-var energy = BASE_ENERGY
+var energy = total_energy
 
-var BASE_DURABILITY = 1000
+var total_durability = 1000
 const DURABILITY_DECAY_RATE = 10
-var durability = BASE_DURABILITY
-
-var fake_velocity = 40
+var durability = total_durability
 
 func _ready():
+	var drill_scale = Game.player_data.hull.drill_scale
+	world.player_radius =  drill_scale * Game.player_data.hull.actual_texture.get_height() / float(Game.TILE_WIDTH)
+	world.drill_radius = drill_scale * Game.player_data.drill.actual_texture.get_height() / float(Game.TILE_WIDTH)
+	print("new drill radius: " + str(world.drill_radius))
+	print("new player radius: " + str(world.player_radius))
 	position = starting_pos
 	set_sprite_rotation()
 	if not Debug.override_player_durability_and_energy:
-		BASE_DURABILITY = Game.player_data.get_buff_amount("durability")
-		BASE_ENERGY = Game.player_data.get_buff_amount("energy")
-		durability = BASE_DURABILITY
-		energy = BASE_ENERGY
+		total_durability = Game.player_data.get_buff_amount("durability")
+		total_energy = Game.player_data.get_buff_amount("energy")
+		durability = total_durability
+		energy = total_energy
 		
 	
 	if Debug.best_driller:
@@ -64,7 +67,7 @@ func _process(delta):
 			durability -= DURABILITY_DECAY_RATE * delta
 		else:	
 			velocity = clamp(velocity + (acceleration * delta), 0, max_speed)
-		position += Vector2(-sin(driller_angle),cos(driller_angle)) * velocity * delta
+		position += (Vector2.DOWN * velocity * delta).rotated(driller_angle)
 		if position.y > 0:
 			if Input.is_action_pressed("player_turn_left"):
 				driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
@@ -96,10 +99,10 @@ func set_sprite_rotation():
 	player_texture.rotation = driller_angle
 
 func update_bars():
-	%Durability.value = (durability / float(BASE_DURABILITY)) * %Durability.max_value
-	%Energy.value = (energy / float(BASE_ENERGY)) * %Energy.max_value
+	%Durability.value = (durability / float(total_durability)) * %Durability.max_value
+	%Energy.value = (energy / float(total_energy)) * %Energy.max_value
 
 func update_hud():
 	%Depth.text = str(floor(max(0,position.y) / Game.TILE_WIDTH))
-	%Speed.text = str(floor(10 * (velocity / fake_velocity)) / 10.0)
+	%Speed.text = str(floor(10 * (velocity / Game.TILE_WIDTH)) / 10.0)
 	%Turbo.text = str(turbos)

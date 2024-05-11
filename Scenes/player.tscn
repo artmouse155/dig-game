@@ -7,13 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Drills/mark_1.png" id="5_fw63p"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Engines/hermes.png" id="6_ycbx2"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon")]
 script = ExtResource("1_ob06n")
 hull_node = NodePath("HBoxContainer/VBoxContainer/HullTexture")
 drill_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture")
 battery_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Left/Left_Control/BatteryAnchor/BatteryTexture")
 engine_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Right/Right_Control/EngineAnchor/EngineTexture")
 boost_node = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/BoostTexture")
+drill_center = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control")
+polygon = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture/Polygon2D")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 8
@@ -152,6 +154,10 @@ offset_right = 41.5
 offset_bottom = 54.0
 grow_horizontal = 2
 texture = ExtResource("5_fw63p")
+
+[node name="Polygon2D" type="Polygon2D" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture"]
+visible = false
+polygon = PackedVector2Array(80, 0, 0, 0, 5, 30, 40, 55, 75, 30)
 
 [node name="hull" type="ReferenceRect" parent="."]
 visible = false
