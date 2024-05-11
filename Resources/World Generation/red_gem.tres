@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://camjt31i8lv7f"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_nancx"]
+
+[resource]
+script = ExtResource("1_nancx")
+name = "red_gem"
+health = 1
+value = 0.0
+atlas = Array[Vector2i]([Vector2i(3, 4)])
+min_depth = 1000
+max_depth = 99999
+min_freq = 0.0
+max_freq = 0.0
+curve = "constant"
+noise = "randf"

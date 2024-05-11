@@ -151,7 +151,6 @@ func get_equipped_component(group_name : String) -> DrillerComponentObject:
 func set_equipped_component(obj : DrillerComponentObject, group_name : String):
 	match group_name:
 		"hull":
-			print(obj)
 			hull = obj as Hull
 		"drill":
 			drill = obj

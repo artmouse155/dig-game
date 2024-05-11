@@ -43,4 +43,5 @@ boost = ExtResource("2_de07u")
 saved_component_data = Array[Resource("res://Resources/component_object_save_data.gd")]([])
 player_inventory = Array[Object]([SubResource("Resource_645ll"), SubResource("Resource_4v5h1"), SubResource("Resource_3te55"), SubResource("Resource_3dmof"), SubResource("Resource_hbxro")])
 record_depth = 0
+day_number = 0
 completed_tutorial = false

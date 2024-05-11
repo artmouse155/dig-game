@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://bpfbmwfxadoq8"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_6vsup"]
+
+[resource]
+script = ExtResource("1_6vsup")
+name = "silver"
+health = 20
+value = 24.0
+atlas = Array[Vector2i]([Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3)])
+min_depth = 50
+max_depth = 256
+min_freq = 0.2
+max_freq = 0.25
+curve = "linear"
+noise = "smooth"

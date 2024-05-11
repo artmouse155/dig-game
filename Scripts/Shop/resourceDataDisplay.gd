@@ -1,7 +1,15 @@
 extends HBoxContainer
 
+const COST_ICON_KEY : Dictionary = {
+	"ore" : preload("res://Assets/Textures/UI/Resource_Icons/ore.tres"),
+	"red_gem" : preload("res://Assets/Textures/UI/Resource_Icons/red_gem.tres"),
+	"green_gem" : preload("res://Assets/Textures/UI/Resource_Icons/green_gem.tres"),
+	"blue_gem" : preload("res://Assets/Textures/UI/Resource_Icons/blue_gem.tres"),
+	"plasma" : preload("res://Assets/Textures/UI/Resource_Icons/plasma.tres"),
+}
+
 func cost_setup(cost : ResourceData):
-	#$Icon = preload("res://Assets/Textures/UI/box.png")
+	$Icon.texture = COST_ICON_KEY[cost.res_name]
 	if ResourceData.compare_all([cost], Game.player_data.player_inventory):
 		$Cost.text = "✅ "
 	else:
@@ -15,4 +23,5 @@ func buff_setup(buff : BuffItem):
 	$Cost.text = str(buff.amount)
 
 func amount_setup(data : ResourceData):
-	$Cost.text = data.res_name + ": " + str(data.amount)
+	$Icon.texture = COST_ICON_KEY[data.res_name]
+	$Cost.text = str(data.amount)

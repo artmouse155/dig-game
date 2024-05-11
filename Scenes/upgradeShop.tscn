@@ -160,7 +160,7 @@ theme_override_constants/margin_bottom = 5
 [node name="ResourceDisplayContainer" type="HBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer3/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 20
+theme_override_constants/separation = 60
 
 [node name="PanelContainer" type="PanelContainer" parent="Container2/Container/VBoxContainer"]
 layout_mode = 2

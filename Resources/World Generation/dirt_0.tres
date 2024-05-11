@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://bui0yfuiu2j88"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_l8anf"]
+
+[resource]
+script = ExtResource("1_l8anf")
+name = "dirt_0"
+health = 5
+value = 0.1
+atlas = Array[Vector2]([Vector2(0, 0), Vector2(1, 0), Vector2(2, 0), Vector2(3, 0), Vector2(4, 0), Vector2(5, 0), Vector2(6, 0), Vector2(7, 0), Vector2(0, 1), Vector2(1, 1), Vector2(2, 1), Vector2(3, 1), Vector2(4, 1), Vector2(5, 1), Vector2(6, 1), Vector2(7, 1)])
+min_depth = 0
+max_depth = 99999
+min_freq = 1.0
+max_freq = 1.0
+curve = "constant"
+noise = "smooth"

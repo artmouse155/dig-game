@@ -1,8 +1,12 @@
 extends Node2D
 
 @export var world : Node2D
+@export var player_texture : Node2D
 
 #pixels a second
+
+var driller_angle = 0
+var degrees_of_freedom = deg_to_rad(50)
 
 var starting_pos = Vector2(960,-500)
 var acceleration = 500
@@ -11,8 +15,8 @@ var stop_acceleration = 3000
 var velocity = 0
 var rotational_velocity = .5
 var max_speed = 400
-var base_angle = deg_to_rad(90)
-var max_angle = deg_to_rad(50)
+#var base_angle = deg_to_rad(90)
+#var max_angle = deg_to_rad(50)
 var drill_speed = 60
 
 # as you get closer to the center of the driller, you get up to this many times more better at drilling
@@ -37,7 +41,7 @@ var fake_velocity = 40
 
 func _ready():
 	position = starting_pos
-	$Sprite.rotation = base_angle
+	set_sprite_rotation()
 	if not Debug.override_player_durability_and_energy:
 		BASE_DURABILITY = Game.player_data.get_buff_amount("durability")
 		BASE_ENERGY = Game.player_data.get_buff_amount("energy")
@@ -60,13 +64,15 @@ func _process(delta):
 			durability -= DURABILITY_DECAY_RATE * delta
 		else:	
 			velocity = clamp(velocity + (acceleration * delta), 0, max_speed)
-		position += Vector2(cos($Sprite.rotation),sin($Sprite.rotation)) * velocity * delta
+		position += Vector2(-sin(driller_angle),cos(driller_angle)) * velocity * delta
 		if position.y > 0:
 			if Input.is_action_pressed("player_turn_left"):
-				$Sprite.rotation = clamp($Sprite.rotation + (rotational_velocity * delta), $Sprite.rotation, base_angle + max_angle)
+				driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+			
 			elif Input.is_action_pressed("player_turn_right"):
-				$Sprite.rotation = clamp($Sprite.rotation - (rotational_velocity * delta), base_angle - max_angle, $Sprite.rotation)
-			$Sprite.rotation = fmod($Sprite.rotation,2*PI)
+				driller_angle = clamp(driller_angle - (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+			
+			set_sprite_rotation()
 		
 		if (position.y > 0):
 			energy -= ENERGY_DECAY_RATE * delta
@@ -85,6 +91,9 @@ func screenshake():
 		var new_pos = camera_pos + v
 		tweener.tween_property($camera, "position", new_pos, .05)
 	tweener.tween_property($camera, "position", camera_pos, .05)
+
+func set_sprite_rotation():
+	player_texture.rotation = driller_angle
 
 func update_bars():
 	%Durability.value = (durability / float(BASE_DURABILITY)) * %Durability.max_value

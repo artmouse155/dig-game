@@ -16,9 +16,6 @@ const RANDF_NOISE_MAX = 1
 @export var day_number_label : Label
 const DAY_NUMBER_Y_OFFSET = -1200
 
-#DEBUG ONLY
-var doLight = true
-
 var score = 0
 
 var default_tile_data = {
@@ -26,118 +23,8 @@ var default_tile_data = {
 	"points" : 0
 }
 
-@onready var gen = [
-	{
-		"name" = "rock",
-		"health" = 50,
-		"points" = 0,
-		"atlas" = [
-			Vector2i(0,4),
-			Vector2i(1,4),
-			Vector2i(2,4),
-			],
-		"min_depth" = 20,
-		"max_depth" = 99999,
-		"min_freq" = .12,
-		"max_freq" = .12,
-		"curve" = constant_curve,
-		"noise" = smooth_noise.duplicate()
-	},
-	{
-		"name" = "powerups",
-		"health" = 1,
-		"points" = 0,
-		"atlas" = [
-			Vector2i(3,3),
-			Vector2i(4,3),
-			Vector2i(5,3),
-			Vector2i(6,3),
-				],
-		"min_depth" = 0,
-		"max_depth" = 99999,
-		"min_freq" = .002,
-		"max_freq" = .002,
-		"curve" = constant_curve,
-		"noise" = randf_noise.duplicate()
-	},
-	{
-		"name" = "coal",
-		"health" = 10,
-		"points" = 3,
-		"atlas" = [
-			Vector2i(0,2),
-			Vector2i(1,2),
-			Vector2i(2,2),
-			],
-		"min_depth" = 0,
-		"max_depth" = 128,
-		"min_freq" = .2,
-		"max_freq" = .25,
-		"curve" = linear_curve,
-		"noise" = smooth_noise.duplicate()
-	},
-	{
-		"name" = "silver",
-		"health" = 20,
-		"points" = 8,
-		"atlas" = [
-			Vector2i(0,3),
-			Vector2i(1,3),
-			Vector2i(2,3),
-			],
-		"min_depth" = 50,
-		"max_depth" = 256,
-		"min_freq" = .2,
-		"max_freq" = .25,
-		"curve" = linear_curve,
-		"noise" = smooth_noise.duplicate()
-	},
-	{
-		"name" = "gold",
-		"health" = 40,
-		"points" = 30,
-		"atlas" = [
-			Vector2i(0,5),
-			Vector2i(1,5),
-			Vector2i(2,5),
-			],
-		"min_depth" = 256,
-		"max_depth" = 512,
-		"min_freq" = .2,
-		"max_freq" = .4,
-		"curve" = bell_curve,
-		"noise" = smooth_noise.duplicate()
-	},
-	{
-		"name" = "dirt",
-		"health" = 5,
-		"points" = .1,
-		"atlas" = [
-			Vector2i(0,0),
-			Vector2i(1,0),
-			Vector2i(2,0),
-			Vector2i(3,0),
-			Vector2i(4,0),
-			Vector2i(5,0),
-			Vector2i(6,0),
-			Vector2i(7,0),
-			Vector2i(0,1),
-			Vector2i(1,1),
-			Vector2i(2,1),
-			Vector2i(3,1),
-			Vector2i(4,1),
-			Vector2i(5,1),
-			Vector2i(6,1),
-			Vector2i(7,1),
-				],
-		"min_depth" = 0,
-		"max_depth" = 99999,
-		"min_freq" = 1,
-		"max_freq" = 1,
-		"curve" = linear_curve,
-		"noise" = smooth_noise.duplicate()
-	}
-]
+@export var gen_data : Array[Gen]
+
 @onready var subviewport = $SubViewportContainer/SubViewport
 @onready var gameover = $GameOver
 
@@ -203,8 +90,13 @@ func _ready():
 	#print("Noise List Max: " + str(noise_list.max()))
 	%Player/ChunkRegion.scale = chunk
 
-	for i in gen:
-		i["noise"].seed = randi()
+	for i in gen_data:
+		match i.noise:
+			"randf":
+				i.noise_res = randf_noise.duplicate()
+			"smooth":
+				i.noise_res = smooth_noise.duplicate()
+		i.noise_res.seed = randi()
 
 	tilemap.add_layer(LIGHT_LAYER)
 	tilemap.set_layer_z_index(LIGHT_LAYER, LIGHT_LAYER)
@@ -242,11 +134,22 @@ func generate_chunk(chunk_coords):
 	if !(chunk_coords.y in chunks[chunk_coords.x].keys()):
 		chunks[chunk_coords.x][chunk_coords.y] = true
 
-	for i in gen:
-		if ((chunk.y * chunk_coords.y) >= i["min_depth"]) or ((chunk.y * (chunk_coords.y + 1)) - 1 <= i["max_depth"]):
-			var noise = i["noise"]
+	for i in gen_data:
+		if ((chunk.y * chunk_coords.y) >= i.min_depth) or ((chunk.y * (chunk_coords.y + 1)) - 1 <= i.max_depth):
+			var noise = i.noise_res
 			var noise_min = 0
 			var noise_max = 1
+			var curve : Curve
+			match i.curve:
+				"linear":
+					curve = linear_curve
+				"bell":
+					curve = bell_curve
+				"smooth":
+					curve = smooth_curve
+				"constant":
+					curve = constant_curve
+
 			match noise.noise_type:
 				FastNoiseLite.TYPE_SIMPLEX_SMOOTH:
 					noise_min = SMOOTH_NOISE_MIN
@@ -255,18 +158,18 @@ func generate_chunk(chunk_coords):
 					noise_min = RANDF_NOISE_MIN
 					noise_max = RANDF_NOISE_MAX
 
-			var atlas_size = i["atlas"].size()
+			var atlas_size = i.atlas.size()
 			for y in range(chunk.y):
 				var y_cor = y + (chunk.y * chunk_coords.y)
-				if (y_cor >= i["min_depth"]) and (y_cor <= i["max_depth"]):
-					var function_input = float(y_cor - i["min_depth"]) / (i["max_depth"] - i["min_depth"])
-					var threshold_value = (i["curve"].sample(function_input) * (i["max_freq"] - i["min_freq"])) + i["min_freq"]
+				if (y_cor >= i.min_depth) and (y_cor <= i.max_depth):
+					var function_input = float(y_cor - i.min_depth) / (i.max_depth - i.min_depth)
+					var threshold_value = (curve.sample(function_input) * (i.max_freq - i.min_freq)) + i.min_freq
 					for x in range(chunk.x):
 						var coords = Vector2i(x,y) + Vector2i(chunk_coords * chunk)
 						var noise_value = (noise.get_noise_2d(coords.x,coords.y) - noise_min) / (noise_max - noise_min)
 						if !tile_exists(coords) and (noise_value <= threshold_value):
 							tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, i["atlas"][randi_range(0,atlas_size-1)])
-						if doLight:
+						if !Debug.fullbright:
 							tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
 	var end_time = Time.get_ticks_msec()
 	var elapsed_time = end_time - start_time
@@ -345,8 +248,8 @@ func _input(ev):
 
 func reset():
 	chunks = {}
-	for i in gen:
-		i["noise"].seed = randi()
+	for i in gen_data:
+		i.noise_res.seed = randi()
 
 	gameover.hide()
 	%Player.position = %Player.starting_pos
@@ -402,11 +305,11 @@ func ensure_tile_has_data(coords):
 		tile_data[coords.x] = {}
 	if !(coords.y in tile_data[coords.x].keys()):
 		tile_data[coords.x][coords.y] = default_tile_data.duplicate()
-		for i in gen:
-			for atlas in i["atlas"]:
+		for i in gen_data:
+			for atlas in i.atlas:
 				if tilemap.get_cell_atlas_coords(GROUND_LAYER, coords) == atlas:
-					tile_data[coords.x][coords.y]["health"] = i["health"]
-					tile_data[coords.x][coords.y]["points"] = i["points"]
+					tile_data[coords.x][coords.y]["health"] = i.health
+					tile_data[coords.x][coords.y]["points"] = i.value
 
 func get_tile_data(coords):
 	ensure_tile_has_data(coords)
@@ -457,6 +360,10 @@ func new_day_button_pressed():
 func shop_button_pressed():
 	game_over()
 	Game.go_to_shop()
+
+func main_menu_button_pressed():
+	game_over()
+	Game.go_to_main_menu()
 
 #append per-day saved resources to player data
 func append_res_to_save_data():
