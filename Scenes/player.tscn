@@ -1,0 +1,239 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0bo4y5hiomht"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ob06n"]
+[ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="3_ss5ih"]
+[ext_resource type="Texture2D" uid="uid://bysshbq0p3ksm" path="res://Assets/Textures/Driller/Hulls/vanguard.png" id="3_ws7a0"]
+[ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Batteries/sapling.png" id="5_c5mxx"]
+[ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Drills/mark_1.png" id="5_fw63p"]
+[ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Engines/hermes.png" id="6_ycbx2"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node")]
+script = ExtResource("1_ob06n")
+hull_node = NodePath("HBoxContainer/VBoxContainer/HullTexture")
+drill_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture")
+battery_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Left/Left_Control/BatteryAnchor/BatteryTexture")
+engine_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Right/Right_Control/EngineAnchor/EngineTexture")
+boost_node = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/BoostTexture")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.5
+offset_top = -36.5
+offset_right = 52.5
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Top" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Top_Control" type="Control" parent="HBoxContainer/VBoxContainer/Top"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="BoostAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Top/Top_Control"]
+anchors_preset = 0
+
+[node name="BoostTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.5
+offset_top = -23.0
+offset_right = 40.5
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_ss5ih")
+stretch_mode = 2
+
+[node name="HullTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("3_ws7a0")
+stretch_mode = 2
+
+[node name="Left" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture"]
+layout_mode = 1
+anchors_preset = 0
+offset_bottom = 73.0
+
+[node name="Left_Control" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture/Left"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+
+[node name="BatteryAnchor" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture/Left/Left_Control"]
+anchors_preset = 0
+
+[node name="BatteryTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HullTexture/Left/Left_Control/BatteryAnchor"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.5
+offset_right = 22.0
+offset_bottom = 16.5
+grow_vertical = 2
+texture = ExtResource("5_c5mxx")
+stretch_mode = 2
+
+[node name="Right" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 105.0
+offset_right = 105.0
+offset_bottom = 73.0
+
+[node name="Right_Control" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture/Right"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="EngineAnchor" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture/Right/Right_Control"]
+anchors_preset = 0
+
+[node name="EngineTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HullTexture/Right/Right_Control/EngineAnchor"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -21.0
+offset_bottom = 21.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("6_ycbx2")
+stretch_mode = 2
+
+[node name="Bottom" type="Control" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Bottom_Control" type="Control" parent="HBoxContainer/VBoxContainer/Bottom"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="DrillAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control"]
+anchors_preset = 0
+
+[node name="DrillTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_right = 41.5
+offset_bottom = 54.0
+grow_horizontal = 2
+texture = ExtResource("5_fw63p")
+
+[node name="hull" type="ReferenceRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="Control" parent="hull"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="boost" type="ReferenceRect" parent="hull/Top"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -10.0
+offset_right = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+border_color = Color(0.309804, 0.615686, 0.305882, 1)
+
+[node name="Bottom" type="Control" parent="hull"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="drill" type="ReferenceRect" parent="hull/Bottom"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.0
+offset_right = 15.0
+offset_bottom = 20.0
+grow_horizontal = 2
+border_color = Color(0.376471, 0.47451, 1, 1)
+
+[node name="Center" type="Control" parent="hull"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="hull"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(1, 0.65098, 0, 1)

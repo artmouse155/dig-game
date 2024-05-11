@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://brxwt1eqa2ypl"]
+
+[ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="1_kr2yu"]
+[ext_resource type="Script" path="res://Scripts/Shop/resourceDataDisplay.gd" id="1_t4i5a"]
+
+[node name="ResourceDataDisplay" type="HBoxContainer"]
+script = ExtResource("1_t4i5a")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_kr2yu")
+stretch_mode = 2
+
+[node name="Cost" type="Label" parent="."]
+layout_mode = 2
+text = "1000"

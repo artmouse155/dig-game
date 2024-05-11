@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://dc4yngl0r5lu3"]
+
+[ext_resource type="Script" path="res://Scripts/upgrade_panel.gd" id="1_lfcyn"]
+[ext_resource type="Texture2D" uid="uid://cqlg6f8yonu0f" path="res://Assets/Textures/UI/add_normal.png" id="1_wm3d0"]
+[ext_resource type="Texture2D" uid="uid://co7pj57t4d011" path="res://Assets/Textures/UI/add_pressed.png" id="2_6odp0"]
+[ext_resource type="Texture2D" uid="uid://chb5tu5ndjge3" path="res://Assets/Textures/UI/cell.png" id="2_bl7tu"]
+[ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/durability.tres" id="2_kvkls"]
+[ext_resource type="Texture2D" uid="uid://cujrsge01bxo4" path="res://Assets/Textures/UI/add_hover.png" id="3_0pc57"]
+[ext_resource type="Texture2D" uid="uid://dh5hj1osywe41" path="res://Assets/Textures/UI/cell_full.png" id="3_regfc"]
+[ext_resource type="Texture2D" uid="uid://c0oil4ftcdtvc" path="res://Assets/Textures/UI/add_disabled.png" id="4_4oq4m"]
+[ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="9_1hfj2"]
+
+[node name="UpgradePanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lfcyn")
+upgrade_list = ExtResource("2_kvkls")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="BarContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/BarContainer"]
+layout_mode = 2
+texture = ExtResource("2_bl7tu")
+stretch_mode = 1
+
+[node name="FullBarContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/BarContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/BarContainer/FullBarContainer"]
+layout_mode = 2
+texture = ExtResource("3_regfc")
+stretch_mode = 1
+
+[node name="AddButton" type="TextureButton" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("1_wm3d0")
+texture_pressed = ExtResource("2_6odp0")
+texture_hover = ExtResource("3_0pc57")
+texture_disabled = ExtResource("4_4oq4m")
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 74.0
+offset_right = 45.0
+offset_bottom = 97.0
+text = "TEST TEST TEST"
+
+[node name="Tooltip" parent="." instance=ExtResource("9_1hfj2")]
+layout_mode = 1
+offset_top = 100.0
+offset_bottom = 100.0

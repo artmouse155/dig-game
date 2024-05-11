@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=13 format=3 uid="uid://dgejboa57hga6"]
+
+[ext_resource type="Script" path="res://Resources/player_data.gd" id="1_fu111"]
+[ext_resource type="Resource" uid="uid://doqwwsa3h0i6k" path="res://Resources/Driller/Batteries/sapling.tres" id="1_plthn"]
+[ext_resource type="Resource" uid="uid://beb7qrg7mpqon" path="res://Resources/Driller/Boosts/nova_accelerator.tres" id="2_nlihs"]
+[ext_resource type="Resource" uid="uid://6mf1sues0fv0" path="res://Resources/Driller/Drills/mark_1.tres" id="3_saevo"]
+[ext_resource type="Resource" uid="uid://cf7lwurtkpbcw" path="res://Resources/Driller/Engines/hermes.tres" id="4_arght"]
+[ext_resource type="Resource" uid="uid://dt5jkjk3gkmoq" path="res://Resources/Driller/Hulls/vanguard.tres" id="5_oabqp"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="6_7pqbo"]
+
+[sub_resource type="Resource" id="Resource_645ll"]
+script = ExtResource("6_7pqbo")
+res_name = "ore"
+amount = 0
+
+[sub_resource type="Resource" id="Resource_4v5h1"]
+script = ExtResource("6_7pqbo")
+res_name = "red_gem"
+amount = 0
+
+[sub_resource type="Resource" id="Resource_3te55"]
+script = ExtResource("6_7pqbo")
+res_name = "green_gem"
+amount = 0
+
+[sub_resource type="Resource" id="Resource_3dmof"]
+script = ExtResource("6_7pqbo")
+res_name = "blue_gem"
+amount = 0
+
+[sub_resource type="Resource" id="Resource_hbxro"]
+script = ExtResource("6_7pqbo")
+res_name = "plasma"
+amount = 0
+
+[resource]
+script = ExtResource("1_fu111")
+hull = ExtResource("5_oabqp")
+drill = ExtResource("3_saevo")
+battery = ExtResource("1_plthn")
+engine = ExtResource("4_arght")
+boost = ExtResource("2_nlihs")
+saved_component_data = Array[Resource("res://Resources/component_object_save_data.gd")]([])
+player_inventory = Array[Object]([SubResource("Resource_645ll"), SubResource("Resource_4v5h1"), SubResource("Resource_3te55"), SubResource("Resource_3dmof"), SubResource("Resource_hbxro")])
+record_depth = 0
+day_number = 0
+completed_tutorial = false

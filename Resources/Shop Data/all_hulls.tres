@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=10 format=3 uid="uid://cfg30q0b26xgc"]
+
+[ext_resource type="Resource" uid="uid://dt5jkjk3gkmoq" path="res://Resources/Driller/Hulls/vanguard.tres" id="1_kwbs6"]
+[ext_resource type="Texture2D" uid="uid://b3w6n05hwqamo" path="res://Assets/Textures/logo.png" id="2_luyib"]
+[ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/Shop Data/durability.tres" id="3_2di1k"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="3_lc8r5"]
+[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="4_l05wa"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="4_oi0lb"]
+[ext_resource type="Script" path="res://Resources/hull.gd" id="5_wmpfd"]
+
+[sub_resource type="Resource" id="Resource_ax83f"]
+script = ExtResource("3_lc8r5")
+buff_name = "magic powers"
+amount = 7
+
+[sub_resource type="Resource" id="Resource_ocj2w"]
+script = ExtResource("5_wmpfd")
+drill_scale = 1.0
+component_object_name = "Fake Hull"
+parent_group_name = "hull"
+component_object_tile_image = ExtResource("4_oi0lb")
+actual_texture = ExtResource("2_luyib")
+offset = Vector2(0, 0)
+desc = "This is not a real hull."
+locked_desc = "Unlock by playing my game."
+upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([ExtResource("3_2di1k"), ExtResource("3_2di1k")])
+base_buffs = Array[ExtResource("3_lc8r5")]([SubResource("Resource_ax83f")])
+
+[resource]
+script = ExtResource("4_l05wa")
+component_group_name = "hull"
+desc = "The bulk of the driller."
+component_objects = Array[Resource("res://Resources/driller_component_object.gd")]([ExtResource("1_kwbs6"), SubResource("Resource_ocj2w")])

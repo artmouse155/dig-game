@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtq6e5hajdfe8"]
+
+[ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="1_hlb80"]
+[ext_resource type="Script" path="res://Scripts/upgradeShop.gd" id="1_oar08"]
+[ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_qsc1y"]
+
+[node name="UpgradeShop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oar08")
+
+[node name="TabBar" type="TabContainer" parent="."]
+layout_mode = 2
+offset_right = 220.0
+offset_bottom = 220.0
+
+[node name="PanelContainer" type="PanelContainer" parent="TabBar"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/PanelContainer"]
+layout_mode = 2
+
+[node name="Icons" type="MarginContainer" parent="TabBar/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="TabBar/PanelContainer/VBoxContainer/Icons"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_hlb80")
+
+[node name="TextureRect2" type="TextureRect" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_hlb80")
+
+[node name="TextureRect3" type="TextureRect" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_hlb80")
+
+[node name="TextureRect4" type="TextureRect" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_hlb80")
+
+[node name="TextureRect5" type="TextureRect" parent="TabBar/PanelContainer/VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("1_hlb80")
+
+[node name="Margin" type="MarginContainer" parent="TabBar/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Upgrades" type="MarginContainer" parent="TabBar/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="TabBar/PanelContainer/VBoxContainer/Upgrades"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="GridContainer" type="VBoxContainer" parent="TabBar/PanelContainer/VBoxContainer/Upgrades/PanelContainer"]
+layout_mode = 2
+
+[node name="Tooltip" parent="." instance=ExtResource("3_qsc1y")]
+visible = false
+layout_mode = 1

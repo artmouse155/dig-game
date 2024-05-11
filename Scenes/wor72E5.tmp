@@ -1,0 +1,663 @@
+[gd_scene load_steps=32 format=3 uid="uid://yre8wvqiht01"]
+
+[ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
+[ext_resource type="Script" path="res://Scripts/GameOver.gd" id="2_i8h8n"]
+[ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
+[ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
+[ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]
+[ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="5_cok10"]
+[ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_uf3c3"]
+[ext_resource type="Texture2D" uid="uid://pfwsfufu3bwd" path="res://Assets/Textures/grass.png" id="5_weegd"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="6_2xc70"]
+[ext_resource type="FontFile" uid="uid://djm3eds2ejv32" path="res://Assets/Fonts/Manrope-VariableFont_wght.ttf" id="7_p568w"]
+[ext_resource type="Texture2D" uid="uid://ctyfsa7ms8jxb" path="res://Assets/Textures/UI/durability.png" id="8_l8p7o"]
+[ext_resource type="Texture2D" uid="uid://cyuhlx1rvlbso" path="res://Assets/Textures/UI/energy.png" id="9_36wbe"]
+[ext_resource type="Texture2D" uid="uid://c5qdey3os1w72" path="res://Assets/Textures/UI/turbo.png" id="10_tp47c"]
+[ext_resource type="Texture2D" uid="uid://ckwweydn53ev" path="res://Assets/Textures/UI/depth.png" id="11_20etr"]
+[ext_resource type="AudioStream" uid="uid://chb1m0yu72b6" path="res://Assets/Sound/Music/1-10. Battle - From District to District (City).mp3" id="13_f6g2e"]
+
+[sub_resource type="Curve" id="Curve_gru56"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_pe81p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_ggsgv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xfmaw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(1, 1), 0.0, 0.0, 1, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wa7yg"]
+noise_type = 5
+frequency = 1.0
+fractal_type = 0
+domain_warp_fractal_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6w0px"]
+frequency = 0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0bq4"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="Gradient" id="Gradient_fnkcb"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.719454, 2.55093e-06, 5.77569e-07, 1, 0.73, 0.48691, 0.4599, 1, 0.719454, 2.55093e-06, 5.77569e-07, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tk7v4"]
+gradient = SubResource("Gradient_fnkcb")
+width = 640
+height = 200
+fill_to = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_gasi8"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.209985, 0.584693, 0.833672, 1, 0.532576, 0.781069, 0.970433, 1, 0.209985, 0.584693, 0.833672, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_02yaq"]
+gradient = SubResource("Gradient_gasi8")
+width = 440
+height = 200
+fill_to = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs6xb"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.47451)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imo1k"]
+resource_name = "GROUND"
+texture = ExtResource("2_p5811")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+1:0/next_alternative_id = 2
+1:0/0 = 0
+2:0/next_alternative_id = 2
+2:0/0 = 0
+3:0/next_alternative_id = 2
+3:0/0 = 0
+4:0/next_alternative_id = 2
+4:0/0 = 0
+5:0/next_alternative_id = 2
+5:0/0 = 0
+6:0/next_alternative_id = 2
+6:0/0 = 0
+7:0/next_alternative_id = 2
+7:0/0 = 0
+0:1/next_alternative_id = 2
+0:1/0 = 0
+1:1/next_alternative_id = 2
+1:1/0 = 0
+2:1/next_alternative_id = 2
+2:1/0 = 0
+3:1/next_alternative_id = 2
+3:1/0 = 0
+4:1/next_alternative_id = 2
+4:1/0 = 0
+5:1/next_alternative_id = 2
+5:1/0 = 0
+6:1/next_alternative_id = 2
+6:1/0 = 0
+7:1/next_alternative_id = 2
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vg1tg"]
+resource_name = "<null>"
+texture = ExtResource("3_vvgrb")
+texture_region_size = Vector2i(32, 32)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pfbys"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_imo1k")
+sources/2 = SubResource("TileSetAtlasSource_vg1tg")
+
+[sub_resource type="Curve2D" id="Curve2D_enevc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, -32, 0, 0, 0, 0, 32, -32, 0, 0, 0, 0, 32, 32, 0, 0, 0, 0, -32, 32, 0, 0, 0, 0, -32, -32)
+}
+point_count = 5
+
+[node name="World" type="Node2D" groups=["scenes"]]
+script = ExtResource("1_37iqd")
+linear_curve = SubResource("Curve_gru56")
+bell_curve = SubResource("Curve_pe81p")
+smooth_curve = SubResource("Curve_ggsgv")
+constant_curve = SubResource("Curve_xfmaw")
+randf_noise = SubResource("FastNoiseLite_wa7yg")
+smooth_noise = SubResource("FastNoiseLite_6w0px")
+
+[node name="UI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Control" type="Control" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 205)
+layout_mode = 2
+
+[node name="HBoxL" type="HBoxContainer" parent="UI/VBoxContainer/Control"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 1920.0
+offset_bottom = 56.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/Control/HBoxL"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="Score Panel" type="PanelContainer" parent="UI/VBoxContainer/Control/HBoxL"]
+z_index = 20
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/Control/HBoxL/Score Panel"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="UI/VBoxContainer/Control/HBoxL/Score Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "0"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer/Control/HBoxL/Score Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_cok10")
+
+[node name="HBoxR" type="HBoxContainer" parent="UI/VBoxContainer/Control"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 1920.0
+offset_bottom = 56.0
+alignment = 2
+
+[node name="Durability" type="TextureProgressBar" parent="UI/VBoxContainer/Control/HBoxR"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 640.0
+value = 640.0
+texture_over = ExtResource("8_l8p7o")
+texture_progress = SubResource("GradientTexture2D_tk7v4")
+texture_progress_offset = Vector2(115, 0)
+
+[node name="ColorRect" type="ColorRect" parent="UI/VBoxContainer/Control/HBoxR/Durability"]
+z_as_relative = false
+layout_mode = 0
+offset_left = 94.0
+offset_top = 15.0
+offset_right = 770.0
+offset_bottom = 176.0
+color = Color(0, 0, 0, 1)
+
+[node name="Energy" type="TextureProgressBar" parent="UI/VBoxContainer/Control/HBoxR"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 440.0
+value = 440.0
+texture_over = ExtResource("9_36wbe")
+texture_progress = SubResource("GradientTexture2D_02yaq")
+texture_progress_offset = Vector2(115, 0)
+
+[node name="ColorRect" type="ColorRect" parent="UI/VBoxContainer/Control/HBoxR/Energy"]
+z_as_relative = false
+layout_mode = 2
+offset_left = 94.0
+offset_top = 13.0
+offset_right = 564.0
+offset_bottom = 187.0
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/VBoxContainer/Control/HBoxR"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 50
+
+[node name="HBox" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Turbo Panel" type="PanelContainer" parent="UI/VBoxContainer/HBox"]
+z_index = 20
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBox/Turbo Panel"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/VBoxContainer/HBox/Turbo Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Turbo" type="Label" parent="UI/VBoxContainer/HBox/Turbo Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.611765, 0.247059, 1)
+theme_override_colors/font_outline_color = Color(1, 0.611765, 0.247059, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer/HBox/Turbo Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_tp47c")
+
+[node name="Speed Panel" type="PanelContainer" parent="UI/VBoxContainer/HBox"]
+z_index = 20
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBox/Speed Panel"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/VBoxContainer/HBox/Speed Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="Speed" type="Label" parent="UI/VBoxContainer/HBox/Speed Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.784314, 0.25098, 1)
+theme_override_colors/font_outline_color = Color(0.0627451, 0.784314, 0.25098, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "0.0
+"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/HBox/Speed Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+
+[node name="Depth Panel" type="PanelContainer" parent="UI/VBoxContainer/HBox"]
+z_index = 20
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer/HBox/Depth Panel"]
+layout_mode = 2
+
+[node name="Depth" type="Label" parent="UI/VBoxContainer/HBox/Depth Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "0m"
+horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer/HBox/Depth Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_20etr")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/VBoxContainer/HBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+
+[node name="GameOver" type="Node2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(960, 540)
+script = ExtResource("2_i8h8n")
+
+[node name="Fade" type="ColorRect" parent="GameOver"]
+z_index = 4
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.384314)
+
+[node name="Box" type="Control" parent="GameOver"]
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GameOver/Box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bs6xb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/Box/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Panel" type="Panel" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Message" type="Label" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.368627, 0.368627, 0.368627, 1)
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "Pro Gaming Advice"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Tip" type="Label" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "This is a Pro Tip. This is such a pro tip that if you do what I do you will succeed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Try_Again" type="Button" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "Try Again"
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Shop" type="Button" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_p568w")
+text = "Shop
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 50
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="Message" type="Sprite2D" parent="GameOver"]
+z_index = 10
+position = Vector2(0, -75)
+texture = ExtResource("3_6s8mq")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="TileMap" type="TileMap" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+tile_set = SubResource("TileSet_pfbys")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131066, 458753, 4, -131065, 458753, 4, -131064, 458753, 4, -131060, 458753, 4, -131059, 458753, 4, -131055, 458753, 4, -131052, 458753, 4, -131051, 458753, 4, -131047, 458753, 4, -131043, 458753, 4, -131040, 458753, 4, -131039, 458753, 4, -131038, 458753, 4, -131037, 458753, 4, -131030, 458753, 4, -131025, 458753, 4, -131024, 458753, 4, -131020, 458753, 4, -131019, 458753, 4, -131018, 458753, 4, -131017, 458753, 4, -131013, 458753, 4, -131012, 458753, 4, -131011, 458753, 4, -131010, 458753, 4, -131009, 458753, 4, -131008, 458753, 4, -65539, 458753, 4, -65538, 458753, 4, -65537, 458753, 4, -131072, 458753, 4, -131071, 458753, 4, -131070, 458753, 4, -131069, 458753, 4, -65543, 458753, 4, -65544, 458753, 4, -9, 458753, 4, -131001, 458753, 4, -131000, 458753, 4, -130999, 458753, 4, -130998, 458753, 4)
+
+[node name="Player" type="Node2D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(960, -200)
+script = ExtResource("6_2xc70")
+
+[node name="Darkness" type="ColorRect" parent="SubViewportContainer/SubViewport/Player"]
+z_index = -10
+z_as_relative = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="camera" type="Camera2D" parent="SubViewportContainer/SubViewport/Player" groups=["camera"]]
+
+[node name="Sprite" type="Sprite2D" parent="SubViewportContainer/SubViewport/Player"]
+z_index = 1
+texture = ExtResource("5_uf3c3")
+
+[node name="DrillCenter" type="Node2D" parent="SubViewportContainer/SubViewport/Player/Sprite"]
+position = Vector2(15, 0)
+
+[node name="ChunkRegion" type="Path2D" parent="SubViewportContainer/SubViewport/Player"]
+curve = SubResource("Curve2D_enevc")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="SubViewportContainer/SubViewport/Player/ChunkRegion"]
+position = Vector2(-32, -32)
+
+[node name="HFollow" type="Control" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="PB" type="Control" parent="SubViewportContainer/SubViewport/HFollow"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -1500.0
+offset_bottom = -1500.0
+grow_horizontal = 2
+
+[node name="PB Label" type="Label" parent="SubViewportContainer/SubViewport/HFollow/PB"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = -81.0
+offset_right = 197.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_p568w")
+theme_override_font_sizes/font_size = 48
+text = "Personal Best"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Record" type="Line2D" parent="SubViewportContainer/SubViewport/HFollow/PB"]
+z_index = 1
+points = PackedVector2Array(0, 0, 1920, 0)
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="Grass" type="TextureRect" parent="SubViewportContainer/SubViewport/HFollow"]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 1920.0
+texture = ExtResource("5_weegd")
+stretch_mode = 2
+
+[node name="Sky" type="ColorRect" parent="SubViewportContainer/SubViewport/HFollow"]
+z_index = -5
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1080.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.588235, 0.780392, 0.94902, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_f6g2e")
+
+[connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Try_Again" to="." method="new_day_button_pressed"]
+[connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Shop" to="." method="shop_button_pressed"]

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Hull" load_steps=5 format=3 uid="uid://dt5jkjk3gkmoq"]
+
+[ext_resource type="Script" path="res://Resources/hull.gd" id="1_cke0b"]
+[ext_resource type="Texture2D" uid="uid://bysshbq0p3ksm" path="res://Assets/Textures/Driller/Hulls/vanguard.png" id="1_dfhvs"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_ootoc"]
+
+[sub_resource type="Resource" id="Resource_sqg1e"]
+script = ExtResource("2_ootoc")
+buff_name = "beans"
+amount = 10000
+
+[resource]
+script = ExtResource("1_cke0b")
+drill_scale = 1.0
+component_object_name = "Vanguard"
+parent_group_name = "hull"
+actual_texture = ExtResource("1_dfhvs")
+offset = Vector2(0, 0)
+desc = "A small yet durable hull."
+locked_desc = ""
+upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
+base_buffs = Array[ExtResource("2_ootoc")]([SubResource("Resource_sqg1e")])

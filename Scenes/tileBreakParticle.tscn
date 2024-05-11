@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://dj76d6mlown58"]
+
+[ext_resource type="Texture2D" uid="uid://b8sfy44yex4sr" path="res://Assets/Textures/Tiles/particle.png" id="1_21hgk"]
+
+[sub_resource type="Gradient" id="Gradient_6yqv7"]
+colors = PackedColorArray(0.509286, 0.509286, 0.509286, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l17ms"]
+gradient = SubResource("Gradient_6yqv7")
+
+[sub_resource type="Curve" id="Curve_yeksq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kfh2s"]
+curve = SubResource("Curve_yeksq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_30bkt"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 203.92
+initial_velocity_max = 203.92
+gravity = Vector3(0, 490, 0)
+scale_curve = SubResource("CurveTexture_kfh2s")
+color_ramp = SubResource("GradientTexture1D_l17ms")
+
+[node name="TileBreakParticle" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_30bkt")
+texture = ExtResource("1_21hgk")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true

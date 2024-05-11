@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://dve3ug7r4vxj0"]
+
+[ext_resource type="Script" path="res://Scripts/Shop/tooltip.gd" id="1_2n100"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_2wpam"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_lnggc"]
+[ext_resource type="Script" path="res://Resources/upgrade.gd" id="4_lakv8"]
+
+[sub_resource type="Resource" id="Resource_n8hb5"]
+script = ExtResource("2_2wpam")
+buff_name = "energy"
+amount = 9999
+
+[sub_resource type="Resource" id="Resource_o4jk1"]
+script = ExtResource("3_lnggc")
+res_name = "red_gem"
+amount = 5
+
+[sub_resource type="Resource" id="Resource_3h5i1"]
+script = ExtResource("3_lnggc")
+res_name = "ore"
+amount = 999999
+
+[sub_resource type="Resource" id="Resource_l4tl2"]
+script = ExtResource("4_lakv8")
+cost_list = Array[ExtResource("3_lnggc")]([SubResource("Resource_o4jk1"), SubResource("Resource_3h5i1")])
+buff_list = Array[ExtResource("2_2wpam")]([SubResource("Resource_n8hb5")])
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnqk8"]
+bg_color = Color(0.0784314, 0.12549, 0.203922, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Tooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_2n100")
+u = SubResource("Resource_l4tl2")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 311.0
+offset_bottom = 115.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bnqk8")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Desc" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "This is a really good upgrade."
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="COST" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "COST"
+fit_content = true
+
+[node name="CostContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="BUFF" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUFF"
+fit_content = true
+
+[node name="BuffContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2

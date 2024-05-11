@@ -1,0 +1,177 @@
+[gd_scene load_steps=16 format=3 uid="uid://yre8wvqiht01"]
+
+[ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
+[ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
+[ext_resource type="Texture2D" uid="uid://b8sfy44yex4sr" path="res://Assets/Textures/Tiles/particle.png" id="3_q8ww8"]
+[ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]
+[ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_uf3c3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_enalh"]
+seed = 2
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8md2y"]
+noise = SubResource("FastNoiseLite_enalh")
+
+[sub_resource type="Gradient" id="Gradient_6rnl4"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rx3ki"]
+gradient = SubResource("Gradient_6rnl4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Curve" id="Curve_yeksq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kfh2s"]
+curve = SubResource("Curve_yeksq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_30bkt"]
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 203.92
+initial_velocity_max = 203.92
+gravity = Vector3(0, 490, 0)
+scale_curve = SubResource("CurveTexture_kfh2s")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imo1k"]
+resource_name = "GROUND"
+texture = ExtResource("2_p5811")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vg1tg"]
+resource_name = "LIGHT"
+texture = ExtResource("3_vvgrb")
+texture_region_size = Vector2i(32, 32)
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_pfbys"]
+tile_size = Vector2i(32, 32)
+sources/1 = SubResource("TileSetAtlasSource_imo1k")
+sources/2 = SubResource("TileSetAtlasSource_vg1tg")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_37iqd")
+noise_texture = SubResource("NoiseTexture2D_8md2y")
+light_circle = SubResource("GradientTexture2D_rx3ki")
+
+[node name="TileBreakParticle" type="GPUParticles2D" parent="."]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_30bkt")
+texture = ExtResource("3_q8ww8")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_pfbys")
+format = 2
+layer_0/tile_data = PackedInt32Array(131073, 1, 1, 131076, 1, 1, 262144, 1, 1, 327681, 1, 1, 327682, 1, 1, 327683, 1, 1, 327684, 1, 1, 262149, 1, 1, -65536, 458753, 3, -65535, 458753, 3, -65534, 458753, 3, -65533, 458753, 3, -65532, 458753, 3, -65531, 458753, 3, -65530, 458753, 3, -65529, 458753, 3, -65528, 458753, 3, -65527, 458753, 3, -65526, 458753, 3, -65525, 458753, 3, -65524, 458753, 3, -65523, 458753, 3, -65522, 458753, 3, -65521, 458753, 3, -65520, 458753, 3, -65519, 458753, 3, -65518, 458753, 3, -65517, 458753, 3, -65516, 458753, 3, -65515, 458753, 3, -65514, 458753, 3, -65513, 458753, 3, -65512, 458753, 3, -65511, 458753, 3, -65510, 458753, 3, -65509, 458753, 3, -65508, 458753, 3, -65507, 458753, 3, -65506, 458753, 3, -65505, 458753, 3, -65504, 458753, 3, -65503, 458753, 3, -65502, 458753, 3, -65501, 458753, 3, -65500, 458753, 3, -65499, 458753, 3, -65498, 458753, 3, -65497, 458753, 3, -65496, 458753, 3, -65495, 458753, 3, -65494, 458753, 3, -65493, 458753, 3, -65492, 458753, 3, -65491, 458753, 3, -65490, 458753, 3, -65489, 458753, 3, -65488, 458753, 3, -65487, 458753, 3, -65486, 458753, 3, -65485, 458753, 3, -65484, 458753, 3, -65483, 458753, 3, -65482, 458753, 3, -65481, 458753, 3, -65480, 458753, 3, -65479, 458753, 3, -65478, 458753, 3, -65477, 458753, 3)
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(960, -200)
+texture = ExtResource("5_uf3c3")
+
+[node name="camera" type="Camera2D" parent="Player"]
+
+[node name="Bg" type="ColorRect" parent="Player"]
+z_index = -5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1024.0
+offset_top = -604.0
+offset_right = 896.0
+offset_bottom = 476.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.588235, 0.780392, 0.94902, 1)

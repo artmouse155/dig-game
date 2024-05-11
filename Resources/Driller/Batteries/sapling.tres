@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=13 format=3 uid="uid://doqwwsa3h0i6k"]
+
+[ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Batteries/sapling.png" id="1_64h17"]
+[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_k6kd2"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_jotfi"]
+[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="3_8o1oh"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="4_r7aic"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="5_oaiw3"]
+[ext_resource type="Script" path="res://Resources/upgrade.gd" id="5_opevw"]
+
+[sub_resource type="Resource" id="Resource_8spuu"]
+script = ExtResource("5_oaiw3")
+buff_name = "energy"
+amount = 100
+
+[sub_resource type="Resource" id="Resource_nx4a0"]
+script = ExtResource("5_oaiw3")
+buff_name = "energy"
+amount = 100
+
+[sub_resource type="Resource" id="Resource_p277l"]
+script = ExtResource("4_r7aic")
+res_name = "ore"
+amount = 10
+
+[sub_resource type="Resource" id="Resource_c2f2f"]
+script = ExtResource("5_opevw")
+cost_list = Array[ExtResource("4_r7aic")]([SubResource("Resource_p277l")])
+buff_list = Array[ExtResource("5_oaiw3")]([SubResource("Resource_nx4a0")])
+
+[sub_resource type="Resource" id="Resource_tuctq"]
+script = ExtResource("3_8o1oh")
+upgrade_name = "Energy"
+desc = "Charge is conserved."
+upgrades = Array[ExtResource("5_opevw")]([SubResource("Resource_c2f2f")])
+
+[resource]
+script = ExtResource("1_k6kd2")
+component_object_name = "Sapling"
+parent_group_name = "battery"
+component_object_tile_image = ExtResource("2_jotfi")
+actual_texture = ExtResource("1_64h17")
+offset = Vector2(20, 0)
+desc = "A tried and true power source."
+locked_desc = ""
+upgrade_lists = Array[ExtResource("3_8o1oh")]([SubResource("Resource_tuctq")])
+base_buffs = Array[ExtResource("5_oaiw3")]([SubResource("Resource_8spuu")])

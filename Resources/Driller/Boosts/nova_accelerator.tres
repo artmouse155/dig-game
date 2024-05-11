@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=3 format=3 uid="uid://beb7qrg7mpqon"]
+
+[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_et14t"]
+[ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="1_vnate"]
+
+[resource]
+script = ExtResource("1_et14t")
+component_object_name = "Nova Accelerator"
+parent_group_name = "boost"
+actual_texture = ExtResource("1_vnate")
+offset = Vector2(0, 5)
+desc = "A powerful booster."
+locked_desc = ""
+upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=3 format=3 uid="uid://dacu2ehjgdglb"]
+
+[ext_resource type="Resource" uid="uid://doqwwsa3h0i6k" path="res://Resources/Driller/Batteries/sapling.tres" id="1_fybkr"]
+[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="1_ij2ph"]
+
+[resource]
+script = ExtResource("1_ij2ph")
+component_group_name = "battery"
+desc = "You can't do much without energy."
+component_objects = Array[Resource("res://Resources/driller_component_object.gd")]([ExtResource("1_fybkr")])

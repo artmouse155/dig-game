@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="UpgradeList" load_steps=8 format=3 uid="uid://dn5aajdaie2eb"]
+
+[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="1_jt2fs"]
+[ext_resource type="Script" path="res://Resources/upgrade.gd" id="2_b1bp3"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_x87jq"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_pwni5"]
+
+[sub_resource type="Resource" id="Resource_mw7yg"]
+script = ExtResource("2_x87jq")
+buff_name = "durability"
+amount = 1000
+
+[sub_resource type="Resource" id="Resource_g7xks"]
+script = ExtResource("3_pwni5")
+res_name = "ore"
+amount = 200
+
+[sub_resource type="Resource" id="Resource_ctux1"]
+script = ExtResource("2_b1bp3")
+cost_list = Array[ExtResource("3_pwni5")]([SubResource("Resource_g7xks")])
+buff_list = Array[ExtResource("2_x87jq")]([SubResource("Resource_mw7yg")])
+
+[resource]
+script = ExtResource("1_jt2fs")
+upgrade_name = "Durability"
+desc = "This is a durability upgrade."
+upgrades = Array[ExtResource("2_b1bp3")]([SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1"), SubResource("Resource_ctux1")])

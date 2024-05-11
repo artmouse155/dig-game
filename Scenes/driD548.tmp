@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://0knq0xxsht10"]
+
+[ext_resource type="Script" path="res://Scripts/driller_component_group_panel.gd" id="1_4ho5v"]
+[ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="2_os1gb"]
+
+[node name="DrillerComponentGroupPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ho5v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icons" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Icons"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Icons/PanelContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_os1gb")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_os1gb")
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_os1gb")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_os1gb")
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/Icons/PanelContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_os1gb")
+
+[node name="Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="Upgrades" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Upgrades"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="GridContainer" type="VBoxContainer" parent="VBoxContainer/Upgrades/PanelContainer"]
+layout_mode = 2
