@@ -13,6 +13,8 @@ extends Node2D
 @export var drill_center : Control
 @export var polygon : Polygon2D
 
+#@export var intermediate_damage_curve : Curve
+
 var player_scale = 1
 
 func _ready():

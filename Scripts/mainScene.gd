@@ -15,7 +15,11 @@ func _ready():
 		Game.global_save_data.prev_save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
 		Game.save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
 		print("Couldn't find " + prev_name)
-	switch_scene(Game.MAIN_MENU)
+	if Debug.quickstart:
+		Game.load_player_save_data(Game.get_save_names()[0])
+		Game.new_day()
+	else:
+		switch_scene(Game.MAIN_MENU)
 	#Game.new_day()
 
 func get_current_scene():

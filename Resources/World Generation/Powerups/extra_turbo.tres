@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://bg61sol4ndjf6"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_bwf7r"]
+
+[resource]
+script = ExtResource("1_bwf7r")
+name = "extra_turbo"
+health = 1
+value = 1.0
+atlas = Array[Vector2i]([Vector2i(4, 3)])
+min_depth = 0
+max_depth = 99999
+min_freq = 0.002
+max_freq = 0.002
+curve = "constant"
+noise = "randf"

@@ -15,7 +15,7 @@ amount = 7
 
 [sub_resource type="Resource" id="Resource_ocj2w"]
 script = ExtResource("5_wmpfd")
-drill_scale = 1.0
+drill_scale = 1.5
 component_object_name = "Fake Hull"
 parent_group_name = "hull"
 component_object_tile_image = ExtResource("4_oi0lb")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://dumdgi4t5c0cb"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_hm5sx"]
+
+[resource]
+script = ExtResource("1_hm5sx")
+name = "extra_durability"
+health = 1
+value = 0.0
+atlas = Array[Vector2i]([Vector2i(3, 3)])
+min_depth = 0
+max_depth = 99999
+min_freq = 0.002
+max_freq = 0.002
+curve = "constant"
+noise = "randf"

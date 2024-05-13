@@ -20,6 +20,7 @@ extra_scale_node = NodePath("Container2/Container/VBoxContainer/PanelContainer2/
 player = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale/Player")
 
 [node name="Background" type="TextureRect" parent="."]
+visible = false
 offset_left = -39.0
 offset_top = -848.0
 offset_right = 2961.0

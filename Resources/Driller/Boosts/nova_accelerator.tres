@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=3 format=3 uid="uid://beb7qrg7mpqon"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=5 format=3 uid="uid://beb7qrg7mpqon"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_et14t"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="1_vnate"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_t5etm"]
+
+[sub_resource type="Resource" id="Resource_kr4x5"]
+script = ExtResource("2_t5etm")
+buff_name = "turbos"
+amount = 100
 
 [resource]
 script = ExtResource("1_et14t")
@@ -12,3 +18,4 @@ offset = Vector2(0, 5)
 desc = "A powerful booster."
 locked_desc = ""
 upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
+base_buffs = Array[ExtResource("2_t5etm")]([SubResource("Resource_kr4x5")])

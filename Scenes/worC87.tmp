@@ -1,33 +1,30 @@
-[gd_scene load_steps=47 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=44 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
 [ext_resource type="Script" path="res://Scripts/GameOver.gd" id="2_i8h8n"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
-[ext_resource type="Resource" uid="uid://camjt31i8lv7f" path="res://Resources/World Generation/Gems/red_gem.tres" id="3_t0cxn"]
+[ext_resource type="Resource" uid="uid://camjt31i8lv7f" path="res://Resources/World Generation/red_gem.tres" id="3_e4k13"]
+[ext_resource type="Resource" uid="uid://bjw3aic4v8nip" path="res://Resources/World Generation/powerups.tres" id="3_twc7b"]
 [ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]
+[ext_resource type="Resource" uid="uid://bjhha8o23j1yo" path="res://Resources/World Generation/green_gem.tres" id="4_3x1ib"]
 [ext_resource type="Resource" uid="uid://dhgb8piyw87hi" path="res://Resources/World Generation/coal.tres" id="4_4i2cs"]
 [ext_resource type="Script" path="res://Scripts/world_Player.gd" id="4_5n57c"]
-[ext_resource type="Resource" uid="uid://bjhha8o23j1yo" path="res://Resources/World Generation/Gems/green_gem.tres" id="4_uwscm"]
-[ext_resource type="Resource" uid="uid://c82q4lxnextrf" path="res://Resources/World Generation/Gems/blue_gem.tres" id="5_707rn"]
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="5_cok10"]
+[ext_resource type="Resource" uid="uid://c82q4lxnextrf" path="res://Resources/World Generation/blue_gem.tres" id="5_oh3rd"]
 [ext_resource type="Resource" uid="uid://bpfbmwfxadoq8" path="res://Resources/World Generation/silver.tres" id="5_sf4cn"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_uf3c3"]
 [ext_resource type="Texture2D" uid="uid://pfwsfufu3bwd" path="res://Assets/Textures/grass.png" id="5_weegd"]
 [ext_resource type="Resource" uid="uid://l4uis2th1llt" path="res://Resources/World Generation/gold.tres" id="6_if1ct"]
-[ext_resource type="Resource" uid="uid://bjw3aic4v8nip" path="res://Resources/World Generation/Powerups/extra_energy.tres" id="6_jutqh"]
-[ext_resource type="Resource" uid="uid://dumdgi4t5c0cb" path="res://Resources/World Generation/Powerups/extra_durability.tres" id="6_xowi1"]
-[ext_resource type="Resource" uid="uid://bg61sol4ndjf6" path="res://Resources/World Generation/Powerups/extra_turbo.tres" id="7_5e5g1"]
 [ext_resource type="Resource" uid="uid://bui0yfuiu2j88" path="res://Resources/World Generation/dirt_0.tres" id="7_jx3ys"]
 [ext_resource type="FontFile" uid="uid://djm3eds2ejv32" path="res://Assets/Fonts/Manrope-VariableFont_wght.ttf" id="7_p568w"]
 [ext_resource type="Texture2D" uid="uid://ctyfsa7ms8jxb" path="res://Assets/Textures/UI/durability.png" id="8_l8p7o"]
-[ext_resource type="Resource" uid="uid://cxuubh2by36ei" path="res://Resources/World Generation/Powerups/extra_speed.tres" id="8_mi6a4"]
 [ext_resource type="Texture2D" uid="uid://cyuhlx1rvlbso" path="res://Assets/Textures/UI/energy.png" id="9_36wbe"]
+[ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/plasma.tres" id="10_ps7k2"]
 [ext_resource type="Texture2D" uid="uid://c5qdey3os1w72" path="res://Assets/Textures/UI/turbo.png" id="10_tp47c"]
 [ext_resource type="Texture2D" uid="uid://ckwweydn53ev" path="res://Assets/Textures/UI/depth.png" id="11_20etr"]
 [ext_resource type="AudioStream" uid="uid://chb1m0yu72b6" path="res://Assets/Sound/Music/1-10. Battle - From District to District (City).mp3" id="13_f6g2e"]
-[ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 
 [sub_resource type="Curve" id="Curve_gru56"]
@@ -230,14 +227,19 @@ constant_curve = SubResource("Curve_xfmaw")
 randf_noise = SubResource("FastNoiseLite_wa7yg")
 smooth_noise = SubResource("FastNoiseLite_6w0px")
 day_number_label = NodePath("SubViewportContainer/SubViewport/Day Number")
-gen_data = Array[Resource("res://Resources/gen.gd")]([ExtResource("2_r1251"), ExtResource("3_t0cxn"), ExtResource("4_uwscm"), ExtResource("5_707rn"), ExtResource("6_xowi1"), ExtResource("7_5e5g1"), ExtResource("8_mi6a4"), ExtResource("6_jutqh"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("13_gw8xf"), ExtResource("7_jx3ys")])
+gen_data = Array[Resource("res://Resources/gen.gd")]([ExtResource("2_r1251"), ExtResource("3_e4k13"), ExtResource("4_3x1ib"), ExtResource("5_oh3rd"), ExtResource("3_twc7b"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("10_ps7k2"), ExtResource("7_jx3ys")])
 
-[node name="Darkness" type="ColorRect" parent="."]
-z_index = -10
+[node name="Sky" type="ColorRect" parent="."]
+z_index = -5
 z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_right = 1920.0
 offset_bottom = 1080.0
-color = Color(0, 0, 0, 1)
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.588235, 0.780392, 0.94902, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 1920.0
@@ -250,12 +252,12 @@ handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Sky" type="ColorRect" parent="SubViewportContainer/SubViewport"]
-z_index = -5
+[node name="Darkness" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+z_index = -10
 z_as_relative = false
-offset_top = -1080.0
 offset_right = 1920.0
-color = Color(0.588235, 0.780392, 0.94902, 1)
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
 
 [node name="Day Number" type="Label" parent="SubViewportContainer/SubViewport"]
 anchors_preset = 8
@@ -712,15 +714,6 @@ z_index = 1
 points = PackedVector2Array(0, 0, 1920, 0)
 width = 2.0
 default_color = Color(1, 0, 0, 1)
-
-[node name="DEBUG" type="Label" parent="."]
-unique_name_in_owner = true
-visible = false
-offset_left = 112.0
-offset_top = 190.0
-offset_right = 272.0
-offset_bottom = 213.0
-text = "DEBUG DEBUG DEBUG"
 
 [connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/Try_Again" to="." method="new_day_button_pressed"]
 [connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/Shop" to="." method="shop_button_pressed"]

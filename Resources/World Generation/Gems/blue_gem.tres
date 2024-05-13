@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://c82q4lxnextrf"]
 
-[ext_resource type="Script" path="res://Resources/gen.gd" id="1_2latw"]
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_fbxo1"]
 
 [resource]
-script = ExtResource("1_2latw")
+script = ExtResource("1_fbxo1")
 name = "blue_gem"
 health = 1
-value = 0.0
+value = 1.0
 atlas = Array[Vector2i]([Vector2i(5, 4)])
 min_depth = 1000
 max_depth = 99999

@@ -13,28 +13,27 @@ const SMOOTH_NOISE_MAX = .75
 const RANDF_NOISE_MIN = -1
 const RANDF_NOISE_MAX = 1
 
+#if the tile we want to mine will only be in our drill radius for less than MINE_DIST distance, disregard
+const MINE_DIST : float = 1
+
 @export var day_number_label : Label
 const DAY_NUMBER_Y_OFFSET = -1200
 
-var score = 0
-
-var default_tile_data = {
-	"health" : 5,
-	"points" : 0
-}
+var score : float = 0.0
 
 @export var gen_data : Array[Gen]
 
 @onready var subviewport = $SubViewportContainer/SubViewport
 @onready var gameover = $GameOver
 
-var tile_data = {}
+#var tile_data = {}
 
+# chunks[chunk_x][chunk_y][abs_coord_x][abs_coord_y]
 var chunks = {}
 
 var resolution = Vector2(1920,1080)
-const CHUNK_RESOLUTION = 32
-var chunk = CHUNK_RESOLUTION * Vector2.ONE
+const CHUNK_RESOLUTION : int= 16
+var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 #@export var noise_texture : NoiseTexture2D
 @onready var tilemap = %TileMap
 @onready var chunk_path = %Player/ChunkRegion/PathFollow2D
@@ -78,17 +77,15 @@ var per_day_resources : Array[ResourceData] = [
 	ResourceData.new("blue_gem", 0),
 	ResourceData.new("plasma", 0),
 ]
+@onready var per_day_resources_key = per_day_resources.map(func(r_d): return r_d.res_name)
 
 var day_has_been_saved : bool = false
 
 func _ready():
-	#var noise_list = []
-	#for x in range(1280):
-	#	for y in range(1280):
-	#		noise_list.append(smooth_noise.get_noise_2d(x,y))
-	#print("Noise List Min: " + str(noise_list.min()))
-	#print("Noise List Max: " + str(noise_list.max()))
-	%Player/ChunkRegion.scale = chunk
+
+	print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
+	
+	%Player/ChunkRegion.scale = DEFAULT_CHUNK
 
 	for i in gen_data:
 		match i.noise:
@@ -118,24 +115,31 @@ func check_chunk_regions():
 		#get the point, then tile coordinate, then chunk
 		chunk_path.set_progress_ratio(ratio)
 		var chunk_coordinate = coords_to_chunk(pixel_coords_to_map_coords(chunk_path.global_position))
-		if not chunk_exists(chunk_coordinate):
+		if not chunk_has_data(chunk_coordinate):
 			generate_chunk(chunk_coordinate)
 
 
 func generate_world():
 	generate_chunk(Vector2.ZERO)
 
-func generate_chunk(chunk_coords):
+func generate_chunk(chunk_coords : Vector2i):
 	var start_time = Time.get_ticks_msec()
+	
+	var temp_chunk = []
 
+	for x in range(DEFAULT_CHUNK.x):
+		temp_chunk.append([])
+		for y in range(DEFAULT_CHUNK.y):
+			temp_chunk[x].append(null)
+	
 	#print("Generating chunk: " + str(chunk_coords))
 	if !(chunk_coords.x in chunks.keys()):
 		chunks[chunk_coords.x] = {}
 	if !(chunk_coords.y in chunks[chunk_coords.x].keys()):
-		chunks[chunk_coords.x][chunk_coords.y] = true
+		chunks[chunk_coords.x][chunk_coords.y] = temp_chunk
 
 	for i in gen_data:
-		if ((chunk.y * chunk_coords.y) >= i.min_depth) or ((chunk.y * (chunk_coords.y + 1)) - 1 <= i.max_depth):
+		if ((DEFAULT_CHUNK.y * chunk_coords.y) >= i.min_depth) or ((DEFAULT_CHUNK.y * (chunk_coords.y + 1)) - 1 <= i.max_depth):
 			var noise = i.noise_res
 			var noise_min = 0
 			var noise_max = 1
@@ -158,66 +162,111 @@ func generate_chunk(chunk_coords):
 					noise_min = RANDF_NOISE_MIN
 					noise_max = RANDF_NOISE_MAX
 
-			var atlas_size = i.atlas.size()
-			for y in range(chunk.y):
-				var y_cor = y + (chunk.y * chunk_coords.y)
+			#var atlas_size = i.atlas.size()
+
+			for y in range(DEFAULT_CHUNK.y):
+				var y_cor = y + (DEFAULT_CHUNK.y * chunk_coords.y)
 				if (y_cor >= i.min_depth) and (y_cor <= i.max_depth):
 					var function_input = float(y_cor - i.min_depth) / (i.max_depth - i.min_depth)
 					var threshold_value = (curve.sample(function_input) * (i.max_freq - i.min_freq)) + i.min_freq
-					for x in range(chunk.x):
-						var coords = Vector2i(x,y) + Vector2i(chunk_coords * chunk)
+					for x in range(DEFAULT_CHUNK.x):
+						var coords = Vector2i(x,y) + Vector2i(chunk_coords.x * DEFAULT_CHUNK.x, chunk_coords.y * DEFAULT_CHUNK.y)
 						var noise_value = (noise.get_noise_2d(coords.x,coords.y) - noise_min) / (noise_max - noise_min)
-						if !tile_exists(coords) and (noise_value <= threshold_value):
-							tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, i["atlas"][randi_range(0,atlas_size-1)])
-						if !Debug.fullbright:
-							tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
+						if (!temp_chunk[x][y]) and (noise_value <= threshold_value):
+							#tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, i.atlas[randi_range(0,atlas_size-1)])
+							temp_chunk[x][y] = {"health" = i.health, "gen" = i}
+							set_tile_data(coords, temp_chunk[x][y])
+						#if !Debug.fullbright:
+							#tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
 	var end_time = Time.get_ticks_msec()
 	var elapsed_time = end_time - start_time
+
+	draw_chunk(chunk_coords)
 	print("Chunk generated in ", elapsed_time, "ms")
+
+func draw_chunk(chunk_coords : Vector2i):
+	#print("CHUNK: " + str(chunks[0][0]))
+	
+	for x in range(DEFAULT_CHUNK.x):
+		for y in range(DEFAULT_CHUNK.y):
+			var coords = Vector2i(x,y) + Vector2i(chunk_coords.x * DEFAULT_CHUNK.x, chunk_coords.y * DEFAULT_CHUNK.y)
+			if tile_has_data(coords):
+				if get_tile_data(coords):
+					var gen = get_chunk_data(chunk_coords)[x][y]["gen"]
+					tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, gen.atlas[randi_range(0,gen.atlas.size()-1)])
+					if !Debug.fullbright:
+						tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
 
 func _process(delta):
 	
 	if not Game.paused:
 		
+		mine(delta)
+		check_chunk_regions()
+
+		Game.player_data.record_depth = max(Game.player_data.record_depth, %Player.depth)
+		#damage_tile(center_tile, %Player.drill_speed * delta)
+		#tile_break_particle.position = get_global_mouse_position()
+
+func mine(delta):
 		#Code for mining
 		%HFollow.position.x = %Player.position.x - resolution.x/2
 		
 		var center_tile = tilemap.local_to_map(%Player.position)
 		light_up_around_coords(center_tile)
 		
-		center_tile = tilemap.local_to_map(%Player.player_texture.get_drill_center().global_position)
-		var resistance = false
-		var colliding = false
-
-		var min_damage = %Player.drill_speed
-		var max_damage = min_damage * %Player.player_closeness_drill_speed_multiplier
-
-		for x in range(1 + (2 * drill_radius)):
-			for y in range(1 + (2 * drill_radius)):
-				var tile_pos = center_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * floor(drill_radius))
-				var tile_distance = ((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH).distance_to(%Player.player_texture.get_drill_center().global_position) / Game.TILE_WIDTH
-
-				#the ratio of closeness to center of driller: 0 is outside, 1 is inside
-				#var closeness_ratio = 1 - (tile_distance - player_radius) / float(drill_radius - player_radius)
-				var closeness_ratio = 0
-				var damage = (closeness_ratio * (max_damage - min_damage)) + min_damage
-
-				if tile_distance <= (drill_radius):
-				#if %Player/Player.is_global_point_in_polygon((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH):
-					if tile_exists(tile_pos):
-						resistance = true
-						if tilemap.map_to_local(tile_pos).distance_to(%Player.player_texture.global_position) / Game.TILE_WIDTH <= (player_radius):
-							colliding = true
-					damage_tile(tile_pos, damage * delta)
-		%Player.experiencing_resistance = resistance
-		%Player.colliding = colliding
+		var drill_tile = tilemap.local_to_map(%Player.player_texture.get_drill_center().global_position)
 		
-		check_chunk_regions()
+		#stop if we can't break it in .5 seconds.
+		#slow if we can't break it in .1 seconds.
+		#var t_slow = .1
+		#var t_stop = .5
+		
+		#var drill_acceleration_constant = 1
+		
+		#var slow_down_threshold_met = false
+		var complete_stop_threshold_met = false
 
-		Game.player_data.record_depth = max(Game.player_data.record_depth, floor(max(0,%Player.position.y) / Game.TILE_WIDTH))
-		#damage_tile(center_tile, %Player.drill_speed * delta)
-		#tile_break_particle.position = get_global_mouse_position()
 
+		var damage = %Player.engine_power * 100
+		#var tiles = []
+		
+		# a value of 1 means that we should stop completely. A value of 0 means keep accelerating. between is determined with a exponential graph.
+		var max_damage_ratio : float = 0.0
+		var max_accel : float = 0.0
+		for x in range(ceil(2 * drill_radius)):
+			for y in range(ceil(2 * drill_radius)):
+				var tile_pos = drill_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * round(drill_radius))
+				if get_tile_data(tile_pos):
+					var tile_distance = ((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH).distance_to(%Player.player_texture.get_drill_center().global_position) / float(Game.TILE_WIDTH)
+					if tile_distance <= (drill_radius):
+						var normalized_x_y = (((Vector2(tile_pos) + Vector2(.5, .5)) * Game.TILE_WIDTH) - %Player.player_texture.get_drill_center().global_position).rotated(%Player.driller_angle)  / float(Game.TILE_WIDTH)
+						
+						var health : float = get_tile_data(tile_pos)["health"]
+						
+						var eqn_dist = (sqrt(pow(drill_radius, 2) + pow(normalized_x_y.x, 2)) - normalized_x_y.y)
+						if (eqn_dist >= MINE_DIST):
+							var t = (health / damage)
+							#print(get_tile_data(tile_pos)["health"])
+							var needed_decel = (2 * pow(t,2)) * (eqn_dist - (%Player.velocity * t))
+							max_accel = max(max_accel, needed_decel)
+							var complete_stop_threshold : float = (damage * eqn_dist / (%Player.velocity))
+							if health > complete_stop_threshold:
+								print("stopped! eqn dist:" + str(eqn_dist))
+								#print("health:  " + str(health) + " thrshld: " + str(complete_stop_threshold))
+								complete_stop_threshold_met = true
+							else:
+								#print("health:  " + str(health))
+								max_damage_ratio = max(max_damage_ratio, float(health) / complete_stop_threshold)
+
+						damage_tile(tile_pos, damage * delta)
+
+				#damage_tile(temp_tile_pos, damage * delta)
+		%Player.max_damage_ratio = max_damage_ratio
+		%DEBUG.text = "max_damage_ratio:  " + str(max_damage_ratio)
+		%Player.complete_stop = complete_stop_threshold_met
+		%Player.move(delta)
+		
 func _input(ev):
 
 	if not Game.paused:
@@ -229,6 +278,9 @@ func _input(ev):
 		
 		if Input.is_action_just_pressed("kill"):
 			game_over("durability", true)
+
+		if Input.is_action_just_pressed("turbo"):
+			%Player.turbo()
 
 		if ev is InputEventMouseButton:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -278,33 +330,55 @@ func light_up_around_coords(coords):
 			if tilemap.get_cell_source_id(LIGHT_LAYER, tile_pos) != -1:
 				tilemap.set_cell(LIGHT_LAYER, tile_pos, light_source_id, Vector2i(light_level,0))
 
-func ensure_tile_has_data(coords):
-	if !(coords.x in tile_data.keys()):
-		tile_data[coords.x] = {}
-	if !(coords.y in tile_data[coords.x].keys()):
-		tile_data[coords.x][coords.y] = default_tile_data.duplicate()
-		for i in gen_data:
-			for atlas in i.atlas:
-				if tilemap.get_cell_atlas_coords(GROUND_LAYER, coords) == atlas:
-					tile_data[coords.x][coords.y]["health"] = i.health
-					tile_data[coords.x][coords.y]["points"] = i.value
+#TODO: figure out why this doesn't work for dirt!
+func tile_has_data(coords):
+	return chunk_has_data(coords_to_chunk(coords))
+	#if !(coords.x in tile_data.keys()):
+	#		return false
+	#if !(coords.y in tile_data[coords.x].keys()):
+	#		return false
+	#return true
 
 func get_tile_data(coords):
-	ensure_tile_has_data(coords)
-	return tile_data[coords.x][coords.y]
+	if tile_has_data(coords):
+		var adjusted_coords = Vector2(int(coords.x) % DEFAULT_CHUNK.x, int(coords.y) % DEFAULT_CHUNK.y)
+		return get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y]
+	else:
+		return null
 
+func set_tile_data(coords, data):
+	if tile_has_data(coords):
+		var adjusted_coords = Vector2(int(coords.x) % DEFAULT_CHUNK.x, int(coords.y) % DEFAULT_CHUNK.y)
+		get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y] = data
+	else:
+		print("ERROR: NO TILE DATA FOUND")
+	
 func damage_tile(coords, amount):
+	var tile_data = get_tile_data(coords)
 	if tile_exists(coords):
-		ensure_tile_has_data(coords)
-		#print(tile_data[coords.x][coords.y]["health"])
-		tile_data[coords.x][coords.y]["health"] -= amount
-		if get_tile_data(coords)["health"] <= 0:
-			var points = tile_data[coords.x][coords.y]["points"]
-			get_points(points)
-			tile_data[coords.x].erase(coords.y)
-			if tile_data[coords.x].is_empty():
-				tile_data.erase(coords.x)
-			mine_tile(coords, points)
+		if tile_has_data(coords):
+			#print(tile_data[coords.x][coords.y]["health"])
+			tile_data["health"] -= amount
+			if tile_data["health"] <= 0:
+				var points = tile_data["gen"].value
+				get_points(points)
+				
+				#get tile reward based on the type of tile
+				var tile_name = tile_data["gen"].name
+				var index = per_day_resources_key.find(tile_name)
+				if index != -1:
+					per_day_resources[index] = per_day_resources[index].changed_by(tile_data["gen"].value)
+				else:
+					match tile_name:
+						"extra_speed":
+							pass
+						"extra_turbo":
+							%Player.turbos = %Player.turbos + 1
+						"extra_durability":
+							pass
+						"extra_energy":
+							pass
+				mine_tile(coords, points)
 			
 
 func tile_exists(coords):
@@ -317,19 +391,25 @@ func get_points(added_points):
 func pixel_coords_to_map_coords(pixel_coords):
 	return tilemap.local_to_map(pixel_coords)
 
-func coords_to_chunk(coords):
-	return floor(Vector2(coords) / chunk)
+func coords_to_chunk(coords : Vector2i):
+	return floor(Vector2(coords) / Vector2(DEFAULT_CHUNK))
 
-func chunk_exists(chunk_coords):
-	if chunk_coords.y < 0:
-		return true
-	elif chunk_coords.x in chunks.keys():
+func chunk_has_data(chunk_coords : Vector2i):
+	#if chunk_coords.y < 0:
+		#return true
+	if chunk_coords.x in chunks.keys():
 		if chunk_coords.y in chunks[chunk_coords.x].keys():
 			return true
 		else:
 			return false
 	else:
 		return false
+
+func get_chunk_data(chunk_coords : Vector2i) -> Array:
+	if chunk_has_data(chunk_coords):
+		return chunks[chunk_coords.x][chunk_coords.y]
+	print("error: chunk had no data!")
+	return []
 
 func new_day_button_pressed():
 	game_over()
@@ -346,7 +426,7 @@ func main_menu_button_pressed():
 #append per-day saved resources to player data
 func append_res_to_save_data():
 	#TODO: make more robust!
-	per_day_resources[0].amount = score
+	per_day_resources[0].amount = int(score)
 	for i in range(len(per_day_resources)):
 		Game.player_data.add_resource_amount(per_day_resources[i].res_name, per_day_resources[i].amount)
 

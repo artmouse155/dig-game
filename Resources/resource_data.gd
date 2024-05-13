@@ -11,6 +11,9 @@ func _init(p_res_name = "ore", p_amount = 10):
 	res_name = p_res_name
 	amount = p_amount
 
+func changed_by(a : int) -> ResourceData:
+	return ResourceData.new(res_name, amount + a)
+
 static func compare(shop_r_d : ResourceData, player_r_d : ResourceData):
 	if shop_r_d.res_name != player_r_d.res_name:
 		return null
