@@ -73,7 +73,7 @@ func get_component_unlock_status(obj : DrillerComponentObject):
 	if component_save:
 		return component_save.unlocked
 	else:
-		print("ERROR: component \"" + obj.component_object_name + "\" not found!")
+		print("ERROR: component \"" + str(obj) + "\" not found!")
 		return null
 
 func unlock_component(obj : DrillerComponentObject, p_unlock : bool = true):
@@ -84,14 +84,15 @@ func unlock_component(obj : DrillerComponentObject, p_unlock : bool = true):
 		print("ERROR: component \"" + obj.component_object_name + "\" not found!")
 
 func find_component_object_save_data(obj : DrillerComponentObject, create_new_if_missing : bool = true):
-	for i in range(len(saved_component_data)):
-		if obj.component_object_name == saved_component_data[i].base_component.component_object_name:
-			return saved_component_data[i]
-	if create_new_if_missing:
-		var component_save = ComponentObjectSaveData.new(obj)
-		saved_component_data.append(component_save)
-		print("Created save data for \"" + obj.component_object_name + "\"")
-		return component_save
+	if obj:
+		for i in range(len(saved_component_data)):
+			if obj.component_object_name == saved_component_data[i].base_component.component_object_name:
+				return saved_component_data[i]
+		if create_new_if_missing:
+			var component_save = ComponentObjectSaveData.new(obj)
+			saved_component_data.append(component_save)
+			print("Created save data for \"" + obj.component_object_name + "\"")
+			return component_save
 	return null
 
 func get_buffs_list():

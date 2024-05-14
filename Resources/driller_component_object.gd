@@ -3,7 +3,7 @@ class_name DrillerComponentObject
 
 @export var component_object_name : String
 @export var parent_group_name : String
-@export var component_object_tile_image : Texture2D
+@export var component_object_tile_image : Texture2D = preload("res://Assets/Textures/UI/buy_tile_back.png")
 @export var actual_texture : Texture2D
 @export var offset : Vector2
 @export var desc : String

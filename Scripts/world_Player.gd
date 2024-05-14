@@ -146,15 +146,16 @@ func recalc_driller_variables():
 func move(delta):
 	if not Game.paused:
 		if complete_stop:
+			durability -= DURABILITY_DECAY_RATE * delta
 			screenshake()
 			velocity = clamp(velocity - (stop_acceleration * delta), 0, max_speed)
-			durability -= DURABILITY_DECAY_RATE * delta
 		#elif experiencing_resistance:
 		#	velocity = clamp(velocity - (resistance_acceleration * delta), 0, max_speed)
 		#	durability -= DURABILITY_DECAY_RATE * delta
 		elif global_position.y < 0:
 			velocity = clamp(velocity + (falling_acceleration * delta), 0, max_speed)
 		else:
+			durability -= DURABILITY_DECAY_RATE * delta
 			#velocity = clamp(velocity + (acceleration * delta), 0, max_speed * (1 - intermediate_damage_curve.sample(max_damage_ratio)))
 			velocity = clamp(velocity + ((acceleration - ((10 * base_acceleration) * max_damage_ratio)) * delta), 0, max_speed)
 		position += (Vector2.DOWN * velocity * float(Game.TILE_WIDTH) * delta).rotated(driller_angle)

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=6 format=3 uid="uid://b6id0t6t2uq66"]
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=7 format=3 uid="uid://b6id0t6t2uq66"]
 
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="1_fpp55"]
 [ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="1_nhm1w"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_icylg"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_wrmhr"]
 
 [sub_resource type="Resource" id="Resource_0cin2"]
 script = ExtResource("1_fpp55")
@@ -13,6 +14,7 @@ amount = 777.0
 script = ExtResource("2_icylg")
 component_object_name = "The thang"
 parent_group_name = "misc"
+component_object_tile_image = ExtResource("2_wrmhr")
 offset = Vector2(0, 0)
 desc = "What does it do?"
 locked_desc = ""
