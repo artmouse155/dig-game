@@ -9,11 +9,23 @@ extends Node2D
 const ENERGY_DECAY_RATE = 10
 const DURABILITY_DECAY_RATE = 10
 
-const SCREENSHAKE_DURATION = .15
+const SCREENSHAKE_DEFAULT_DURATION = .15
+const SCREENSHAKE_INTER_DURATION = .05
+
+const BASE_EXTRA_MAX_SPEED_DURATION = 10 #seconds
+
+const ABS_MAX_DEG_OF_FREEDOM = deg_to_rad(70)
+const ABS_MIN_DEG_OF_FREEDOM = deg_to_rad(50)
+
+const ABS_MIN_ROT_VEL = deg_to_rad(40)
+const ABS_MAX_ROT_VEL = deg_to_rad(80)
+
+const ABS_MIN_AGILITY = 0
+const ABS_MAX_AGILITY = 10
 
 var starting_pos = Vector2(0,-500)
 
-var resistance_acceleration_constant = 10 #resistance accel = CONSTANT * base_acceleration
+var resistance_acceleration_constant = 15 #resistance accel = CONSTANT * base_acceleration
 
 var falling_acceleration = 6
 var stop_acceleration = 99999
@@ -23,9 +35,10 @@ var stop_acceleration = 99999
 #DETERMINED BY DRILLER MATERIALS
 
 #agility
-var degrees_of_freedom = deg_to_rad(50)
-var base_rotational_velocity = deg_to_rad(40)
-var turbo_rotational_velocity = deg_to_rad(20)
+var agility = 0
+var degrees_of_freedom = ABS_MIN_DEG_OF_FREEDOM
+var base_rotational_velocity = ABS_MIN_ROT_VEL
+var turbo_rotational_velocity = ABS_MIN_ROT_VEL #modifier
 
 #max speed
 var base_max_speed = 8
@@ -57,11 +70,12 @@ var engine_power : float = base_engine_power #damage per second
 
 var acceleration = base_acceleration # tiles per second per second
 
+var extra_max_speed : float = 0.0
 
 var turbos : float = base_turbos
-var am_turboing
+var am_turboing : float
 
-var driller_angle = 0
+var driller_angle : float = 0
 
 var camera_pos = Vector2.ZERO
 
@@ -80,11 +94,9 @@ func _ready():
 	if not Debug.override_player_durability_and_energy:
 		calc_base_variables()
 	recalc_driller_variables()
-	
-	if Debug.best_driller:
-		engine_power = 1000
-		max_speed = 4000
-		energy = 9999999999
+		
+	update_bars()
+	update_hud()
 
 func calc_base_variables():
 	var drill_scale = Game.player_data.hull.drill_scale
@@ -97,10 +109,23 @@ func calc_base_variables():
 	
 	total_durability = Game.player_data.get_buff_amount("durability")
 	total_energy = Game.player_data.get_buff_amount("energy")
+	base_engine_power = Game.player_data.get_buff_amount("engine_power")
 	base_max_speed = Game.player_data.get_buff_amount("max_speed")
 	base_turbos = Game.player_data.get_buff_amount("turbos")
 	
+	agility = Game.player_data.get_buff_amount("agility")
+	
+	base_rotational_velocity = calc_rot_vel(agility)
+	degrees_of_freedom = calc_deg_freedom(agility)
+	
+	if Debug.best_driller:
+		engine_power = 1000
+		max_speed = 4000
+		energy = 9999999999
+	
 	turbos = base_turbos
+	if Debug.infinite_boosts:
+		turbos = 99999
 	durability = total_durability
 	energy = total_energy
 
@@ -108,12 +133,12 @@ func recalc_driller_variables():
 	if am_turboing:
 		engine_power = base_engine_power + turbo_engine_power
 		acceleration = base_acceleration + turbo_acceleration
-		max_speed = base_max_speed + turbo_max_speed
+		max_speed = base_max_speed + extra_max_speed + turbo_max_speed
 		rotational_velocity = base_rotational_velocity + turbo_rotational_velocity
 	else:
 		engine_power = base_engine_power
 		acceleration = base_acceleration
-		max_speed = base_max_speed
+		max_speed = base_max_speed + extra_max_speed
 		rotational_velocity = base_rotational_velocity
 
 #func _process(delta):
@@ -154,21 +179,22 @@ func move(delta):
 		if durability < 0:
 			world.game_over("durability", true)
 
-func screenshake(duration : float = SCREENSHAKE_DURATION):
+func screenshake(duration : float = SCREENSHAKE_DEFAULT_DURATION, intensity : int = 4):
 	var tweener = create_tween()
-	var loop_count = round(duration / .05)
+	var loop_count = round(duration / SCREENSHAKE_INTER_DURATION)
 	for i in range(loop_count):
 		var angle = randf() * 2 * PI
-		var v = 5 * Vector2(cos(angle), sin(angle))
+		var v = intensity * Vector2.RIGHT.rotated(angle)
 		var new_pos = camera_pos + v
-		tweener.tween_property($camera, "position", new_pos, .05)
-	tweener.tween_property($camera, "position", camera_pos, .05)
+		tweener.tween_property($camera, "position", new_pos, SCREENSHAKE_INTER_DURATION)
+	tweener.tween_property($camera, "position", camera_pos, SCREENSHAKE_INTER_DURATION)
 
 func set_sprite_rotation():
 	player_texture.rotation = driller_angle
 
 func set_turbo_active(b : bool = true):
 	am_turboing = b
+	player_texture.turbo_particles.emitting = am_turboing
 	recalc_driller_variables()
 
 func turbo():
@@ -179,6 +205,32 @@ func turbo():
 		var turbo_tweener = create_tween()
 		#turbo_tweener.tween_method($camera, "position", camera_pos, turbo_duration)
 		turbo_tweener.tween_callback(set_turbo_active.bind(false)).set_delay(turbo_duration)
+
+func temporarily_gain_extra_max_speed(extra_speed : float, duration : float = BASE_EXTRA_MAX_SPEED_DURATION):
+	var speed_tweener = create_tween()
+	#turbo_tweener.tween_method($camera, "position", camera_pos, turbo_duration)
+	modify_extra_max_speed(extra_speed)
+	speed_tweener.tween_callback(modify_extra_max_speed.bind(-extra_speed)).set_delay(duration)
+
+func modify_extra_max_speed(modification : float):
+	extra_max_speed = extra_max_speed + modification
+	recalc_driller_variables()
+
+func gain_durability(d : float):
+	durability = min(total_durability, durability + d)
+	recalc_driller_variables()
+
+func gain_energy(e : float):
+	energy = min(total_energy, energy + e)
+	recalc_driller_variables()
+
+func calc_deg_freedom(_agility):
+	var ratio = (_agility - ABS_MIN_AGILITY) / (ABS_MAX_AGILITY - ABS_MIN_AGILITY)
+	return ABS_MIN_DEG_OF_FREEDOM + (ratio * (ABS_MAX_DEG_OF_FREEDOM - ABS_MIN_DEG_OF_FREEDOM))
+	
+func calc_rot_vel(_agility):
+	var ratio = (_agility - ABS_MIN_AGILITY) / (ABS_MAX_AGILITY - ABS_MIN_AGILITY)
+	return ABS_MIN_ROT_VEL + (ratio * (ABS_MAX_ROT_VEL - ABS_MIN_ROT_VEL))
 
 func update_bars():
 	%Durability.value = (durability / float(total_durability)) * %Durability.max_value

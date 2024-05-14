@@ -12,12 +12,12 @@
 [sub_resource type="Resource" id="Resource_cn22s"]
 script = ExtResource("5_nt234")
 buff_name = "durability"
-amount = 5000
+amount = 1000.0
 
 [sub_resource type="Resource" id="Resource_pbg6t"]
 script = ExtResource("5_nt234")
 buff_name = "durability"
-amount = 1000
+amount = 0.0
 
 [sub_resource type="Resource" id="Resource_crvd4"]
 script = ExtResource("6_yowe8")
@@ -32,7 +32,7 @@ buff_list = Array[ExtResource("5_nt234")]([SubResource("Resource_pbg6t")])
 [sub_resource type="Resource" id="Resource_slo37"]
 script = ExtResource("5_nt234")
 buff_name = "durability"
-amount = 10000
+amount = 0.0
 
 [sub_resource type="Resource" id="Resource_6ceiy"]
 script = ExtResource("6_yowe8")

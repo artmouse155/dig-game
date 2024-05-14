@@ -20,7 +20,7 @@ func _ready():
 		driller_component_group_panel.tooltip = tooltip
 		driller_component_group_panel.name = all_driller_component_groups[i].component_group_name
 		driller_component_group_panel.setup(all_driller_component_groups[i])
-		driller_component_group_panel.shop_update.connect(update_shop)
+		driller_component_group_panel.shop_update.connect(update_shop.bind(i))
 	shop_tab_container.tab_changed.connect(update_shop.bind())
 	update_shop()
 

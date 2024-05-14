@@ -1,13 +1,78 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=5 format=3 uid="uid://beb7qrg7mpqon"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=20 format=3 uid="uid://beb7qrg7mpqon"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_et14t"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="1_vnate"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_t5etm"]
+[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="4_8ojpj"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="5_vr8dd"]
+[ext_resource type="Script" path="res://Resources/upgrade.gd" id="6_jmmt5"]
 
 [sub_resource type="Resource" id="Resource_kr4x5"]
 script = ExtResource("2_t5etm")
 buff_name = "turbos"
+amount = 1.0
+
+[sub_resource type="Resource" id="Resource_7yx71"]
+script = ExtResource("2_t5etm")
+buff_name = "turbo_duration"
+amount = 1.0
+
+[sub_resource type="Resource" id="Resource_8hkho"]
+script = ExtResource("2_t5etm")
+buff_name = "turbos"
+amount = 1.0
+
+[sub_resource type="Resource" id="Resource_pao3m"]
+script = ExtResource("5_vr8dd")
+res_name = "ore"
 amount = 100
+
+[sub_resource type="Resource" id="Resource_d6ori"]
+script = ExtResource("6_jmmt5")
+cost_list = Array[ExtResource("5_vr8dd")]([SubResource("Resource_pao3m")])
+buff_list = Array[ExtResource("2_t5etm")]([SubResource("Resource_8hkho")])
+
+[sub_resource type="Resource" id="Resource_nhcf4"]
+script = ExtResource("5_vr8dd")
+res_name = "green_gem"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_arq44"]
+script = ExtResource("6_jmmt5")
+cost_list = Array[ExtResource("5_vr8dd")]([SubResource("Resource_nhcf4")])
+buff_list = Array[ExtResource("2_t5etm")]([SubResource("Resource_8hkho")])
+
+[sub_resource type="Resource" id="Resource_lr13l"]
+script = ExtResource("4_8ojpj")
+upgrade_name = "Turbos"
+desc = "The number of turbos you begin each day with."
+upgrades = Array[ExtResource("6_jmmt5")]([SubResource("Resource_d6ori"), SubResource("Resource_arq44")])
+
+[sub_resource type="Resource" id="Resource_pmhos"]
+script = ExtResource("2_t5etm")
+buff_name = "turbo_duration"
+amount = 0.1
+
+[sub_resource type="Resource" id="Resource_di68p"]
+script = ExtResource("5_vr8dd")
+res_name = "ore"
+amount = 1000
+
+[sub_resource type="Resource" id="Resource_ifx7x"]
+script = ExtResource("5_vr8dd")
+res_name = "green_gem"
+amount = 1
+
+[sub_resource type="Resource" id="Resource_bimes"]
+script = ExtResource("6_jmmt5")
+cost_list = Array[ExtResource("5_vr8dd")]([SubResource("Resource_di68p"), SubResource("Resource_ifx7x")])
+buff_list = Array[ExtResource("2_t5etm")]([SubResource("Resource_pmhos")])
+
+[sub_resource type="Resource" id="Resource_76b5t"]
+script = ExtResource("4_8ojpj")
+upgrade_name = "Turbo Duration"
+desc = "The duration of one turbo."
+upgrades = Array[ExtResource("6_jmmt5")]([SubResource("Resource_bimes"), SubResource("Resource_bimes"), SubResource("Resource_bimes")])
 
 [resource]
 script = ExtResource("1_et14t")
@@ -17,5 +82,5 @@ actual_texture = ExtResource("1_vnate")
 offset = Vector2(0, 5)
 desc = "A powerful booster."
 locked_desc = ""
-upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
-base_buffs = Array[ExtResource("2_t5etm")]([SubResource("Resource_kr4x5")])
+upgrade_lists = Array[ExtResource("4_8ojpj")]([SubResource("Resource_lr13l"), SubResource("Resource_76b5t")])
+base_buffs = Array[ExtResource("2_t5etm")]([SubResource("Resource_kr4x5"), SubResource("Resource_7yx71")])

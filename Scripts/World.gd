@@ -17,7 +17,7 @@ const RANDF_NOISE_MAX = 1
 const MINE_DIST : float = 1
 
 @export var day_number_label : Label
-const DAY_NUMBER_Y_OFFSET = -1200
+const DAY_NUMBER_Y_OFFSET = -700
 
 var score : float = 0.0
 
@@ -26,9 +26,10 @@ var score : float = 0.0
 @onready var subviewport = $SubViewportContainer/SubViewport
 @onready var gameover = $GameOver
 
+@export var iconAndTextParticle : PackedScene
+
 #var tile_data = {}
 
-# chunks[chunk_x][chunk_y][abs_coord_x][abs_coord_y]
 var chunks = {}
 
 var resolution = Vector2(1920,1080)
@@ -49,22 +50,14 @@ var camera_pos = Vector2.ZERO#Vector2(1920,1080)
 var ground_source_id = 1
 var light_source_id = 2
 
-const LIGHT_RADIUS = 9
+var light_radius = 9
 
 var drill_radius = 1.8
 var player_radius = 1.5
 const BOMB_RADIUS = 9
 
 #inside of light_radius
-const LIGHT_EDGE_RADIUS = LIGHT_RADIUS - 3
-
-var dirt_atlas:
-	get:
-		return Vector2i(randi_range(0,7),randi_range(0,1))
-		
-var coal_atlas:
-	get:
-		return Vector2i(randi_range(0,2),2)
+const LIGHT_EDGE_SIZE =  3
 
 var background_atlas:
 	get:
@@ -83,7 +76,7 @@ var day_has_been_saved : bool = false
 
 func _ready():
 
-	print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
+	#print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
 
@@ -101,13 +94,16 @@ func _ready():
 	tilemap.set_layer_z_index(BACKGROUND_LAYER, BACKGROUND_LAYER)
 	
 	day_number_label.text = "Day " + str(Game.player_data.day_number)
-	day_number_label.position.y += DAY_NUMBER_Y_OFFSET
+	day_number_label.position.y = DAY_NUMBER_Y_OFFSET
 	
 	if Game.player_data.record_depth != 0:
 		%HFollow/PB.position.y = Game.player_data.record_depth * Game.TILE_WIDTH
 	
+	update_h_follow_pos()
 	generate_world()
 
+func update_h_follow_pos():
+	%HFollow.position.x = %Player.position.x - resolution.x/2
 
 #TODO: Doesn't need to happen every single tick?
 func check_chunk_regions():
@@ -201,6 +197,7 @@ func _process(delta):
 	
 	if not Game.paused:
 		
+		update_h_follow_pos()
 		mine(delta)
 		check_chunk_regions()
 
@@ -210,7 +207,7 @@ func _process(delta):
 
 func mine(delta):
 		#Code for mining
-		%HFollow.position.x = %Player.position.x - resolution.x/2
+		#%Sky.position.x = %Player.position.x - resolution.x/2
 		
 		var center_tile = tilemap.local_to_map(%Player.position)
 		light_up_around_coords(center_tile)
@@ -279,7 +276,7 @@ func _input(ev):
 		if Input.is_action_just_pressed("kill"):
 			game_over("durability", true)
 
-		if Input.is_action_just_pressed("turbo"):
+		if Input.is_action_pressed("turbo"):
 			%Player.turbo()
 
 		if ev is InputEventMouseButton:
@@ -295,7 +292,7 @@ func _input(ev):
 						if tile_distance <= (BOMB_RADIUS):
 							damage_tile(tile_pos, 999)
 
-func mine_tile(coords, points):
+func mine_tile(coords, tileGen : Gen):
 	if tile_exists(coords):
 		var particle = preload("res://Scenes/tileBreakParticle.tscn").instantiate()
 		subviewport.add_child(particle)
@@ -303,28 +300,39 @@ func mine_tile(coords, points):
 		particle.restart()
 		particle.finished.connect(particle.queue_free)
 		
-		if (points >= 1):
+		if (tileGen.group == "ore"):
 			var points_indicator = preload("res://Scenes/labelParticle.tscn").instantiate()
-			points_indicator.setup(str(points))
+			points_indicator.setup(str(tileGen.value))
 			subviewport.add_child(points_indicator)
 			points_indicator.position = tilemap.map_to_local(coords)
 			points_indicator.particle_maker.restart()
 			points_indicator.particle_maker.finished.connect(points_indicator.queue_free)
-			
+		
+		elif (tileGen.group == "gem"):
+			var temp_particle = iconAndTextParticle.instantiate()
+			temp_particle.gem_setup(tilemap.map_to_local(coords), ResourceData.new(tileGen.name, floor(tileGen.value)))
+			subviewport.add_child(temp_particle)
+		
+		elif (tileGen.group == "powerup"):
+			var temp_particle = iconAndTextParticle.instantiate()
+			temp_particle.powerup_setup(tilemap.map_to_local(coords), BuffItem.new(tileGen.name, tileGen.value))
+			subviewport.add_child(temp_particle)
+		
 		tilemap.set_cell(BACKGROUND_LAYER, coords, ground_source_id, background_atlas)
 		tilemap.erase_cell(GROUND_LAYER, coords)
 
 func light_up_around_coords(coords):
+	var light_edge_radius = light_radius - LIGHT_EDGE_SIZE
 	var center_tile = coords
-	for x in range(1 + (2 * LIGHT_RADIUS)):
-		for y in range(1 + (2 * LIGHT_RADIUS)):
-			var tile_pos = center_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * floor(LIGHT_RADIUS))
+	for x in range(1 + (2 * light_radius)):
+		for y in range(1 + (2 * light_radius)):
+			var tile_pos = center_tile - Vector2i(x,y) + Vector2i(Vector2i.ONE * floor(light_radius))
 			var tile_distance = Vector2(tile_pos).distance_to(Vector2(center_tile))
 			var light_level = 7
-			if tile_distance <= (LIGHT_RADIUS - LIGHT_EDGE_RADIUS):
+			if tile_distance <= (light_radius - light_edge_radius):
 				light_level = 15
 			else:
-				light_level = 15 - floor(min(((tile_distance - (LIGHT_RADIUS + 1 - LIGHT_EDGE_RADIUS)) / LIGHT_EDGE_RADIUS),1) * 15)
+				light_level = 15 - floor(min(((tile_distance - (light_radius + 1 - light_edge_radius)) / light_edge_radius),1) * 15)
 			
 			light_level = max(light_level, min(DIM_LIGHT,tilemap.get_cell_atlas_coords(LIGHT_LAYER, tile_pos, light_source_id).x))
 			if tilemap.get_cell_source_id(LIGHT_LAYER, tile_pos) != -1:
@@ -360,25 +368,32 @@ func damage_tile(coords, amount):
 			#print(tile_data[coords.x][coords.y]["health"])
 			tile_data["health"] -= amount
 			if tile_data["health"] <= 0:
-				var points = tile_data["gen"].value
-				get_points(points)
+				
 				
 				#get tile reward based on the type of tile
 				var tile_name = tile_data["gen"].name
-				var index = per_day_resources_key.find(tile_name)
-				if index != -1:
-					per_day_resources[index] = per_day_resources[index].changed_by(tile_data["gen"].value)
-				else:
-					match tile_name:
-						"extra_speed":
-							pass
-						"extra_turbo":
-							%Player.turbos = %Player.turbos + 1
-						"extra_durability":
-							pass
-						"extra_energy":
-							pass
-				mine_tile(coords, points)
+				var tile_group = tile_data["gen"].group
+				var points = tile_data["gen"].value
+				match tile_group:
+					"ore":
+						get_points(points)
+					"dirt":
+						get_points(points)
+					"gem":
+						var index = per_day_resources_key.find(tile_name)
+						if index != -1:
+							per_day_resources[index] = per_day_resources[index].changed_by(tile_data["gen"].value)
+					"powerup":
+						match tile_name:
+							"extra_speed":
+								%Player.temporarily_gain_extra_max_speed(points)
+							"extra_turbo":
+								%Player.turbos = %Player.turbos + points
+							"extra_durability":
+								%Player.gain_durability(points)
+							"extra_energy":
+								%Player.gain_energy(points)
+				mine_tile(coords, tile_data["gen"])
 			
 
 func tile_exists(coords):

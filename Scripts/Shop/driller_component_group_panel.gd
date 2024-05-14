@@ -77,6 +77,8 @@ func update_self(tab_visible : bool = true):
 func switch_active_component_object(index : int):
 	#NOTICE: this should maybe be a different place perhaps?
 	Game.player_data.set_equipped_component(componentObjectGroup.component_objects[index], componentObjectGroup.component_group_name)
+	#TODO: put this in a better spot
+	Game.save_player_data_to_file()
 	
 	for i in range(len(componentObjectGroup.component_objects)): 
 		all_tiles[i].set_selected(index == i)

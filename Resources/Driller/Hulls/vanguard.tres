@@ -1,13 +1,42 @@
-[gd_resource type="Resource" script_class="Hull" load_steps=5 format=3 uid="uid://dt5jkjk3gkmoq"]
+[gd_resource type="Resource" script_class="Hull" load_steps=13 format=3 uid="uid://dt5jkjk3gkmoq"]
 
 [ext_resource type="Script" path="res://Resources/hull.gd" id="1_cke0b"]
 [ext_resource type="Texture2D" uid="uid://bysshbq0p3ksm" path="res://Assets/Textures/Driller/Hulls/vanguard.png" id="1_dfhvs"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_ootoc"]
+[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="4_8fb00"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="5_2qm0p"]
+[ext_resource type="Script" path="res://Resources/upgrade.gd" id="6_ekl2n"]
 
 [sub_resource type="Resource" id="Resource_sqg1e"]
 script = ExtResource("2_ootoc")
 buff_name = "beans"
-amount = 10000
+amount = 422.0
+
+[sub_resource type="Resource" id="Resource_p7sv0"]
+script = ExtResource("2_ootoc")
+buff_name = "agility"
+amount = 1.0
+
+[sub_resource type="Resource" id="Resource_fhk60"]
+script = ExtResource("5_2qm0p")
+res_name = "ore"
+amount = 1000
+
+[sub_resource type="Resource" id="Resource_gigrb"]
+script = ExtResource("5_2qm0p")
+res_name = "green_gem"
+amount = 2
+
+[sub_resource type="Resource" id="Resource_tan0d"]
+script = ExtResource("6_ekl2n")
+cost_list = Array[ExtResource("5_2qm0p")]([SubResource("Resource_fhk60"), SubResource("Resource_gigrb")])
+buff_list = Array[ExtResource("2_ootoc")]([SubResource("Resource_p7sv0")])
+
+[sub_resource type="Resource" id="Resource_docb1"]
+script = ExtResource("4_8fb00")
+upgrade_name = "Agility"
+desc = "Gotta be fast!!!!"
+upgrades = Array[ExtResource("6_ekl2n")]([SubResource("Resource_tan0d"), SubResource("Resource_tan0d"), SubResource("Resource_tan0d"), SubResource("Resource_tan0d"), SubResource("Resource_tan0d"), SubResource("Resource_tan0d")])
 
 [resource]
 script = ExtResource("1_cke0b")
@@ -18,5 +47,5 @@ actual_texture = ExtResource("1_dfhvs")
 offset = Vector2(0, 0)
 desc = "A small yet durable hull."
 locked_desc = ""
-upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
+upgrade_lists = Array[ExtResource("4_8fb00")]([SubResource("Resource_docb1")])
 base_buffs = Array[ExtResource("2_ootoc")]([SubResource("Resource_sqg1e")])

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=6 format=3 uid="uid://b6id0t6t2uq66"]
+
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="1_fpp55"]
+[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="1_nhm1w"]
+[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_icylg"]
+
+[sub_resource type="Resource" id="Resource_0cin2"]
+script = ExtResource("1_fpp55")
+buff_name = "Mashed Dumplings"
+amount = 777.0
+
+[sub_resource type="Resource" id="Resource_v78bl"]
+script = ExtResource("2_icylg")
+component_object_name = "The thang"
+parent_group_name = "misc"
+offset = Vector2(0, 0)
+desc = "What does it do?"
+locked_desc = ""
+upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
+base_buffs = Array[ExtResource("1_fpp55")]([SubResource("Resource_0cin2")])
+
+[resource]
+script = ExtResource("1_nhm1w")
+component_group_name = "misc"
+desc = "Assorted Gadgets and goodies."
+component_objects = Array[ExtResource("2_icylg")]([SubResource("Resource_v78bl")])

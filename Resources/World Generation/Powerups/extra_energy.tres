@@ -6,7 +6,7 @@
 script = ExtResource("1_watno")
 name = "extra_energy"
 health = 1
-value = 0.0
+value = 100.0
 atlas = Array[Vector2i]([Vector2i(6, 3)])
 min_depth = 0
 max_depth = 99999
@@ -14,3 +14,4 @@ min_freq = 0.002
 max_freq = 0.002
 curve = "constant"
 noise = "randf"
+group = "powerup"

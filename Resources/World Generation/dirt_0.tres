@@ -14,3 +14,4 @@ min_freq = 1.0
 max_freq = 1.0
 curve = "constant"
 noise = "smooth"
+group = "dirt"

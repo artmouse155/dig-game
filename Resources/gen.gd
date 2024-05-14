@@ -11,5 +11,6 @@ class_name Gen
 @export var max_freq : float = 1
 @export_enum("linear", "bell", "smooth", "constant") var curve: String = "constant"
 @export_enum("randf", "smooth") var noise: String = "smooth"
+@export var group : String = ""
 
 var noise_res : Noise

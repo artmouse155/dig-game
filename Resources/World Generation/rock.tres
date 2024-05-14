@@ -14,3 +14,4 @@ min_freq = 0.12
 max_freq = 0.12
 curve = "constant"
 noise = "smooth"
+group = "rock"

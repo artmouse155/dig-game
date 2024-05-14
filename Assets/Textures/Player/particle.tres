@@ -1,0 +1,29 @@
+[gd_resource type="AnimatedTexture" load_steps=6 format=3 uid="uid://btj8svin40wv0"]
+
+[ext_resource type="Texture2D" uid="uid://ddi748kmcgycf" path="res://Assets/Textures/Player/fire_particle.png" id="1_hkrsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjfjj"]
+atlas = ExtResource("1_hkrsq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce1nu"]
+atlas = ExtResource("1_hkrsq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ijdm"]
+atlas = ExtResource("1_hkrsq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y00k0"]
+atlas = ExtResource("1_hkrsq")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+frames = 4
+frame_0/texture = SubResource("AtlasTexture_hjfjj")
+frame_1/texture = SubResource("AtlasTexture_ce1nu")
+frame_1/duration = 1.0
+frame_2/texture = SubResource("AtlasTexture_6ijdm")
+frame_2/duration = 1.0
+frame_3/texture = SubResource("AtlasTexture_y00k0")
+frame_3/duration = 1.0

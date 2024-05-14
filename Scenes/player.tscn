@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0bo4y5hiomht"]
+[gd_scene load_steps=13 format=3 uid="uid://b0bo4y5hiomht"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ob06n"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="3_ss5ih"]
@@ -6,8 +6,31 @@
 [ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Batteries/sapling.png" id="5_c5mxx"]
 [ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Drills/mark_1.png" id="5_fw63p"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Engines/hermes.png" id="6_ycbx2"]
+[ext_resource type="Material" uid="uid://g8c5tekf5d2o" path="res://Assets/Textures/Player/turbo_anim.tres" id="7_gpo5t"]
+[ext_resource type="Texture2D" uid="uid://ddi748kmcgycf" path="res://Assets/Textures/Player/fire_particle.png" id="8_t5kh6"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon")]
+[sub_resource type="CurveTexture" id="CurveTexture_luqg8"]
+
+[sub_resource type="Curve" id="Curve_wnt5s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_vml62"]
+curve = SubResource("Curve_wnt5s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cqkbh"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_vml62")
+hue_variation_curve = SubResource("CurveTexture_luqg8")
+anim_speed_min = 0.25
+anim_speed_max = 0.5
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon", "turbo_particles")]
 script = ExtResource("1_ob06n")
 hull_node = NodePath("HBoxContainer/VBoxContainer/HullTexture")
 drill_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture")
@@ -16,6 +39,7 @@ engine_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Right/Right_Cont
 boost_node = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/BoostTexture")
 drill_center = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control")
 polygon = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture/Polygon2D")
+turbo_particles = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/GPUParticles2D")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 8
@@ -47,6 +71,14 @@ grow_horizontal = 2
 
 [node name="BoostAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Top/Top_Control"]
 anchors_preset = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor"]
+material = ExtResource("7_gpo5t")
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_cqkbh")
+texture = ExtResource("8_t5kh6")
+lifetime = 0.5
 
 [node name="BoostTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor"]
 layout_mode = 1
