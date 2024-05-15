@@ -12,7 +12,7 @@ func setup(save_names : PackedStringArray):
 		temp_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		save_data_container.add_child(temp_button)
 		var temp_data : PlayerData = Game.save_load.get_save_data_by_name(save_names[i])
-		var temp_days = temp_data.day_number
+		var temp_days = temp_data.get_stat("day_number")
 		var temp_ore = temp_data.get_resource_amount("ore")
 		temp_button.text = save_names[i] + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
 		#temp_button.text = "Save " + str(i + 1) + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)

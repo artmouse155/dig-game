@@ -15,7 +15,7 @@ func _ready():
 		Game.global_save_data.prev_save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
 		Game.save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
 		print("Couldn't find " + prev_name)
-	if Debug.quickstart:
+	if Debug.quickstart and (len(Game.get_save_names()) > 0):
 		Game.load_player_save_data(Game.get_save_names()[0])
 		Game.new_day()
 	else:
@@ -40,6 +40,7 @@ func switch_scene(scene, do_transition=true, force_reload=false):
 		add_child(new_scene)
 		move_child(new_scene, 0)
 		old_scene.queue_free()
+		await old_scene.tree_exited
 		current_scene = scene
 		if do_transition:
 			#fade_node.position = Game.FADE_OFFSET[current_scene]

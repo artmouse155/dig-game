@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=20 format=3 uid="uid://beb7qrg7mpqon"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=21 format=3 uid="uid://beb7qrg7mpqon"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_et14t"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Boosts/nova_accelerator.png" id="1_vnate"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_t5etm"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="3_00fx8"]
 [ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="4_8ojpj"]
 [ext_resource type="Script" path="res://Resources/resource_data.gd" id="5_vr8dd"]
 [ext_resource type="Script" path="res://Resources/upgrade.gd" id="6_jmmt5"]
@@ -78,6 +79,7 @@ upgrades = Array[ExtResource("6_jmmt5")]([SubResource("Resource_bimes"), SubReso
 script = ExtResource("1_et14t")
 component_object_name = "Nova Accelerator"
 parent_group_name = "boost"
+component_object_tile_image = ExtResource("3_00fx8")
 actual_texture = ExtResource("1_vnate")
 offset = Vector2(0, 5)
 desc = "A powerful booster."

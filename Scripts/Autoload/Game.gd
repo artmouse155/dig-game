@@ -66,7 +66,7 @@ func get_main_scene():
 	return main_scene
 
 func new_day():
-	player_data.day_number += 1
+	player_data.increase_stat("day_number", 1)
 	main_scene.switch_scene(WORLD_1, true, true)
 
 func end_day():
@@ -84,11 +84,19 @@ func start_from_main_menu():
 	save_load.save_global_data(global_save_data)
 	
 	load_player_save_data(save_name)
-	if player_data.completed_tutorial:
+	if player_data.get_stat("completed_tutorial"):
 		go_to_shop()
 	else:
-		player_data.completed_tutorial = true
+		player_data.set_stat("completed_tutorial", true)
 		new_day()
+
+#TODO: Make Work!
+func get_all_game_objects() -> Array[DrillerComponentObject]:
+	return []
+
+#TODO: Make Work!
+func get_all_achievements()-> Array[Achievement]:
+	return []
 
 func _input(_ev):
 	if Input.is_key_pressed(KEY_ESCAPE):

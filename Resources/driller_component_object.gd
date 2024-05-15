@@ -11,6 +11,8 @@ class_name DrillerComponentObject
 @export var upgrade_lists : Array[UpgradeList]
 @export var base_buffs : Array[BuffItem]
 
+@export var unlock_trigger : Trigger
+
 # Make sure that every parameter has a default value.
 # Otherwise, there will be problems with creating and editing
 # your resource via the inspector.

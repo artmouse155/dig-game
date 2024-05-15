@@ -27,11 +27,12 @@ var score : float = 0.0
 @onready var gameover = $GameOver
 
 @export var iconAndTextParticle : PackedScene
-
+@export var notificationSystem : Node2D
 #var tile_data = {}
 
 var chunks = {}
 
+#TODO: make all resolution changes dynamic
 var resolution = Vector2(1920,1080)
 const CHUNK_RESOLUTION : int= 16
 var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
@@ -74,6 +75,24 @@ var per_day_resources : Array[ResourceData] = [
 
 var day_has_been_saved : bool = false
 
+#ALERT: THIS MUST BE SYNCED WITH THE STATS IN PLAYER_DATA.GD
+var day_stats = {
+	"max_depth" : 0,
+	"max_ore" : 0,
+	"max_green_gems" : 0,
+	"max_blue_gems" : 0,
+	"max_red_gems" : 0,
+	"max_plasma" : 0,
+	"max_powerups_collected" : 0,
+	"max_boosts_used" : 0,
+	"max_blocks_broken" : 0,
+	"max_speed" : 0,
+	"max_time_mining" : 0
+}
+
+var component_triggers : Array[ComponentObjectSaveData] = []
+var achievement_triggers : Array[Achievement] = []
+
 func _ready():
 
 	#print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
@@ -93,14 +112,28 @@ func _ready():
 	tilemap.add_layer(BACKGROUND_LAYER)
 	tilemap.set_layer_z_index(BACKGROUND_LAYER, BACKGROUND_LAYER)
 	
-	day_number_label.text = "Day " + str(Game.player_data.day_number)
+	day_number_label.text = "Day " + str(Game.player_data.get_stat("day_number"))
 	day_number_label.position.y = DAY_NUMBER_Y_OFFSET
 	
-	if Game.player_data.record_depth != 0:
-		%HFollow/PB.position.y = Game.player_data.record_depth * Game.TILE_WIDTH
+	if Game.player_data.get_stat("max_depth") != 0:
+		%HFollow/PB.position.y = Game.player_data.get_stat("max_depth") * Game.TILE_WIDTH
 	
 	update_h_follow_pos()
+
+	setup_triggers()
+
 	generate_world()
+
+func setup_triggers():
+	var all_components : Array[DrillerComponentObject] = Game.get_all_game_objects()
+	for i in range(len(all_components)):
+		var comp_save_data = Game.player_data.find_component_object_save_data(all_components[i])
+		component_triggers.append(comp_save_data)
+	
+	var all_acheivements : Array[Achievement] = Game.get_all_achievements()
+	for i in range(len(all_acheivements)):
+		if Game.player_data.is_acheivement_completed(all_acheivements[i]):
+			achievement_triggers.append(all_acheivements[i])
 
 func update_h_follow_pos():
 	%HFollow.position.x = %Player.position.x - resolution.x/2
@@ -201,7 +234,9 @@ func _process(delta):
 		mine(delta)
 		check_chunk_regions()
 
-		Game.player_data.record_depth = max(Game.player_data.record_depth, %Player.depth)
+		check_triggers()
+
+		Game.player_data.set("max_depth", max(Game.player_data.get_stat("max_depth"), %Player.depth))
 		#damage_tile(center_tile, %Player.drill_speed * delta)
 		#tile_break_particle.position = get_global_mouse_position()
 
@@ -275,6 +310,9 @@ func _input(ev):
 		
 		if Input.is_action_just_pressed("kill"):
 			game_over("durability", true)
+			
+		if Input.is_action_just_pressed("debug"):
+			notificationSystem.add_unlock_notification(Game.player_data.hull)
 
 		if Input.is_action_pressed("turbo"):
 			%Player.turbo()
@@ -425,6 +463,13 @@ func get_chunk_data(chunk_coords : Vector2i) -> Array:
 		return chunks[chunk_coords.x][chunk_coords.y]
 	print("error: chunk had no data!")
 	return []
+
+func check_triggers():
+	for i in range(len(component_triggers)):
+		pass
+
+	for i in range(len(achievement_triggers)):
+		pass
 
 func new_day_button_pressed():
 	game_over()

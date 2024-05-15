@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=10 format=3 uid="uid://cfg30q0b26xgc"]
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=12 format=3 uid="uid://cfg30q0b26xgc"]
 
 [ext_resource type="Resource" uid="uid://dt5jkjk3gkmoq" path="res://Resources/Driller/Hulls/vanguard.tres" id="1_kwbs6"]
 [ext_resource type="Texture2D" uid="uid://b3w6n05hwqamo" path="res://Assets/Textures/logo.png" id="2_luyib"]
@@ -7,11 +7,18 @@
 [ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="4_l05wa"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="4_oi0lb"]
 [ext_resource type="Script" path="res://Resources/hull.gd" id="5_wmpfd"]
+[ext_resource type="Script" path="res://Resources/trigger.gd" id="6_5wxyk"]
 
 [sub_resource type="Resource" id="Resource_ax83f"]
 script = ExtResource("3_lc8r5")
 buff_name = "magic powers"
 amount = 7
+
+[sub_resource type="Resource" id="Resource_fjq7k"]
+script = ExtResource("6_5wxyk")
+trigger_stat_name = "max_depth"
+trigger_stat_comparison = "greater_than"
+trigger_stat_value = 10.0
 
 [sub_resource type="Resource" id="Resource_ocj2w"]
 script = ExtResource("5_wmpfd")
@@ -25,6 +32,7 @@ desc = "This is not a real hull."
 locked_desc = "Unlock by playing my game."
 upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([ExtResource("3_2di1k"), ExtResource("3_2di1k")])
 base_buffs = Array[ExtResource("3_lc8r5")]([SubResource("Resource_ax83f")])
+unlock_trigger = SubResource("Resource_fjq7k")
 
 [resource]
 script = ExtResource("4_l05wa")

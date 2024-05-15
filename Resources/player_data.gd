@@ -18,9 +18,48 @@ class_name PlayerData
 ]
 
 #STOP ALLOWING YOU TO INIT AFTER THIS LINE -->
-@export var record_depth : int = 0
-@export var day_number : int = 0
-@export var completed_tutorial : bool = false
+#@export var record_depth : int = 0
+#@export var day_number : int = 0
+#@export var completed_tutorial : bool = false
+
+@export var stats : Dictionary = {
+	"all_time" : {
+		"total_depth" : 0,
+		"total_ore" : 0,
+		"total_green_gems" : 0,
+		"total_blue_gems" : 0,
+		"total_red_gems" : 0,
+		"total_plasma" : 0,
+		"total_powerups_collected" : 0,
+		"total_boosts_used" : 0,
+		"total_blocks_broken" : 0,
+		"total_speed" : 0,
+		"total_time_mining" : 0
+		},
+	"per_day" : {
+		"max_depth" : 0,
+		"max_ore" : 0,
+		"max_green_gems" : 0,
+		"max_blue_gems" : 0,
+		"max_red_gems" : 0,
+		"max_plasma" : 0,
+		"max_powerups_collected" : 0,
+		"max_boosts_used" : 0,
+		"max_blocks_broken" : 0,
+		"max_speed" : 0,
+		"max_time_mining" : 0
+		},
+	"other" : {
+		"day_number" : 0,
+		"completed_tutorial" : false,
+		"ore_spent" : 0,
+		"green_gems_spent" : 0,
+		"blue_gems_spent" : 0,
+		"red_gems_spent" : 0,
+		"plasma_spent" : 0,
+		"upgrades_bought" : 0
+	}
+}
 
 func _init(p_hull = null, p_drill = null, p_battery = null, p_engine = null, p_boost = null, p_misc = null, p_saved_component_data : Array[ComponentObjectSaveData] = [], p_player_inventory : Array[ResourceData] = []):
 	hull = p_hull
@@ -91,7 +130,7 @@ func find_component_object_save_data(obj : DrillerComponentObject, create_new_if
 		if create_new_if_missing:
 			var component_save = ComponentObjectSaveData.new(obj)
 			saved_component_data.append(component_save)
-			print("Created save data for \"" + obj.component_object_name + "\"")
+			print("Created save data for \"" + obj.component_object_name + "\". Trigger: " + str(obj.unlock_trigger))
 			return component_save
 	return null
 
@@ -174,3 +213,24 @@ func get_buff_amount(p_buff_name : String):
 			return buffList[i].amount
 	print("Buff \"" + p_buff_name + "\" not found. Returning 0.")
 	return 0
+
+func get_stat(stat_name : String):
+	for i in range(len(stats.keys())):
+		if stat_name in stats[stats.keys()[i]].keys():
+			return stats[stats.keys()[i]][stat_name]
+	print("stat not found: " + stat_name)
+	return null
+	
+func set_stat(stat_name : String, value):
+	for i in range(len(stats.keys())):
+		if stat_name in stats[stats.keys()[i]].keys():
+			stats[stats.keys()[i]][stat_name] = value
+			return 0
+	print("stat not found: " + stat_name)
+	return null
+	
+func increase_stat(stat_name : String, value):
+	set_stat(stat_name, get_stat(stat_name) + value)
+
+func is_acheivement_completed(achievement : Achievement):
+	return false

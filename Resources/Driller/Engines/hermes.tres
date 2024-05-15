@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=6 format=3 uid="uid://cf7lwurtkpbcw"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=7 format=3 uid="uid://cf7lwurtkpbcw"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Engines/hermes.png" id="1_s23tu"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_8brhn"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="3_432a0"]
 
 [sub_resource type="Resource" id="Resource_mqdvs"]
 script = ExtResource("2_8brhn")
@@ -18,6 +19,7 @@ amount = 1.5
 script = ExtResource("1_nsnyq")
 component_object_name = "Hermes"
 parent_group_name = "engine"
+component_object_tile_image = ExtResource("3_432a0")
 actual_texture = ExtResource("1_s23tu")
 offset = Vector2(-15, 0)
 desc = "A humble engine of humble origins."

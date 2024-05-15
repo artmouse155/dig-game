@@ -119,9 +119,10 @@ func calc_base_variables():
 	degrees_of_freedom = calc_deg_freedom(agility)
 	
 	if Debug.best_driller:
-		engine_power = 1000
-		max_speed = 4000
-		energy = 9999999999
+		base_engine_power = 1000
+		base_max_speed = 4000
+		total_durability = 9999999999
+		total_energy = 9999999999
 	
 	turbos = base_turbos
 	if Debug.infinite_boosts:
