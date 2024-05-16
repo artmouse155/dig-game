@@ -1,21 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://y0mlpk5vux6"]
+[gd_scene load_steps=7 format=3 uid="uid://y0mlpk5vux6"]
 
 [ext_resource type="Script" path="res://Scripts/upgradeShop.gd" id="1_oar08"]
 [ext_resource type="Texture2D" uid="uid://cimttef5icmnw" path="res://Assets/Textures/UI/space_bg.jpg" id="2_b3vi6"]
-[ext_resource type="Resource" uid="uid://ck0wrxlg7g5en" path="res://Resources/Shop Data/all_drills.tres" id="2_cc2rg"]
-[ext_resource type="Resource" uid="uid://cfg30q0b26xgc" path="res://Resources/Shop Data/all_hulls.tres" id="3_5fovh"]
 [ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_qsc1y"]
-[ext_resource type="Resource" uid="uid://dacu2ehjgdglb" path="res://Resources/Shop Data/all_batteries.tres" id="4_cqguf"]
-[ext_resource type="Resource" uid="uid://cynh4k6te4lun" path="res://Resources/Shop Data/all_engines.tres" id="5_2mshw"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_xesuv"]
-[ext_resource type="Resource" uid="uid://dd5p2bjojj2jq" path="res://Resources/Shop Data/all_boosts.tres" id="6_67jju"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="6_te06w"]
 [ext_resource type="Resource" uid="uid://dic2ov3rjcn0u" path="res://Resources/Player Data/sample_player_data.tres" id="7_35pis"]
-[ext_resource type="Resource" uid="uid://b6id0t6t2uq66" path="res://Resources/Shop Data/all_miscs.tres" id="7_n4ruf"]
 
 [node name="UpgradeShop" type="Node2D" node_paths=PackedStringArray("shop_tab_container", "buff_label", "resource_display_container", "extra_scale_node", "player") groups=["scenes"]]
 script = ExtResource("1_oar08")
-all_driller_component_groups = Array[Resource("res://Resources/driller_component_group.gd")]([ExtResource("3_5fovh"), ExtResource("2_cc2rg"), ExtResource("4_cqguf"), ExtResource("5_2mshw"), ExtResource("6_67jju"), ExtResource("7_n4ruf")])
 shop_tab_container = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer/UpgradeGroupsTabContainer")
 buff_label = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/Label")
 resource_display_container = NodePath("Container2/Container/VBoxContainer/PanelContainer3/MarginContainer/ResourceDisplayContainer")

@@ -21,12 +21,12 @@ func add_unlock_notification(obj : DrillerComponentObject):
 	add_notification_to_queue(temp_notification)
 	temp_notification.unlock_setup(obj)
 
-func add_achievement_notification(icon : Texture2D, a_name : String, a_desc : String):
+func add_achievement_notification(achievement : Achievement):
 	var temp_notification = packed_notification.instantiate()
 	add_child(temp_notification)
 	temp_notification.position.x = NOTIFICATION_X_INIT_OFFSET
 	add_notification_to_queue(temp_notification)
-	temp_notification.achievement_setup(icon, a_name, a_desc)
+	temp_notification.achievement_setup(achievement)
 
 func add_notification_to_queue(n : Node):
 	pending_notifications.append(n)

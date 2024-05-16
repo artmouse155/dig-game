@@ -2,7 +2,7 @@ extends Node2D
 
 const RESOURCE_DISPLAY = preload("res://Scenes/resourceDataDisplay.tscn")
 
-@export var all_driller_component_groups : Array[DrillerComponentGroup]
+var all_driller_component_groups : Array[DrillerComponentGroup]
 
 @onready var tooltip = $Tooltip
 @export var shop_tab_container : TabContainer# = $Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/UpgradeGroupsTabContainer
@@ -14,6 +14,8 @@ const RESOURCE_DISPLAY = preload("res://Scenes/resourceDataDisplay.tscn")
 var extra_scale : float = 1.5
 
 func _ready():
+	all_driller_component_groups = Game.all_data.all_driller_component_groups
+	
 	for i in range(len(all_driller_component_groups)):
 		var driller_component_group_panel = preload("res://Scenes/drillerComponentGroupPanel.tscn").instantiate()
 		shop_tab_container.add_child(driller_component_group_panel)

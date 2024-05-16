@@ -11,8 +11,8 @@ func unlock_setup(obj : DrillerComponentObject):
 	title_text.text = "New Driller Upgrade Unlocked"
 	desc_text.text = ""
 	
-func achievement_setup(icon : Texture2D, a_name : String, a_desc : String):
-	tex.texture = icon
-	sub_title_text.text = a_name
+func achievement_setup(achievement : Achievement):
+	tex.texture = achievement.icon
+	sub_title_text.text = achievement.achievement_name
 	title_text.text = "New Achievement Unlocked"
-	desc_text.text = a_desc
+	desc_text.text = achievement.achievement_desc

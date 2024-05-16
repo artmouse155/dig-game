@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Achievement" load_steps=7 format=3 uid="uid://bjyy5sk0tq5uj"]
+
+[ext_resource type="Script" path="res://Resources/trigger.gd" id="1_o450v"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_x0h3w"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_tou7n"]
+[ext_resource type="Script" path="res://Resources/achievement.gd" id="4_nbmpb"]
+
+[sub_resource type="Resource" id="Resource_ayqaw"]
+script = ExtResource("1_o450v")
+trigger_stat_name = "max_speed"
+trigger_stat_comparison = "greater_than_or_equal_to"
+trigger_stat_value = 10.0
+
+[sub_resource type="Resource" id="Resource_ogvhb"]
+script = ExtResource("3_tou7n")
+res_name = "ore"
+amount = 10000
+
+[resource]
+script = ExtResource("4_nbmpb")
+icon = ExtResource("2_x0h3w")
+achievement_name = "Go Fast"
+achievement_desc = "Reach a speed of 10."
+achievement_trigger = SubResource("Resource_ayqaw")
+resource_rewards = Array[ExtResource("3_tou7n")]([SubResource("Resource_ogvhb")])

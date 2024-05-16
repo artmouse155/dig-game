@@ -128,11 +128,12 @@ func setup_triggers():
 	var all_components : Array[DrillerComponentObject] = Game.get_all_game_objects()
 	for i in range(len(all_components)):
 		var comp_save_data = Game.player_data.find_component_object_save_data(all_components[i])
-		component_triggers.append(comp_save_data)
+		if not comp_save_data.unlocked:
+			component_triggers.append(comp_save_data)
 	
 	var all_acheivements : Array[Achievement] = Game.get_all_achievements()
 	for i in range(len(all_acheivements)):
-		if Game.player_data.is_acheivement_completed(all_acheivements[i]):
+		if not Game.player_data.is_acheivement_completed(all_acheivements[i]):
 			achievement_triggers.append(all_acheivements[i])
 
 func update_h_follow_pos():
@@ -207,11 +208,13 @@ func generate_chunk(chunk_coords : Vector2i):
 							set_tile_data(coords, temp_chunk[x][y])
 						#if !Debug.fullbright:
 							#tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
-	var end_time = Time.get_ticks_msec()
-	var elapsed_time = end_time - start_time
+	var mid_time = Time.get_ticks_msec()
+	var mid_elapsed_time = mid_time - start_time
 
 	draw_chunk(chunk_coords)
-	print("Chunk generated in ", elapsed_time, "ms")
+	var end_time = Time.get_ticks_msec()
+	var elapsed_time = end_time - start_time
+	print("Chunk generated in ", elapsed_time, "ms (",mid_elapsed_time, "ms + ", (end_time - mid_time), "ms)")
 
 func draw_chunk(chunk_coords : Vector2i):
 	#print("CHUNK: " + str(chunks[0][0]))
@@ -236,7 +239,8 @@ func _process(delta):
 
 		check_triggers()
 
-		Game.player_data.set("max_depth", max(Game.player_data.get_stat("max_depth"), %Player.depth))
+		day_stats["max_speed"] = max(day_stats["max_speed"], %Player.velocity)
+		day_stats["max_depth"] = max(day_stats["max_depth"], %Player.depth)
 		#damage_tile(center_tile, %Player.drill_speed * delta)
 		#tile_break_particle.position = get_global_mouse_position()
 
@@ -356,6 +360,7 @@ func mine_tile(coords, tileGen : Gen):
 			temp_particle.powerup_setup(tilemap.map_to_local(coords), BuffItem.new(tileGen.name, tileGen.value))
 			subviewport.add_child(temp_particle)
 		
+		day_stats["max_blocks_broken"] = day_stats["max_blocks_broken"] + 1
 		tilemap.set_cell(BACKGROUND_LAYER, coords, ground_source_id, background_atlas)
 		tilemap.erase_cell(GROUND_LAYER, coords)
 
@@ -465,11 +470,42 @@ func get_chunk_data(chunk_coords : Vector2i) -> Array:
 	return []
 
 func check_triggers():
+	var rem = []
 	for i in range(len(component_triggers)):
-		pass
+		var trigger : Trigger = component_triggers[i].base_component.unlock_trigger
+		if trigger.is_met(day_stats[trigger.trigger_stat_name]):
+			rem.append(component_triggers[i])
+	
+	for component_save in rem:
+		notificationSystem.add_unlock_notification(component_save.base_component)
+		Game.player_data.unlock_component(component_save.base_component)
+		component_triggers.erase(component_save)
 
+	rem = []
 	for i in range(len(achievement_triggers)):
-		pass
+		var trigger : Trigger = achievement_triggers[i].achievement_trigger
+		if trigger.is_met(day_stats[trigger.trigger_stat_name]):
+			rem.append(achievement_triggers[i])
+
+	for achievement in rem:
+		notificationSystem.add_achievement_notification(achievement)
+		Game.player_data.award_achievement(achievement)
+		for reward in achievement.resource_rewards:
+			var total = reward.amount
+			match reward.res_name:
+				"ore":
+					score += total
+				"red_gem":
+					Game.player_data.add_resource_amount(reward.res_name, total)
+				"blue_gem":
+					Game.player_data.add_resource_amount(reward.res_name, total)
+				"green_gem":
+					Game.player_data.add_resource_amount(reward.res_name, total)
+				"plasma":
+					Game.player_data.add_resource_amount(reward.res_name, total)
+				
+		
+		achievement_triggers.erase(achievement)
 
 func new_day_button_pressed():
 	game_over()
@@ -486,6 +522,9 @@ func main_menu_button_pressed():
 #append per-day saved resources to player data
 func append_res_to_save_data():
 	#TODO: make more robust!
+	for key in day_stats.keys():
+		Game.player_data.set_stat(key, max(Game.player_data.get_stat(key), day_stats[key]))
+	
 	per_day_resources[0].amount = int(score)
 	for i in range(len(per_day_resources)):
 		Game.player_data.add_resource_amount(per_day_resources[i].res_name, per_day_resources[i].amount)

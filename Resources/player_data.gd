@@ -61,6 +61,8 @@ class_name PlayerData
 	}
 }
 
+@export var achievement_completed_data : Dictionary = {}
+
 func _init(p_hull = null, p_drill = null, p_battery = null, p_engine = null, p_boost = null, p_misc = null, p_saved_component_data : Array[ComponentObjectSaveData] = [], p_player_inventory : Array[ResourceData] = []):
 	hull = p_hull
 	drill = p_drill
@@ -233,4 +235,13 @@ func increase_stat(stat_name : String, value):
 	set_stat(stat_name, get_stat(stat_name) + value)
 
 func is_acheivement_completed(achievement : Achievement):
+	if achievement in achievement_completed_data.keys():
+		return achievement_completed_data[achievement]
+	achievement_completed_data[achievement] = false
 	return false
+
+func award_achievement(achievement : Achievement, give_prizes : bool = false):
+	achievement_completed_data[achievement] = true
+	if give_prizes:
+		for reward in achievement.resource_rewards:
+			add_resource_amount(reward.res_name, reward.amount)
