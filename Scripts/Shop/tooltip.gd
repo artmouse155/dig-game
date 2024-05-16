@@ -6,13 +6,15 @@ class_name Tooltip
 @onready var descNode = $PanelContainer/MarginContainer/VBoxContainer/Desc
 var resourceDataDisplay = preload("res://Scenes/resourceDataDisplay.tscn")
 
-@export var u : Upgrade
+@export var cost_label : Control
+@export var buff_label : Control
 
 var active_control = null
-#func _ready():
-#	setup("This is a test.", u)
 
 func upgrade_setup(_active_control : Control, desc : String, upgrade : Upgrade):
+	cost_label.show()
+	buff_label.show()
+	
 	active_control = _active_control
 	
 	descNode.text = desc
@@ -29,11 +31,22 @@ func upgrade_setup(_active_control : Control, desc : String, upgrade : Upgrade):
 		buffContainer.add_child(temp_display)
 
 func tile_setup(_active_control : Control, desc : String):
+	cost_label.hide()
+	buff_label.hide()
+	
 	active_control = _active_control
 	
 	descNode.text = desc
 	remove_children(costContainer)
 	remove_children(buffContainer)
+
+func achievement_setup(_active_control : Control, a : Achievement):
+	cost_label.hide()
+	buff_label.hide()
+	
+	active_control = _active_control
+	
+	descNode.text = a.achievement_name + "\n" +a.achievement_desc
 
 func remove_children(node):
 	for child in node.get_children():

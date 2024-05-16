@@ -42,6 +42,42 @@ engine = ExtResource("4_arght")
 boost = ExtResource("2_nlihs")
 saved_component_data = Array[Resource("res://Resources/component_object_save_data.gd")]([])
 player_inventory = Array[Object]([SubResource("Resource_645ll"), SubResource("Resource_4v5h1"), SubResource("Resource_3te55"), SubResource("Resource_3dmof"), SubResource("Resource_hbxro")])
-record_depth = 0
-day_number = 0
-completed_tutorial = false
+stats = {
+"all_time": {
+"total_blocks_broken": 0,
+"total_blue_gems": 0,
+"total_boosts_used": 0,
+"total_depth": 0,
+"total_green_gems": 0,
+"total_ore": 0,
+"total_plasma": 0,
+"total_powerups_collected": 0,
+"total_red_gems": 0,
+"total_speed": 0,
+"total_time_mining": 0
+},
+"other": {
+"blue_gems_spent": 0,
+"completed_tutorial": false,
+"day_number": 0,
+"green_gems_spent": 0,
+"ore_spent": 0,
+"plasma_spent": 0,
+"red_gems_spent": 0,
+"upgrades_bought": 0
+},
+"per_day": {
+"max_blocks_broken": 0,
+"max_blue_gems": 0,
+"max_boosts_used": 0,
+"max_depth": 0,
+"max_green_gems": 0,
+"max_ore": 0,
+"max_plasma": 0,
+"max_powerups_collected": 0,
+"max_red_gems": 0,
+"max_speed": 0,
+"max_time_mining": 0
+}
+}
+achievement_completed_data = {}

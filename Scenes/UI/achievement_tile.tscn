@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://c18ouqtifciee"]
+
+[ext_resource type="Script" path="res://Scripts/achievement_tile.gd" id="1_kf8ht"]
+
+[node name="AchievementTile" type="PanelContainer" node_paths=PackedStringArray("texture_panel")]
+script = ExtResource("1_kf8ht")
+texture_panel = NodePath("MarginContainer/TextureRect")
+locked_modulate = Color(1, 1, 1, 0.2)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
