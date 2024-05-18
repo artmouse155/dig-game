@@ -28,6 +28,7 @@ texture = ExtResource("1_6tgo4")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 
 [node name="selected" type="Panel" parent="."]
 layout_mode = 2

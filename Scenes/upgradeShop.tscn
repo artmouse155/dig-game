@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cimttef5icmnw" path="res://Assets/Textures/UI/space_bg.jpg" id="2_b3vi6"]
 [ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_qsc1y"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_xesuv"]
-[ext_resource type="PackedScene" path="res://Animated Button/animated_button.tscn" id="6_8xw20"]
+[ext_resource type="PackedScene" uid="uid://kw5mocxe0q47" path="res://Animated Button/animated_button.tscn" id="6_8xw20"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="6_te06w"]
 [ext_resource type="Resource" uid="uid://dic2ov3rjcn0u" path="res://Resources/Player Data/sample_player_data.tres" id="7_35pis"]
 
@@ -181,6 +181,7 @@ text = "Upgrades"
 
 [node name="UpgradeGroupsTabContainer" type="TabContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+tab_focus_mode = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer"]
 visible = false

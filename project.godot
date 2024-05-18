@@ -43,6 +43,7 @@ enabled=PackedStringArray("res://addons/godot_conventions_cheat_sheet/plugin.cfg
 [file_customization]
 
 folder_colors={
+"res://Animated Button/": "pink",
 "res://Assets/": "red",
 "res://Resources/": "yellow",
 "res://Scenes/": "blue",

@@ -1,20 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://bd8yfmtckb3sb"]
+[gd_scene load_steps=15 format=3 uid="uid://kw5mocxe0q47"]
 
-[ext_resource type="Theme" uid="uid://c5wj4lhj04ho6" path="res://Animated Button/game_theme.tres" id="1_l3hv8"]
+[ext_resource type="Theme" uid="uid://ufgv5pisykj6" path="res://Animated Button/game_theme.tres" id="1_l3hv8"]
 [ext_resource type="Script" path="res://Animated Button/animated_button.gd" id="2_8cet3"]
-[ext_resource type="Theme" uid="uid://bbwtwtgyr0wp1" path="res://Animated Button/animated_button.tres" id="3_fpgik"]
+[ext_resource type="Theme" uid="uid://dfqw050d0oiyb" path="res://Animated Button/animated_button.tres" id="3_fpgik"]
 [ext_resource type="Script" path="res://Animated Button/BottomTrim.gd" id="4_cqa1g"]
 [ext_resource type="Script" path="res://Animated Button/ButtonText.gd" id="4_vjqpl"]
 [ext_resource type="Script" path="res://Animated Button/TopPanel.gd" id="5_dh6fy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6hl0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qxhk"]
 bg_color = Color(0.534375, 0, 0, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym2op"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khlaj"]
 bg_color = Color(0.667969, 0, 0, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
@@ -240,7 +240,7 @@ theme_override_constants/margin_top = 6
 clip_children = 2
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r6hl0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5qxhk")
 script = ExtResource("4_cqa1g")
 
 [node name="Bottom" type="Panel" parent="BaseBottomMargin/BottomTrim"]
@@ -264,7 +264,7 @@ layout_mode = 2
 [node name="TopPanel" type="PanelContainer" parent="BaseTopMargin/TopMargin"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ym2op")
+theme_override_styles/panel = SubResource("StyleBoxFlat_khlaj")
 script = ExtResource("5_dh6fy")
 
 [node name="TextMargin" type="MarginContainer" parent="BaseTopMargin/TopMargin/TopPanel"]
