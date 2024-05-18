@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dfqw050d0oiyb"]
+
+[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Bold.ttf" id="1_7l1ve"]
+[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-BoldItalic.ttf" id="2_tmnvi"]
+[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Italic.ttf" id="3_0ehl3"]
+[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Regular.ttf" id="4_blfn4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkklh"]
+bg_color = Color(0, 0.266667, 0.239216, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Gradient" id="Gradient_ieomg"]
+offsets = PackedFloat32Array(0, 0.08, 0.92, 1)
+colors = PackedColorArray(0, 0, 0, 0.803922, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.803922)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hdens"]
+gradient = SubResource("Gradient_ieomg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5bxd5"]
+texture = SubResource("GradientTexture1D_hdens")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj1ia"]
+bg_color = Color(0, 0, 0, 0.282353)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73bqd"]
+bg_color = Color(0.670588, 0, 0.168627, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[resource]
+default_font = ExtResource("4_blfn4")
+RichTextLabel/fonts/bold_font = ExtResource("1_7l1ve")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_tmnvi")
+RichTextLabel/fonts/italics_font = ExtResource("3_0ehl3")
+RichTextLabel/fonts/normal_font = ExtResource("4_blfn4")
+bottom_trim/base_type = &"Panel"
+bottom_trim/styles/panel = SubResource("StyleBoxFlat_fkklh")
+button_bottom/base_type = &"Panel"
+button_bottom/styles/panel = SubResource("StyleBoxTexture_5bxd5")
+button_shadow/base_type = &"Panel"
+button_shadow/styles/panel = SubResource("StyleBoxFlat_bj1ia")
+button_top/base_type = &"Panel"
+button_top/styles/panel = SubResource("StyleBoxFlat_73bqd")

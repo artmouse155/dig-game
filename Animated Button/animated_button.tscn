@@ -1,0 +1,298 @@
+[gd_scene load_steps=15 format=3 uid="uid://bd8yfmtckb3sb"]
+
+[ext_resource type="Theme" uid="uid://c5wj4lhj04ho6" path="res://Animated Button/game_theme.tres" id="1_l3hv8"]
+[ext_resource type="Script" path="res://Animated Button/animated_button.gd" id="2_8cet3"]
+[ext_resource type="Theme" uid="uid://bbwtwtgyr0wp1" path="res://Animated Button/animated_button.tres" id="3_fpgik"]
+[ext_resource type="Script" path="res://Animated Button/BottomTrim.gd" id="4_cqa1g"]
+[ext_resource type="Script" path="res://Animated Button/ButtonText.gd" id="4_vjqpl"]
+[ext_resource type="Script" path="res://Animated Button/TopPanel.gd" id="5_dh6fy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r6hl0"]
+bg_color = Color(0.534375, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym2op"]
+bg_color = Color(0.667969, 0, 0, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Animation" id="Animation_8sjs1"]
+resource_name = "hover"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseTopMargin/TopMargin/TopPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1.1, 1.1, 1.1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BaseShadowMargin/ShadowMargin/ShadowPanel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_g2kdc"]
+resource_name = "hover_exit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseTopMargin/TopMargin/TopPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, -4), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1.1, 1.1, 1.1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BaseShadowMargin/ShadowMargin/ShadowPanel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o838e"]
+resource_name = "pressed"
+length = 0.034
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseTopMargin/TopMargin/TopPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.034),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, -4), Vector2(0, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BaseShadowMargin/ShadowMargin/ShadowPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.034),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_0kth2"]
+resource_name = "pressed_and_exit"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseTopMargin/TopMargin/TopPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1.1, 1.1, 1.1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BaseShadowMargin/ShadowMargin/ShadowPanel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v67v0"]
+resource_name = "released"
+length = 0.034
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseTopMargin/TopMargin/TopPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.034),
+"transitions": PackedFloat32Array(1, -0.5),
+"update": 0,
+"values": [Vector2(0, 2), Vector2(0, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BaseShadowMargin/ShadowMargin/ShadowPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.034),
+"transitions": PackedFloat32Array(1, -0.5),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_66iej"]
+_data = {
+"hover": SubResource("Animation_8sjs1"),
+"hover_exit": SubResource("Animation_g2kdc"),
+"pressed": SubResource("Animation_o838e"),
+"pressed_and_exit": SubResource("Animation_0kth2"),
+"released": SubResource("Animation_v67v0")
+}
+
+[node name="AnimatedButton" type="MarginContainer"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+focus_mode = 2
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_l3hv8")
+script = ExtResource("2_8cet3")
+button_text = "Animated Button"
+
+[node name="BaseShadowMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = -4
+
+[node name="ShadowMargin" type="MarginContainer" parent="BaseShadowMargin"]
+layout_mode = 2
+
+[node name="ShadowPanel" type="Panel" parent="BaseShadowMargin/ShadowMargin"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("3_fpgik")
+theme_type_variation = &"button_shadow"
+
+[node name="BaseBottomMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+
+[node name="BottomTrim" type="Panel" parent="BaseBottomMargin"]
+clip_children = 2
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r6hl0")
+script = ExtResource("4_cqa1g")
+
+[node name="Bottom" type="Panel" parent="BaseBottomMargin/BottomTrim"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_fpgik")
+theme_type_variation = &"button_bottom"
+
+[node name="BaseTopMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = 6
+
+[node name="TopMargin" type="MarginContainer" parent="BaseTopMargin"]
+layout_mode = 2
+
+[node name="TopPanel" type="PanelContainer" parent="BaseTopMargin/TopMargin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ym2op")
+script = ExtResource("5_dh6fy")
+
+[node name="TextMargin" type="MarginContainer" parent="BaseTopMargin/TopMargin/TopPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CenterContainer" type="CenterContainer" parent="BaseTopMargin/TopMargin/TopPanel/TextMargin"]
+layout_mode = 2
+
+[node name="ButtonText" type="RichTextLabel" parent="BaseTopMargin/TopMargin/TopPanel/TextMargin/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("3_fpgik")
+bbcode_enabled = true
+text = "[color=#ffffff][font_size={16}]Animated Button[/font_size][/color]"
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("4_vjqpl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_66iej")
+}
+
+[connection signal="gui_input" from="." to="." method="gui_input_func"]
+[connection signal="mouse_entered" from="." to="." method="mouse_entered_func"]
+[connection signal="mouse_exited" from="." to="." method="mouse_exited_func"]

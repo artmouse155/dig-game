@@ -1,19 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://y0mlpk5vux6"]
+[gd_scene load_steps=8 format=3 uid="uid://y0mlpk5vux6"]
 
 [ext_resource type="Script" path="res://Scripts/upgradeShop.gd" id="1_oar08"]
 [ext_resource type="Texture2D" uid="uid://cimttef5icmnw" path="res://Assets/Textures/UI/space_bg.jpg" id="2_b3vi6"]
 [ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_qsc1y"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_xesuv"]
+[ext_resource type="PackedScene" path="res://Animated Button/animated_button.tscn" id="6_8xw20"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="6_te06w"]
 [ext_resource type="Resource" uid="uid://dic2ov3rjcn0u" path="res://Resources/Player Data/sample_player_data.tres" id="7_35pis"]
 
 [node name="UpgradeShop" type="Node2D" node_paths=PackedStringArray("shop_tab_container", "buff_label", "resource_display_container", "extra_scale_node", "player") groups=["scenes"]]
 script = ExtResource("1_oar08")
-shop_tab_container = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer/UpgradeGroupsTabContainer")
-buff_label = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/Label")
-resource_display_container = NodePath("Container2/Container/VBoxContainer/PanelContainer3/MarginContainer/ResourceDisplayContainer")
-extra_scale_node = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale")
-player = NodePath("Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale/Player")
+shop_tab_container = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer/UpgradeGroupsTabContainer")
+buff_label = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/Label")
+resource_display_container = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/ResourceDisplayContainer")
+extra_scale_node = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale")
+player = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale/Player")
 
 [node name="Background" type="TextureRect" parent="."]
 visible = false
@@ -30,6 +31,24 @@ anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
+[node name="MarginContainer" type="MarginContainer" parent="Container2"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -153.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="AnimatedButton" parent="Container2/MarginContainer" instance=ExtResource("6_8xw20")]
+layout_mode = 2
+button_text = "Main Menu"
+button_color = Color(0.38, 0.38, 0.38, 1)
+
 [node name="Container" type="CenterContainer" parent="Container2"]
 layout_mode = 2
 anchor_left = 0.5
@@ -44,78 +63,98 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container2/Container"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container/HBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="Container2/Container/VBoxContainer"]
+[node name="PanelContainer3" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ResourceDisplayContainer" type="HBoxContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 60
+
+[node name="PanelContainer2" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="PlayerPreviewContainer" type="PanelContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PlayerPreviewContainer" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer"]
+[node name="TextureRect" type="TextureRect" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("5_xesuv")
 stretch_mode = 3
 
-[node name="Control" type="Control" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer"]
+[node name="Control" type="Control" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ExtraScale" type="Control" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control"]
+[node name="ExtraScale" type="Control" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control"]
 anchors_preset = 0
 scale = Vector2(1.5, 1.5)
 
-[node name="Player" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale" instance=ExtResource("6_te06w")]
+[node name="Player" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale" instance=ExtResource("6_te06w")]
 player_data = ExtResource("7_35pis")
 
-[node name="PanelContainer2" type="PanelContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="RichTextLabel" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer"]
+[node name="Label" type="RichTextLabel" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer"]
 layout_mode = 2
 text = "STATISTICS:
 DURABILITY: 1000
@@ -124,7 +163,7 @@ FOOD: 10000000"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -133,36 +172,21 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Upgrades"
 
-[node name="UpgradeGroupsTabContainer" type="TabContainer" parent="Container2/Container/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="UpgradeGroupsTabContainer" type="TabContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer3" type="PanelContainer" parent="Container2/Container/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer3"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="ResourceDisplayContainer" type="HBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer3/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 60
-
-[node name="PanelContainer" type="PanelContainer" parent="Container2/Container/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_left = 5
@@ -170,26 +194,43 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container2/Container/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Button" type="Button" parent="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "New Day"
 
-[node name="Button3" type="Button" parent="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
 
-[node name="Button2" type="Button" parent="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Quit Game"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Container2/Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="NewDay" parent="Container2/Container/HBoxContainer/VBoxContainer2" instance=ExtResource("6_8xw20")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+button_text = "New Day"
+spell_elements = 1
+font_size = 64
+button_color = Color(0.329412, 0.560784, 0.211765, 1)
 
 [node name="Tooltip" parent="." instance=ExtResource("3_qsc1y")]
 visible = false
 z_index = 1
 
-[connection signal="pressed" from="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button" to="." method="new_day"]
-[connection signal="pressed" from="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button3" to="." method="return_to_main_menu"]
-[connection signal="pressed" from="Container2/Container/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button2" to="." method="quit_game"]
+[connection signal="pressed" from="Container2/MarginContainer/AnimatedButton" to="." method="return_to_main_menu"]
+[connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button" to="." method="new_day"]
+[connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button3" to="." method="return_to_main_menu"]
+[connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button2" to="." method="quit_game"]
+[connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer2/NewDay" to="." method="new_day"]
