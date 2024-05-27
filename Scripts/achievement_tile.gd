@@ -14,7 +14,7 @@ var unlocked = true
 
 var part_of_active_group = true
 
-func setup(_achievement : Achievement, p_unlocked : bool = true, p_selected : bool = false):
+func setup(_achievement : Achievement, p_unlocked : bool = true, _p_selected : bool = false):
 	achievement = _achievement
 	a_name = _achievement.achievement_name
 	desc = _achievement.achievement_desc

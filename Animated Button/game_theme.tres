@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://ufgv5pisykj6"]
 
-[ext_resource type="FontFile" path="res://Animated Button/ConcertOne-Regular.ttf" id="1_8i27j"]
+[ext_resource type="FontFile" uid="uid://c31ql8rx0ox3h" path="res://Animated Button/ConcertOne-Regular.ttf" id="1_8i27j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nnni"]
 bg_color = Color(0.22746, 0.656671, 0.793817, 1)

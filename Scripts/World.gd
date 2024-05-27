@@ -315,8 +315,8 @@ func _input(ev):
 		if Input.is_action_just_pressed("kill"):
 			game_over("durability", true)
 			
-		if Input.is_action_just_pressed("debug"):
-			notificationSystem.add_unlock_notification(Game.player_data.hull)
+		#if Input.is_action_just_pressed("debug"):
+		#	notificationSystem.add_unlock_notification(Game.player_data.hull)
 
 		if Input.is_action_pressed("turbo"):
 			%Player.turbo()

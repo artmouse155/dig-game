@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=11 format=3 uid="uid://dfqw050d0oiyb"]
 
-[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Bold.ttf" id="1_7l1ve"]
-[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-BoldItalic.ttf" id="2_tmnvi"]
-[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Italic.ttf" id="3_0ehl3"]
-[ext_resource type="FontFile" path="res://Animated Button/Noto_Sans/NotoSans-Regular.ttf" id="4_blfn4"]
+[ext_resource type="FontFile" uid="uid://bk8ncvbyc0kad" path="res://Animated Button/Noto_Sans/NotoSans-Bold.ttf" id="1_7l1ve"]
+[ext_resource type="FontFile" uid="uid://b2cjpt72vs46g" path="res://Animated Button/Noto_Sans/NotoSans-BoldItalic.ttf" id="2_tmnvi"]
+[ext_resource type="FontFile" uid="uid://dvtk7lnqp63jf" path="res://Animated Button/Noto_Sans/NotoSans-Italic.ttf" id="3_0ehl3"]
+[ext_resource type="FontFile" uid="uid://c3vv0w1rknigd" path="res://Animated Button/Noto_Sans/NotoSans-Regular.ttf" id="4_blfn4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkklh"]
 bg_color = Color(0, 0.266667, 0.239216, 1)

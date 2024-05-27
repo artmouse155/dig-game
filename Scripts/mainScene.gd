@@ -24,6 +24,7 @@ func _ready():
 
 func get_current_scene():
 	return get_tree().get_nodes_in_group("scenes")[0]
+	#if you get an error here, it is because the scene you tried to load isn't in the group "scenes". Fix this in the editor and you should be fine.
 
 func switch_scene(scene, do_transition=true, force_reload=false):
 	if (scene != current_scene) or (force_reload):
