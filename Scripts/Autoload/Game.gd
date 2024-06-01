@@ -106,8 +106,11 @@ func get_all_achievements()-> Array[Achievement]:
 	return all_data.all_achievements
 
 func _input(_ev):
+	#NOTE "`/~" key
+	if Input.is_action_just_pressed("toggle_debug"):
+		Debug.toggle()
 	if Input.is_key_pressed(KEY_ESCAPE):
-			quit_game()
+		quit_game()
 
 func quit_game():
 	get_tree().quit()

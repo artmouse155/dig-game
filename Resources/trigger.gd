@@ -6,16 +6,16 @@ class_name Trigger
 @export var trigger_stat_value : float = 10
 
 func is_met(val) -> bool:
-    match trigger_stat_comparison:
-        "greater_than":
-            return (val > trigger_stat_value)
-        "equal_to":
-            return (val == trigger_stat_value)
-        "less_than":
-            return (val < trigger_stat_value)
-        "greater_than_or_equal_to":
-            return (val >= trigger_stat_value)
-        "less_than_or_equal_to":
-            return (val <= trigger_stat_value)
-    print("error, trigger_stat_comparison not found:" + trigger_stat_comparison)
-    return false
+	match trigger_stat_comparison:
+		"greater_than":
+			return (val > trigger_stat_value)
+		"equal_to":
+			return (val == trigger_stat_value)
+		"less_than":
+			return (val < trigger_stat_value)
+		"greater_than_or_equal_to":
+			return (val >= trigger_stat_value)
+		"less_than_or_equal_to":
+			return (val <= trigger_stat_value)
+	print("error, trigger_stat_comparison not found:" + trigger_stat_comparison)
+	return false

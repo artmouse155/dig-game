@@ -162,10 +162,10 @@ func move(delta):
 		position += (Vector2.DOWN * velocity * float(Game.TILE_WIDTH) * delta).rotated(driller_angle)
 		if position.y > 0:
 			if Input.is_action_pressed("player_turn_left"):
-				driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+				driller_angle = clamp(driller_angle - (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
 			
 			elif Input.is_action_pressed("player_turn_right"):
-				driller_angle = clamp(driller_angle - (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+				driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
 			
 			set_sprite_rotation()
 		
