@@ -28,7 +28,6 @@ config/icon="res://Assets/Textures/logo.png"
 [autoload]
 
 Game="*res://Scripts/Autoload/Game.gd"
-Statistics="*res://Scripts/Autoload/Statistics.gd"
 Debug="*res://Scripts/Autoload/Debug.gd"
 
 [display]

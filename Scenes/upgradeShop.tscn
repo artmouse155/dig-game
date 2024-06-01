@@ -44,10 +44,33 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="AnimatedButton" parent="Container2/MarginContainer" instance=ExtResource("6_8xw20")]
+[node name="MainMenu" parent="Container2/MarginContainer" instance=ExtResource("6_8xw20")]
 layout_mode = 2
 button_text = "Main Menu"
 button_color = Color(0.38, 0.38, 0.38, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="Container2"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -153.0
+offset_top = -93.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Achievements" parent="Container2/MarginContainer2" instance=ExtResource("6_8xw20")]
+layout_mode = 2
+button_text = "Achievements"
+spell_elements = 1
+font_size = 32
+button_color = Color(0.701961, 0.631373, 0.176471, 1)
 
 [node name="Container" type="CenterContainer" parent="Container2"]
 layout_mode = 2
@@ -230,7 +253,8 @@ button_color = Color(0.329412, 0.560784, 0.211765, 1)
 visible = false
 z_index = 1
 
-[connection signal="pressed" from="Container2/MarginContainer/AnimatedButton" to="." method="return_to_main_menu"]
+[connection signal="pressed" from="Container2/MarginContainer/MainMenu" to="." method="return_to_main_menu"]
+[connection signal="pressed" from="Container2/MarginContainer2/Achievements" to="." method="achievements_screen"]
 [connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button" to="." method="new_day"]
 [connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button3" to="." method="return_to_main_menu"]
 [connection signal="pressed" from="Container2/Container/HBoxContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Button2" to="." method="quit_game"]

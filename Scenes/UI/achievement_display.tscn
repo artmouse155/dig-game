@@ -1,26 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6vuqyxxasmw4"]
+[gd_scene load_steps=5 format=3 uid="uid://b6vuqyxxasmw4"]
 
 [ext_resource type="Script" path="res://Scripts/achievement_display.gd" id="1_d6eyx"]
 [ext_resource type="PackedScene" uid="uid://c18ouqtifciee" path="res://Scenes/UI/achievement_tile.tscn" id="2_5toe0"]
 [ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_nr0la"]
+[ext_resource type="PackedScene" uid="uid://kw5mocxe0q47" path="res://Animated Button/animated_button.tscn" id="4_t4ocj"]
 
-[node name="AchievementDisplay" type="Node2D" node_paths=PackedStringArray("achievement_grid", "tooltip")]
+[node name="AchievementDisplay" type="Node2D" node_paths=PackedStringArray("achievement_grid", "tooltip") groups=["scenes"]]
 script = ExtResource("1_d6eyx")
-achievement_grid = NodePath("PanelContainer/MarginContainer/GridContainer")
+achievement_grid = NodePath("MarginContainer/CenterContainer/PanelContainer/MarginContainer/GridContainer")
 achievement_tile = ExtResource("2_5toe0")
 tooltip = NodePath("Tooltip")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="Tooltip" parent="." instance=ExtResource("3_nr0la")]
 visible = false
+
+[node name="menu" parent="." instance=ExtResource("4_t4ocj")]
+offset_left = 986.0
+offset_top = 182.0
+offset_right = 1095.0
+offset_bottom = 235.0
+button_text = "Main Menu"
+button_color = Color(0.38, 0.38, 0.38, 1)
+
+[node name="shop" parent="." instance=ExtResource("4_t4ocj")]
+offset_left = 850.0
+offset_top = 180.0
+offset_right = 974.0
+offset_bottom = 233.0
+button_text = "Back To Shop"
+button_color = Color(0.38, 0.38, 0.38, 1)
+
+[connection signal="pressed" from="menu" to="." method="return_to_main_menu"]
+[connection signal="pressed" from="shop" to="." method="back_to_shop"]

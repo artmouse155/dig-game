@@ -11,12 +11,13 @@ var all_data : AllData = preload("res://Resources/all_data.tres")
 const TILE_WIDTH = 32
 const PLAYER_STARTING_POS = Vector2(960,-200)
 
-enum {MAIN_MENU, WORLD_1, SHOP}
+enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS}
 
 const SCENES = {
 	MAIN_MENU : preload("res://Scenes/main_menu.tscn"),
 	WORLD_1 : preload("res://Scenes/world.tscn"),
 	SHOP : preload("res://Scenes/upgradeShop.tscn"),
+	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn")
 	
 }
 
@@ -80,6 +81,9 @@ func go_to_shop():
 
 func go_to_main_menu():
 	main_scene.switch_scene(MAIN_MENU)
+
+func go_to_achievements():
+	main_scene.switch_scene(ACHIEVEMENTS)
 
 func start_from_main_menu():
 	global_save_data.prev_save_name = save_name

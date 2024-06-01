@@ -74,5 +74,8 @@ func new_day():
 func return_to_main_menu():
 	Game.go_to_main_menu()
 
+func achievements_screen():
+	Game.go_to_achievements()
+
 func quit_game():
 	Game.quit_game()

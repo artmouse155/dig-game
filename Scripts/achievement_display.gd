@@ -16,3 +16,9 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		tooltip.position = get_local_mouse_position() + Vector2(1,1)
+
+func back_to_shop():
+	Game.go_to_shop()
+
+func return_to_main_menu():
+	Game.go_to_main_menu()
