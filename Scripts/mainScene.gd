@@ -10,6 +10,7 @@ func _ready():
 	Game.load_global_save_data()
 	var prev_name = Game.global_save_data.prev_save_name
 	if prev_name in Game.get_save_names():
+		print("prev_name ",prev_name)
 		Game.save_name = prev_name
 	else:
 		Game.global_save_data.prev_save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME

@@ -1,19 +1,19 @@
 extends Node2D
 
-@export var player_data : PlayerData
+@export var player_data: PlayerData
 
-@export var hull_node : TextureRect
-@export var drill_node : TextureRect
+@export var hull_node: TextureRect
+@export var drill_node: TextureRect
 #the height of the drill texture is our drill radius
 
-@export var battery_node : TextureRect
-@export var engine_node : TextureRect
-@export var boost_node : TextureRect
+@export var battery_node: TextureRect
+@export var engine_node: TextureRect
+@export var boost_node: TextureRect
 
-@export var drill_center : Control
-@export var polygon : Polygon2D
+@export var drill_center: Control
+@export var polygon: Polygon2D
 
-@export var turbo_particles : GPUParticles2D
+@export var turbo_particles: GPUParticles2D
 
 #@export var intermediate_damage_curve : Curve
 
@@ -36,17 +36,16 @@ func build_player():
 func get_drill_center() -> Control:
 	return drill_center
 
-func set_component_visual_data(component : Node, data : DrillerComponentObject):
+func set_component_visual_data(component: Node, data: DrillerComponentObject):
 	if component:
 		var offset = data.offset
 		component.texture = data.actual_texture
 		component.get_parent().position = offset
-		
 
-func set_player_scale(_scale : float):
+func set_player_scale(_scale: float):
 	player_scale = _scale
 	if hull_node:
 		scale = player_scale * Vector2.ONE
 
-func is_global_point_in_polygon(pt : Vector2):
+func is_global_point_in_polygon(pt: Vector2):
 	return Geometry2D.is_point_in_polygon(pt - polygon.global_position, polygon.polygon)

@@ -5,6 +5,8 @@ extends Node2D
 
 @export var intermediate_damage_curve : Curve
 
+@export var speed: int = 2
+
 #CONSTANTS
 const ENERGY_DECAY_RATE = 10
 const DURABILITY_DECAY_RATE = 10
@@ -242,3 +244,7 @@ func update_hud():
 	%Depth.text = str(depth)
 	%Speed.text = str(floor(10 * velocity) / 10.0)
 	%Turbo.text = str(turbos)
+	
+func change_speed(amount : int = 1):
+	speed = clamp(speed + amount, -1, 3)
+	$"../../../UI/Throttle".update(speed)	

@@ -1,8 +1,8 @@
 extends Node
 class_name SaveLoad
 
-const DEFAULT_GLOBAL_SAVE_DATA : GlobalData = preload("res://Resources/Global Save Data/default_global_save_data.tres")
-const DEFAULT_PLAYER_SAVE_DATA : PlayerData = preload("res://Resources/Player Data/default_player_data.tres")
+const DEFAULT_GLOBAL_SAVE_DATA: GlobalData = preload ("res://Resources/Global Save Data/default_global_save_data.tres")
+const DEFAULT_PLAYER_SAVE_DATA: PlayerData = preload ("res://Resources/Player Data/default_player_data.tres")
 
 const USER_DIR = "user://"
 const PLAYER_SAVE_DATA_DIR_NAME = "save_data"
@@ -21,9 +21,9 @@ const DEFAULT_PLAYER_SAVE_NAME = ""
 func save_new_player_data():
 	check_for_player_save_data()
 	var save_names = get_list_of_names_of_saves()
-	var valid_name : bool = false
+	var valid_name: bool = false
 	var i = 0
-	var save_name : String
+	var save_name: String
 	while !valid_name:
 		var temp_filename = SAVE_PREFIX + str(i) + SAVE_SUFFIX
 		if !(temp_filename in save_names):
@@ -36,7 +36,7 @@ func save_new_player_data():
 	ResourceSaver.save(DEFAULT_PLAYER_SAVE_DATA, FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
 	return save_name
 
-func save_player_data(data : PlayerData, save_name : String):
+func save_player_data(data: PlayerData, save_name: String):
 	check_for_player_save_data()
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	if dir.file_exists(save_name):
@@ -45,14 +45,13 @@ func save_player_data(data : PlayerData, save_name : String):
 		print("Couldn't save to " + save_name)
 		return null
 
-
 func get_list_of_names_of_saves() -> PackedStringArray:
 	check_for_player_save_data()
+	print(FULL_PLAYER_SAVE_DATA_DIR)
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	return dir.get_files()
 
-
-func get_save_data_by_name(save_name : String) -> PlayerData:
+func get_save_data_by_name(save_name: String) -> PlayerData:
 	check_for_player_save_data()
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	if dir.file_exists(save_name):
@@ -86,10 +85,9 @@ func init_global_save_data():
 	print("created new global save data.")
 	ResourceSaver.save(DEFAULT_GLOBAL_SAVE_DATA, USER_DIR + "/" + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
 
-func save_global_data(data : GlobalData):
+func save_global_data(data: GlobalData):
 	check_for_global_save_data()
 	ResourceSaver.save(data, USER_DIR + "/" + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
-
 
 func get_global_save_data() -> GlobalData:
 	check_for_global_save_data()

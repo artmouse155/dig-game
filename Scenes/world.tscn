@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
 [ext_resource type="Script" path="res://Scripts/GameOver.gd" id="2_i8h8n"]
@@ -31,6 +31,9 @@
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/IconAndTextParticle.tscn" id="15_c123r"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
+[ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
+[ext_resource type="Script" path="res://Scenes/throttle.gd" id="29_vwfyg"]
+[ext_resource type="Texture2D" uid="uid://sj4g5hoky4bt" path="res://Assets/Textures/UI/throttle/throttle_knob.png" id="30_rkleb"]
 
 [sub_resource type="Curve" id="Curve_gru56"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -424,17 +427,17 @@ text = "0"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Control" type="Control" parent="UI/MarginContainer/VBoxContainer"]
+[node name="Status Bars" type="Control" parent="UI/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 205)
 layout_mode = 2
 
-[node name="HBoxL" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/Control"]
+[node name="HBoxL" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/Status Bars"]
 layout_mode = 2
 offset_top = 4.0
 offset_right = 1920.0
 offset_bottom = 56.0
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/Control"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/Status Bars"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -450,12 +453,12 @@ size_flags_horizontal = 8
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 50
 
-[node name="HBoxR" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/Control/MarginContainer2"]
+[node name="HBoxR" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/Status Bars/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 2
 
-[node name="Durability" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/Control/MarginContainer2/HBoxR"]
+[node name="Durability" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/Status Bars/MarginContainer2/HBoxR"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 640.0
@@ -464,7 +467,7 @@ texture_over = ExtResource("8_l8p7o")
 texture_progress = SubResource("GradientTexture2D_tk7v4")
 texture_progress_offset = Vector2(115, 0)
 
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/VBoxContainer/Control/MarginContainer2/HBoxR/Durability"]
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/VBoxContainer/Status Bars/MarginContainer2/HBoxR/Durability"]
 z_as_relative = false
 layout_mode = 0
 offset_left = 94.0
@@ -473,7 +476,7 @@ offset_right = 770.0
 offset_bottom = 176.0
 color = Color(0, 0, 0, 1)
 
-[node name="Energy" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/Control/MarginContainer2/HBoxR"]
+[node name="Energy" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/Status Bars/MarginContainer2/HBoxR"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 440.0
@@ -482,7 +485,7 @@ texture_over = ExtResource("9_36wbe")
 texture_progress = SubResource("GradientTexture2D_02yaq")
 texture_progress_offset = Vector2(115, 0)
 
-[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/VBoxContainer/Control/MarginContainer2/HBoxR/Energy"]
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer/VBoxContainer/Status Bars/MarginContainer2/HBoxR/Energy"]
 z_as_relative = false
 layout_mode = 2
 offset_left = 94.0
@@ -586,6 +589,39 @@ theme_override_constants/margin_top = 970
 layout_mode = 2
 
 [node name="NotificationSystem" parent="UI/MarginContainer/MarginContainer3/Control" instance=ExtResource("28_xbrhy")]
+
+[node name="Throttle" type="Control" parent="UI"]
+custom_minimum_size = Vector2(300, 320)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -320.0
+offset_right = 300.0
+grow_vertical = 0
+script = ExtResource("29_vwfyg")
+
+[node name="ThrottleBase" type="TextureRect" parent="UI/Throttle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -160.0
+offset_right = 150.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_417t6")
+
+[node name="ThrottleKnob" type="TextureRect" parent="UI/Throttle"]
+layout_mode = 2
+offset_top = 90.0
+offset_right = 300.0
+offset_bottom = 146.0
+texture = ExtResource("30_rkleb")
 
 [node name="GameOver" type="Node2D" parent="."]
 visible = false

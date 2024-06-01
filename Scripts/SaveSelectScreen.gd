@@ -14,7 +14,7 @@ func setup(save_names : PackedStringArray):
 		var temp_data : PlayerData = Game.save_load.get_save_data_by_name(save_names[i])
 		var temp_days = temp_data.get_stat("day_number")
 		var temp_ore = temp_data.get_resource_amount("ore")
-		temp_button.text = save_names[i] + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
+		temp_button.text = "Save " + str(i+1) + "  Day " + str(temp_days) + "\nOre: " + str(temp_ore)
 		#temp_button.text = "Save " + str(i + 1) + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
 		temp_button.pressed.connect(name_picked_func.bind(save_names[i]))
 

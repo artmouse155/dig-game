@@ -229,9 +229,13 @@ func draw_chunk(chunk_coords: Vector2i):
 						tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0, 0))
 
 func _process(delta):
+	print("Speed: ",%Player.speed)
 	
 	if not Game.paused:
-		
+		if Input.is_action_just_pressed("accelerate"):
+			%Player.change_speed()
+		elif Input.is_action_just_pressed("decelerate"):
+			%Player.change_speed(-1)
 		update_h_follow_pos()
 		mine(delta)
 		check_chunk_regions()
