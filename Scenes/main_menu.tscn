@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bp0noqfbq7shv" path="res://Assets/Textures/Main Menu/bg.jpg" id="1_ioy0u"]
 [ext_resource type="Texture2D" uid="uid://1414ge0bm65x" path="res://Assets/Textures/Main Menu/title.png" id="2_rbirt"]
 [ext_resource type="Script" path="res://Scripts/SaveSelectScreen.gd" id="4_0713j"]
-[ext_resource type="Theme" uid="uid://bivqcfeicjuc6" path="res://Assets/Themes/menu.tres" id="4_j24rd"]
+[ext_resource type="Theme" path="res://Assets/Themes/menu.tres" id="4_j24rd"]
 
 [node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "menu_buttons", "save_select_screen") groups=["scenes"]]
 script = ExtResource("1_dkxu4")
