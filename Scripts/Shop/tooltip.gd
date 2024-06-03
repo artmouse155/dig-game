@@ -4,7 +4,7 @@ class_name Tooltip
 @onready var costContainer = $PanelContainer/MarginContainer/VBoxContainer/CostContainer
 @onready var buffContainer = $PanelContainer/MarginContainer/VBoxContainer/BuffContainer
 @onready var descNode = $PanelContainer/MarginContainer/VBoxContainer/Desc
-var resourceDataDisplay = preload("res://Scenes/resourceDataDisplay.tscn")
+var resourceDataDisplay = preload("res://Scenes/resource_data_display.tscn")
 
 @export var cost_label : Control
 @export var buff_label : Control

@@ -24,7 +24,7 @@ func setup(shopdata : DrillerComponentGroup):
 	var active_component_index = 0
 	for componentObjectGroupIndex in range(len(componentObjectGroup.component_objects)): 
 		#add icon
-		var temp_icon_tile = preload("res://Scenes/componentObjectTile.tscn").instantiate()
+		var temp_icon_tile = preload("res://Scenes/component_object_tile.tscn").instantiate()
 		component_object_tile_container.add_child(temp_icon_tile)
 		all_tiles.append(temp_icon_tile)
 		var obj = componentObjectGroup.component_objects[componentObjectGroupIndex]
@@ -43,7 +43,7 @@ func setup(shopdata : DrillerComponentGroup):
 		componentObjectUpgradeListList.append(temp_upgrade_panel_container)
 		upgrade_panel_container.add_child(temp_upgrade_panel_container)
 		for i in range(len(upgrade_lists)):
-			var temp_upgrade_panel = preload("res://Scenes/upgradepanel.tscn").instantiate()
+			var temp_upgrade_panel = preload("res://Scenes/upgrade_panel.tscn").instantiate()
 			
 			
 			temp_upgrade_panel_container.add_child(temp_upgrade_panel)

@@ -338,14 +338,14 @@ func _input(ev):
 
 func mine_tile(coords, tileGen: Gen):
 	if tile_exists(coords):
-		var particle = preload ("res://Scenes/tileBreakParticle.tscn").instantiate()
+		var particle = preload ("res://Scenes/tile_break_particle.tscn").instantiate()
 		subviewport.add_child(particle)
 		particle.position = tilemap.map_to_local(coords)
 		particle.restart()
 		particle.finished.connect(particle.queue_free)
 		
 		if (tileGen.group == "ore"):
-			var points_indicator = preload ("res://Scenes/labelParticle.tscn").instantiate()
+			var points_indicator = preload ("res://Scenes/label_particle.tscn").instantiate()
 			points_indicator.setup(str(tileGen.value))
 			subviewport.add_child(points_indicator)
 			points_indicator.position = tilemap.map_to_local(coords)

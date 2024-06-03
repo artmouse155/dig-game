@@ -21,13 +21,13 @@ resources_spreadsheet_view/context_menu_on_leftclick=false
 [application]
 
 config/name="Dig Game"
-run/main_scene="res://Scenes/mainScene.tscn"
+run/main_scene="res://Scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://Assets/Textures/logo.png"
 
 [autoload]
 
-Game="*res://Scripts/Autoload/Game.gd"
+Game="*res://Scripts/Autoload/game.gd"
 Debug="*res://Scripts/Autoload/Debug.gd"
 
 [display]

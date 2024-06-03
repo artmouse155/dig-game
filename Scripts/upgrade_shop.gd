@@ -1,6 +1,6 @@
 extends Node2D
 
-const RESOURCE_DISPLAY = preload("res://Scenes/resourceDataDisplay.tscn")
+const RESOURCE_DISPLAY = preload("res://Scenes/resource_data_display.tscn")
 
 var all_driller_component_groups : Array[DrillerComponentGroup]
 
@@ -17,7 +17,7 @@ func _ready():
 	all_driller_component_groups = Game.all_data.all_driller_component_groups
 	
 	for i in range(len(all_driller_component_groups)):
-		var driller_component_group_panel = preload("res://Scenes/drillerComponentGroupPanel.tscn").instantiate()
+		var driller_component_group_panel = preload("res://Scenes/driller_component_group_panel.tscn").instantiate()
 		shop_tab_container.add_child(driller_component_group_panel)
 		driller_component_group_panel.tooltip = tooltip
 		driller_component_group_panel.name = all_driller_component_groups[i].component_group_name

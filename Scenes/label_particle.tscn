@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dx485r7nnyngs"]
 
-[ext_resource type="Script" path="res://Scripts/labelParticle.gd" id="1_0yh1p"]
+[ext_resource type="Script" path="res://Scripts/label_particle.gd" id="1_0yh1p"]
 
 [sub_resource type="Curve" id="Curve_ukjbh"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.00001, 0.0, 1, 0]

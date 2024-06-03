@@ -16,7 +16,7 @@ enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS}
 const SCENES = {
 	MAIN_MENU : preload("res://Scenes/main_menu.tscn"),
 	WORLD_1 : preload("res://Scenes/world.tscn"),
-	SHOP : preload("res://Scenes/upgradeShop.tscn"),
+	SHOP : preload("res://Scenes/upgrade_shop.tscn"),
 	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn")
 	
 }

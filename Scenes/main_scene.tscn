@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvo74v4p1vl5s"]
 
-[ext_resource type="Script" path="res://Scripts/mainScene.gd" id="1_q33fh"]
+[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
 
 [node name="MainScene" type="Node2D" groups=["main scene"]]
