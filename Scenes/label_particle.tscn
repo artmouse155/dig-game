@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dx485r7nnyngs"]
+[gd_scene load_steps=8 format=3 uid="uid://mhapasvnxhnv"]
 
-[ext_resource type="Script" path="res://Scripts/labelParticle.gd" id="1_0yh1p"]
+[ext_resource type="Script" path="res://Scripts/label_particle.gd" id="1_dblk8"]
 
 [sub_resource type="Curve" id="Curve_ukjbh"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.00001, 0.0, 1, 0]
@@ -33,7 +33,7 @@ alpha_curve = SubResource("CurveTexture_w7ygj")
 viewport_path = NodePath("SubViewport")
 
 [node name="LabelParticle" type="Node2D"]
-script = ExtResource("1_0yh1p")
+script = ExtResource("1_dblk8")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
