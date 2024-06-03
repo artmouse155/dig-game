@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -28,6 +28,7 @@
 [ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
+[ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
 [ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
 [ext_resource type="Texture2D" uid="uid://sj4g5hoky4bt" path="res://Assets/Textures/UI/throttle/throttle_knob.png" id="30_rkleb"]
@@ -64,6 +65,7 @@ var score: float = 0.0
 
 @export var iconAndTextParticle: PackedScene
 @export var notificationSystem: Node2D
+@export var throttle: Control
 #var tile_data = {}
 
 var chunks = {}
@@ -767,7 +769,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("day_number_label", "notificationSystem") groups=["scenes"]]
+[node name="World" type="Node2D" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle") groups=["scenes"]]
 script = SubResource("GDScript_d1elt")
 linear_curve = SubResource("Curve_gru56")
 bell_curve = SubResource("Curve_pe81p")
@@ -779,6 +781,7 @@ day_number_label = NodePath("SubViewportContainer/SubViewport/Control2/Control/D
 gen_data = Array[Resource("res://Resources/gen.gd")]([ExtResource("2_r1251"), ExtResource("3_t0cxn"), ExtResource("4_uwscm"), ExtResource("5_707rn"), ExtResource("6_xowi1"), ExtResource("7_5e5g1"), ExtResource("8_mi6a4"), ExtResource("6_jutqh"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("13_gw8xf"), ExtResource("7_jx3ys")])
 iconAndTextParticle = ExtResource("15_mp0r6")
 notificationSystem = NodePath("UI/MarginContainer/MarginContainer3/Control/NotificationSystem")
+throttle = NodePath("UI/Throttle")
 
 [node name="Darkness" type="ColorRect" parent="."]
 z_index = -10
@@ -1140,6 +1143,7 @@ anchor_bottom = 1.0
 offset_top = -320.0
 offset_right = 300.0
 grow_vertical = 0
+script = ExtResource("28_hdspb")
 
 [node name="ThrottleBase" type="TextureRect" parent="UI/Throttle"]
 layout_mode = 1
