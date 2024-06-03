@@ -110,7 +110,7 @@ text = "Quit
 layout_mode = 2
 theme = ExtResource("5_gsjva")
 script = ExtResource("4_0713j")
-save_data_container = NodePath("MarginContainer/VBoxContainer/Saves")
+save_data_container = NodePath("MarginContainer/VBoxContainer/GridContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
 layout_mode = 2
@@ -128,8 +128,9 @@ layout_mode = 2
 text = "Saves"
 horizontal_alignment = 1
 
-[node name="Saves" type="HBoxContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
+columns = 5
 
 [node name="Back" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
