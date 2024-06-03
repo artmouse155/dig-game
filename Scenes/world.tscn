@@ -1,14 +1,12 @@
 [gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
-[ext_resource type="Script" path="res://Scripts/GameOver.gd" id="2_i8h8n"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_3ij0q"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
 [ext_resource type="Resource" uid="uid://camjt31i8lv7f" path="res://Resources/World Generation/Gems/red_gem.tres" id="3_t0cxn"]
 [ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]
 [ext_resource type="Resource" uid="uid://dhgb8piyw87hi" path="res://Resources/World Generation/coal.tres" id="4_4i2cs"]
-[ext_resource type="Script" path="res://Scripts/world_Player.gd" id="4_5n57c"]
 [ext_resource type="Resource" uid="uid://bjhha8o23j1yo" path="res://Resources/World Generation/Gems/green_gem.tres" id="4_uwscm"]
 [ext_resource type="Resource" uid="uid://c82q4lxnextrf" path="res://Resources/World Generation/Gems/blue_gem.tres" id="5_707rn"]
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="5_cok10"]
@@ -30,10 +28,12 @@
 [ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/IconAndTextParticle.tscn" id="15_c123r"]
+[ext_resource type="Script" path="res://Scripts/world_player.gd" id="18_m8rvf"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
 [ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
 [ext_resource type="Script" path="res://Scenes/throttle.gd" id="29_vwfyg"]
 [ext_resource type="Texture2D" uid="uid://sj4g5hoky4bt" path="res://Assets/Textures/UI/throttle/throttle_knob.png" id="30_rkleb"]
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="32_ri26j"]
 
 [sub_resource type="Curve" id="Curve_gru56"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -227,7 +227,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("day_number_label", "notificationSystem") groups=["scenes"]]
-script = ExtResource("1_37iqd")
+script = ExtResource("1_3ij0q")
 linear_curve = SubResource("Curve_gru56")
 bell_curve = SubResource("Curve_pe81p")
 smooth_curve = SubResource("Curve_ggsgv")
@@ -292,7 +292,7 @@ layer_0/tile_data = PackedInt32Array(-131066, 458753, 4, -131065, 458753, 4, -13
 [node name="Player" type="Node2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture")]
 unique_name_in_owner = true
 position = Vector2(960, -200)
-script = ExtResource("4_5n57c")
+script = ExtResource("18_m8rvf")
 world = NodePath("../../..")
 player_texture = NodePath("Player")
 intermediate_damage_curve = SubResource("Curve_mcinw")
@@ -627,7 +627,7 @@ texture = ExtResource("30_rkleb")
 visible = false
 z_index = 1
 position = Vector2(960, 540)
-script = ExtResource("2_i8h8n")
+script = ExtResource("32_ri26j")
 
 [node name="Fade" type="ColorRect" parent="GameOver"]
 z_index = 4

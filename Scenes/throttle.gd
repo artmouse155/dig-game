@@ -11,5 +11,5 @@ func _process(delta):
 	pass
 
 func update(speed : int):
-	#$ThrottleKnob.position.y = 190 - (50 * speed)
-	$ThrottleKnob.position = $ThrottleKnob.position.lerp(Vector2(0, 190 - (50 * speed)), 1)
+	$ThrottleKnob.position.y = 190 - (50 * speed)
+	#$ThrottleKnob.position = $ThrottleKnob.position.lerp(Vector2(0, 190 - (50 * speed)), 1)
