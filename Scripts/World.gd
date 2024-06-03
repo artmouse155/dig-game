@@ -28,6 +28,7 @@ var score: float = 0.0
 
 @export var iconAndTextParticle: PackedScene
 @export var notificationSystem: Node2D
+@export var throttle: Control
 #var tile_data = {}
 
 var chunks = {}
