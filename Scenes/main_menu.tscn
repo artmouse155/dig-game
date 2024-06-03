@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcvxetxrlr5ax"]
+[gd_scene load_steps=8 format=3 uid="uid://bcvxetxrlr5ax"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
 [ext_resource type="Texture2D" uid="uid://bp0noqfbq7shv" path="res://Assets/Textures/Main Menu/bg.jpg" id="1_ioy0u"]
 [ext_resource type="Texture2D" uid="uid://1414ge0bm65x" path="res://Assets/Textures/Main Menu/title.png" id="2_rbirt"]
 [ext_resource type="Script" path="res://Scripts/save_select_screen.gd" id="4_0713j"]
-[ext_resource type="Theme" uid="uid://bivqcfeicjuc6" path="res://Assets/Themes/menu.tres" id="4_j24rd"]
+[ext_resource type="FontFile" uid="uid://be52u2oaw7iyq" path="res://Assets/Fonts/Aller_Bd.ttf" id="4_ffl0i"]
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="5_gsjva"]
+
+[sub_resource type="Theme" id="Theme_6uh8r"]
+default_font = ExtResource("4_ffl0i")
+default_font_size = 40
 
 [node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "menu_buttons", "save_select_screen") groups=["scenes"]]
 script = ExtResource("1_dkxu4")
-continue_button = NodePath("Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Continue")
-new_game_button = NodePath("Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/New Game")
-menu_buttons = NodePath("Control/VBoxContainer/CenterContainer/MenuButtons")
+continue_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue")
+new_game_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game")
+menu_buttons = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer")
 save_select_screen = NodePath("Control/VBoxContainer/CenterContainer/SaveSelectScreen")
 
 [node name="Bg" type="TextureRect" parent="."]
@@ -31,6 +36,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -91.0
+offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -53,46 +60,48 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="MenuButtons" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer"]
+[node name="MenuContainer" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer"]
 layout_mode = 2
+theme = ExtResource("5_gsjva")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/MenuButtons"]
+[node name="MenuMargin" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/MenuContainer"]
 layout_mode = 2
-theme = ExtResource("4_j24rd")
+theme = SubResource("Theme_6uh8r")
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer"]
+[node name="MenuButtons" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin"]
 layout_mode = 2
+theme = ExtResource("5_gsjva")
 theme_override_constants/separation = 20
 
-[node name="Continue" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="Continue" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 layout_mode = 2
 text = "Continue"
 
-[node name="New Game" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="New Game" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 layout_mode = 2
 text = "New Game"
 
-[node name="Load Save" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="Load Save" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 layout_mode = 2
 text = "Load Save"
 
-[node name="Settings" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="Settings" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 visible = false
 layout_mode = 2
 text = "Settings
 "
 
-[node name="Credits" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="Credits" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 visible = false
 layout_mode = 2
 text = "Credits
 "
 
-[node name="Quit" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
 layout_mode = 2
 text = "Quit
 "
@@ -100,7 +109,7 @@ text = "Quit
 [node name="SaveSelectScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("save_data_container")]
 visible = false
 layout_mode = 2
-theme = ExtResource("4_j24rd")
+theme = SubResource("Theme_6uh8r")
 script = ExtResource("4_0713j")
 save_data_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer2")
 
@@ -128,11 +137,11 @@ theme_override_constants/separation = 20
 layout_mode = 2
 text = "Back"
 
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Continue" to="." method="start_game"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/New Game" to="." method="new_game"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Load Save" to="." method="load_save_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Settings" to="." method="show_settings"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Credits" to="." method="show_credits"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuButtons/MarginContainer/VBoxContainer/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue" to="." method="start_game"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game" to="." method="new_game"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Load Save" to="." method="load_save_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Settings" to="." method="show_settings"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Credits" to="." method="show_credits"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Quit" to="." method="quit_game"]
 [connection signal="name_picked" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen" to="." method="name_picked"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/Back" to="." method="show_menu_buttons"]

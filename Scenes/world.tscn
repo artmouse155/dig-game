@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=51 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -30,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
 [ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
-[ext_resource type="Script" path="res://Scenes/throttle.gd" id="29_vwfyg"]
 [ext_resource type="Texture2D" uid="uid://sj4g5hoky4bt" path="res://Assets/Textures/UI/throttle/throttle_knob.png" id="30_rkleb"]
 [ext_resource type="Script" path="res://Scripts/game_over.gd" id="32_v23fj"]
 
@@ -1141,7 +1140,6 @@ anchor_bottom = 1.0
 offset_top = -320.0
 offset_right = 300.0
 grow_vertical = 0
-script = ExtResource("29_vwfyg")
 
 [node name="ThrottleBase" type="TextureRect" parent="UI/Throttle"]
 layout_mode = 1
