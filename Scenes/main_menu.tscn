@@ -110,7 +110,7 @@ text = "Quit
 layout_mode = 2
 theme = ExtResource("5_gsjva")
 script = ExtResource("4_0713j")
-save_data_container = NodePath("MarginContainer/VBoxContainer/GridContainer")
+save_data_container = NodePath("MarginContainer/VBoxContainer/SavesGrid")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
 layout_mode = 2
@@ -128,11 +128,11 @@ layout_mode = 2
 text = "Saves"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="SavesGrid" type="GridContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 columns = 5
 
-[node name="Back" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
@@ -144,4 +144,4 @@ text = "Back"
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Credits" to="." method="show_credits"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Quit" to="." method="quit_game"]
 [connection signal="name_picked" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen" to="." method="name_picked"]
-[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/Back" to="." method="show_menu_buttons"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/BackButton" to="." method="show_menu_buttons"]
