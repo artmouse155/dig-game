@@ -107,11 +107,10 @@ text = "Quit
 "
 
 [node name="SaveSelectScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("save_data_container")]
-visible = false
 layout_mode = 2
-theme = SubResource("Theme_6uh8r")
+theme = ExtResource("5_gsjva")
 script = ExtResource("4_0713j")
-save_data_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer2")
+save_data_container = NodePath("MarginContainer/VBoxContainer/Saves")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
 layout_mode = 2
@@ -129,12 +128,12 @@ layout_mode = 2
 text = "Saves"
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="Saves" type="HBoxContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="Back" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue" to="." method="start_game"]
