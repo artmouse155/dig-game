@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=9 format=3 uid="uid://ck0wrxlg7g5en"]
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=10 format=3 uid="uid://ck0wrxlg7g5en"]
 
+[ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Drills/mark_1.png" id="1_3g5rv"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="1_m141h"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_ohbp3"]
 [ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/Shop Data/durability.tres" id="3_6mvr2"]
@@ -11,6 +12,7 @@ script = ExtResource("2_ohbp3")
 component_object_name = "Mach 12"
 parent_group_name = ""
 component_object_tile_image = ExtResource("1_m141h")
+actual_texture = ExtResource("1_3g5rv")
 offset = Vector2(0, 0)
 desc = "The best drill money can buy."
 locked_desc = "Unlock by donating to Chase!"
@@ -22,6 +24,7 @@ script = ExtResource("2_ohbp3")
 component_object_name = "Mach 99"
 parent_group_name = ""
 component_object_tile_image = ExtResource("1_m141h")
+actual_texture = ExtResource("1_3g5rv")
 offset = Vector2(0, 0)
 desc = "The best drill money can buy."
 locked_desc = "Unlock by donating to Chase!"
@@ -33,6 +36,7 @@ script = ExtResource("2_ohbp3")
 component_object_name = "Mach 32"
 parent_group_name = ""
 component_object_tile_image = ExtResource("1_m141h")
+actual_texture = ExtResource("1_3g5rv")
 offset = Vector2(0, 0)
 desc = "The best drill money can buy."
 locked_desc = "Unlock by donating to Chase!"
