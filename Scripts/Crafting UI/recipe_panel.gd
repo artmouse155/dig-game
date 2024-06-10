@@ -22,7 +22,7 @@ var current_recipe_index: int:
 	set(value):
 		print("current recipe index is ", value)
 		current_recipe_index = value
-var recipe_progress = 0 #in pixels
+var recipe_progress: float = 0 #in pixels
 
 var recipe_icons: Array[Node] = []
 

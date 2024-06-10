@@ -1,18 +1,17 @@
 [gd_scene load_steps=14 format=3 uid="uid://b68iujguf6sks"]
 
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="1_7pasy"]
 [ext_resource type="Texture2D" uid="uid://dtrp2w1h8vvt1" path="res://Assets/Textures/UI/crafting_ui/background.png" id="1_ef1b8"]
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="2_kdne7"]
 [ext_resource type="Script" path="res://Scripts/Crafting UI/recipe_panel.gd" id="2_lkfbs"]
+[ext_resource type="Texture2D" uid="uid://q8kd5c1lr4qe" path="res://Assets/Textures/UI/crafting_ui/ui_back.png" id="3_h6lgh"]
 [ext_resource type="Texture2D" uid="uid://bqjpxtxbbbsyr" path="res://Assets/Textures/UI/crafting_ui/gear.png" id="3_perg4"]
+[ext_resource type="Texture2D" uid="uid://bue14r417rygd" path="res://Assets/Textures/UI/Button/left_arrow.png" id="3_vgrmg"]
+[ext_resource type="Texture2D" uid="uid://b10hm4pt363ql" path="res://Assets/Textures/UI/Button/arrow.png" id="5_e782u"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oodu1"]
-bg_color = Color(0.215686, 0.0666667, 0.0627451, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf8dl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shfh2"]
-bg_color = Color(0.643137, 0.329412, 0.188235, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ifbo"]
-bg_color = Color(0.768627, 0.611765, 0.509804, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arclr"]
 
 [sub_resource type="Curve" id="Curve_joy63"]
 min_value = 1.0
@@ -20,20 +19,10 @@ max_value = 2.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1.2), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbn4g"]
-bg_color = Color(0.643137, 0.329412, 0.188235, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5gp1"]
-bg_color = Color(0.643137, 0.329412, 0.188235, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebkil"]
-bg_color = Color(0.247059, 0.666667, 0.709804, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5esn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f77u"]
 bg_color = Color(0.136748, 0.0486053, 0.0152379, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcg8e"]
-bg_color = Color(0.215686, 0.0666667, 0.0627451, 1)
 
 [node name="CraftingUi" type="Node2D"]
 
@@ -42,6 +31,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme = ExtResource("1_7pasy")
 
 [node name="TextureRect" type="TextureRect" parent="Base"]
 z_index = -10
@@ -54,23 +44,30 @@ grow_vertical = 2
 texture = ExtResource("1_ef1b8")
 stretch_mode = 6
 
+[node name="TextureRect2" type="TextureRect" parent="Base"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = -65.0
+offset_right = 1744.0
+offset_bottom = 1461.0
+scale = Vector2(0.854011, 0.854011)
+texture = ExtResource("3_h6lgh")
+
 [node name="PanelContainer" type="PanelContainer" parent="Base"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchor_bottom = 1.0
+offset_left = -498.0
+offset_right = 498.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oodu1")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pf8dl")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Base/PanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -93,7 +90,7 @@ theme_override_constants/margin_bottom = 20
 [node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
-text = "CRAFT  EQUIPMENT"
+text = "CRAFT EQUIPMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -112,15 +109,18 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_shfh2")
-text = "<"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
+icon = ExtResource("3_vgrmg")
 
 [node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear")]
 clip_children = 2
 custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_8ifbo")
 script = ExtResource("2_lkfbs")
 icons_center = NodePath("Control")
 left_button = NodePath("../RecipeLeft")
@@ -155,8 +155,12 @@ mouse_filter = 1
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_fbn4g")
-text = ">"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y5esn")
+icon = ExtResource("5_e782u")
 
 [node name="MarginContainer4" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -168,7 +172,6 @@ theme_override_constants/margin_bottom = 20
 [node name="PanelContainer" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4"]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5gp1")
 
 [node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
 layout_mode = 2
@@ -179,8 +182,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxFlat_ebkil")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ebkil")
 disabled = true
 text = "CRAFT"
 
@@ -210,8 +211,10 @@ theme_override_constants/margin_bottom = 20
 [node name="Recipe Desc" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
 text = "\"A drill so powerful, you will never need another one.\""
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -283,12 +286,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 2
-theme_override_constants/margin_left = 250
-theme_override_constants/margin_right = -250
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = -450
 
 [node name="PanelContainer" type="PanelContainer" parent="Base/PanelContainer/MarginContainer5/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dcg8e")
 
 [node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/MarginContainer5/MarginContainer/PanelContainer"]
 layout_mode = 2
@@ -305,10 +307,12 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Base/PanelContainer/MarginContainer5/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Sort By"
 
 [node name="OptionButton" type="OptionButton" parent="Base/PanelContainer/MarginContainer5/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 item_count = 2
 selected = 0
 popup/item_0/text = "Date Found"
@@ -325,53 +329,54 @@ size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="Base/PanelContainer/MarginContainer5/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Show prevously
 crafted recipes"
 
 [node name="Gears" type="Node2D" parent="Base/PanelContainer"]
 
 [node name="LeftGear" type="Sprite2D" parent="Base/PanelContainer/Gears"]
-position = Vector2(88, 537)
+position = Vector2(158, 569)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="RightGear" type="Sprite2D" parent="Base/PanelContainer/Gears"]
-position = Vector2(751, 537)
+position = Vector2(840, 586)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear3" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(-25, 131)
+position = Vector2(3, 108)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear4" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(114, 5)
+position = Vector2(-18, 254)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear5" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(255, -5)
+position = Vector2(1013, 991)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear6" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(840, 942)
+position = Vector2(996, 848)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear7" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(858, 267)
+position = Vector2(-10, 949)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
 
 [node name="Gear8" type="Sprite2D" parent="Base/PanelContainer/Gears"]
 z_index = -1
-position = Vector2(818, 141)
+position = Vector2(1018, 231)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_perg4")
