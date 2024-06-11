@@ -1,12 +1,14 @@
 extends Node2D
 
 @export var special_fx: Node2D
+@export var particles : GPUParticles2D
 @export var sprite : Sprite2D
 
 signal clicked
 
 func show_glow(b: bool):
 	special_fx.visible = b
+	particles.visible = b
 
 func _input(event):
 	if event is InputEventMouseButton\
