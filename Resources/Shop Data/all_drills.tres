@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=10 format=3 uid="uid://ck0wrxlg7g5en"]
 
-[ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Drills/mark_1.png" id="1_3g5rv"]
+[ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Components/Drills/mark_1.png" id="1_3g5rv"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="1_m141h"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_ohbp3"]
 [ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/Shop Data/durability.tres" id="3_6mvr2"]

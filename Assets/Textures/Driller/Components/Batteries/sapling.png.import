@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvshq2d8jj6l3"
-path="res://.godot/imported/mark_1.png-0ec1d91c0472d54854c37316bb1918ac.ctex"
+uid="uid://7lod7ahlh8pk"
+path="res://.godot/imported/sapling.png-f502cb00599d45625172fb3b41b1f02d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Driller/Drills/mark_1.png"
-dest_files=["res://.godot/imported/mark_1.png-0ec1d91c0472d54854c37316bb1918ac.ctex"]
+source_file="res://Assets/Textures/Driller/Components/Batteries/sapling.png"
+dest_files=["res://.godot/imported/sapling.png-f502cb00599d45625172fb3b41b1f02d.ctex"]
 
 [params]
 

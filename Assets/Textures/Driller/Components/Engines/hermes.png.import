@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bysshbq0p3ksm"
-path="res://.godot/imported/vanguard.png-9d42e4dffe9524054f9e5fc8f54a5a15.ctex"
+uid="uid://v2vavy77oqd2"
+path="res://.godot/imported/hermes.png-1a5b70a886f395318f0c0781315c5a0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Driller/Hulls/vanguard.png"
-dest_files=["res://.godot/imported/vanguard.png-9d42e4dffe9524054f9e5fc8f54a5a15.ctex"]
+source_file="res://Assets/Textures/Driller/Components/Engines/hermes.png"
+dest_files=["res://.godot/imported/hermes.png-1a5b70a886f395318f0c0781315c5a0f.ctex"]
 
 [params]
 

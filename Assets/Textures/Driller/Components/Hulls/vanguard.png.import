@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vuwqikuepk3y"
-path="res://.godot/imported/nova_accelerator.png-7e02f5129a0bc9e11d3a390ae019e405.ctex"
+uid="uid://bysshbq0p3ksm"
+path="res://.godot/imported/vanguard.png-3541fc5f79fef988ebf2f28196fa476d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Driller/Boosts/nova_accelerator.png"
-dest_files=["res://.godot/imported/nova_accelerator.png-7e02f5129a0bc9e11d3a390ae019e405.ctex"]
+source_file="res://Assets/Textures/Driller/Components/Hulls/vanguard.png"
+dest_files=["res://.godot/imported/vanguard.png-3541fc5f79fef988ebf2f28196fa476d.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=7 format=3 uid="uid://cf7lwurtkpbcw"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
-[ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Engines/hermes.png" id="1_s23tu"]
+[ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Components/Engines/hermes.png" id="1_s23tu"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_8brhn"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="3_432a0"]
 

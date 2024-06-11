@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7lod7ahlh8pk"
-path="res://.godot/imported/sapling.png-cfdb5520a4ea6bba01d71cdc42c9543f.ctex"
+uid="uid://bodomn8mcsudy"
+path="res://.godot/imported/sample_recipe - Copy.png-53654ab6688cee37627ae1e9d36b7fbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Driller/Batteries/sapling.png"
-dest_files=["res://.godot/imported/sapling.png-cfdb5520a4ea6bba01d71cdc42c9543f.ctex"]
+source_file="res://Assets/Textures/Driller/Recipes/sample_recipe - Copy.png"
+dest_files=["res://.godot/imported/sample_recipe - Copy.png-53654ab6688cee37627ae1e9d36b7fbb.ctex"]
 
 [params]
 

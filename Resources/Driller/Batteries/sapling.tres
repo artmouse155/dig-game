@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=13 format=3 uid="uid://doqwwsa3h0i6k"]
 
-[ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Batteries/sapling.png" id="1_64h17"]
+[ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Components/Batteries/sapling.png" id="1_64h17"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_k6kd2"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_jotfi"]
 [ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="3_8o1oh"]
