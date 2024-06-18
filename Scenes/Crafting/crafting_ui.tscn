@@ -24,7 +24,7 @@ point_count = 3
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f77u"]
 bg_color = Color(0.136748, 0.0486053, 0.0152379, 1)
 
-[node name="CraftingUi" type="Node2D"]
+[node name="CraftingUi" type="Node2D" groups=["scenes"]]
 
 [node name="Base" type="Control" parent="."]
 layout_mode = 3
@@ -133,7 +133,7 @@ layout_mode = 2
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
-[node name="Button" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="Back" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Back"
@@ -175,7 +175,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
 icon = ExtResource("4_hrpef")
 
-[node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear")]
+[node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear", "sort_method_node", "show_prev_crafted_Node", "ingredient_list_node", "recipe_name_node", "desc_node", "craft_button", "all_recipes_crafted_node")]
 clip_children = 2
 custom_minimum_size = Vector2(700, 300)
 layout_mode = 2
@@ -187,6 +187,13 @@ right_button = NodePath("../RecipeRight")
 left_gear = NodePath("../../../../Gears/LeftGear")
 right_gear = NodePath("../../../../Gears/RightGear")
 scale_curve = SubResource("Curve_joy63")
+sort_method_node = NodePath("../../../../../MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/OptionButton")
+show_prev_crafted_Node = NodePath("../../../../../MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/CheckBox")
+ingredient_list_node = NodePath("../../../MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List")
+recipe_name_node = NodePath("MarginContainer/Recipe Name")
+desc_node = NodePath("../../../MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/Recipe Desc")
+craft_button = NodePath("../../../MarginContainer4/PanelContainer/MarginContainer/CraftButton")
+all_recipes_crafted_node = NodePath("All Recipes Crafed")
 
 [node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel"]
 layout_mode = 2
@@ -194,7 +201,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = 20
 
-[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel/MarginContainer"]
+[node name="Recipe Name" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel/MarginContainer"]
 z_index = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -209,6 +216,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
+
+[node name="All Recipes Crafed" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel"]
+layout_mode = 2
+text = "All Recipes Crafted"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RecipeRight" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
@@ -231,18 +244,6 @@ theme_override_constants/margin_bottom = 20
 [node name="PanelContainer" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4"]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_bottom = 20
-
-[node name="CraftButton" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
-disabled = true
-text = "CRAFT"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
 layout_mode = 2
@@ -291,48 +292,60 @@ layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3"]
+[node name="Ingredient List" type="VBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("7_bkfrh")
 
-[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "20,000 Gold"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("7_bkfrh")
 
-[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "20 Ore"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer3"]
 layout_mode = 2
 texture = ExtResource("7_bkfrh")
 
-[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "100 Brick"
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="CraftButton" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+disabled = true
+text = "CRAFT"
 
 [node name="Gears" type="Node2D" parent="Base/PanelContainer"]
 
@@ -381,3 +394,8 @@ z_index = -1
 position = Vector2(1018, 231)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_av583")
+
+[connection signal="item_selected" from="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/OptionButton" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="sort_item_selected"]
+[connection signal="toggled" from="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/CheckBox" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="checkbox_toggled"]
+[connection signal="pressed" from="Base/PanelContainer/VBoxContainer/MarginContainer/Back" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="go_to_shop"]
+[connection signal="pressed" from="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/MarginContainer/CraftButton" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="craft_current_recipe"]

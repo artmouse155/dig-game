@@ -11,14 +11,14 @@ var all_data : AllData = preload("res://Resources/all_data.tres")
 const TILE_WIDTH = 32
 const PLAYER_STARTING_POS = Vector2(960,-200)
 
-enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS}
+enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS, CRAFTING}
 
 const SCENES = {
 	MAIN_MENU : preload("res://Scenes/main_menu.tscn"),
 	WORLD_1 : preload("res://Scenes/world.tscn"),
 	SHOP : preload("res://Scenes/upgrade_shop.tscn"),
-	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn")
-	
+	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn"),
+	CRAFTING : preload("res://Scenes/Crafting/crafting_ui.tscn"),
 }
 
 var paused = false
@@ -84,6 +84,9 @@ func go_to_main_menu():
 
 func go_to_achievements():
 	main_scene.switch_scene(ACHIEVEMENTS)
+
+func go_to_crafting():
+	main_scene.switch_scene(CRAFTING)
 
 func start_from_main_menu():
 	global_save_data.prev_save_name = save_name

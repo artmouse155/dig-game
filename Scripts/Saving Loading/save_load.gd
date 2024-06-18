@@ -6,7 +6,7 @@ const DEFAULT_PLAYER_SAVE_DATA: PlayerData = preload ("res://Resources/Player Da
 
 const USER_DIR = "user://"
 const PLAYER_SAVE_DATA_DIR_NAME = "save_data"
-const FULL_PLAYER_SAVE_DATA_DIR = USER_DIR + "/" + PLAYER_SAVE_DATA_DIR_NAME
+const FULL_PLAYER_SAVE_DATA_DIR = USER_DIR	 + PLAYER_SAVE_DATA_DIR_NAME
 
 const GLOBAL_SAVE_DATA_NAME = "global_data"
 

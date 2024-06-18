@@ -11,8 +11,11 @@ class_name DrillerComponentObject
 @export var upgrade_lists : Array[UpgradeList]
 @export var base_buffs : Array[BuffItem]
 
-@export var unlock_trigger : Trigger
+@export var recipe_found_trigger : Trigger = preload("res://Resources/Driller/default_trigger.tres")
+@export var crafting_recipe : Array[ResourceData] = [preload("res://Resources/Driller/ten_ore.tres")]
+@export var recipe_image : Texture2D = preload("res://Assets/Textures/Driller/Recipes/sample_recipe.png")
 
+@export var in_game_age : int = 0
 # Make sure that every parameter has a default value.
 # Otherwise, there will be problems with creating and editing
 # your resource via the inspector.

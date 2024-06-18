@@ -27,7 +27,7 @@ void fragment() {
 	float new_angle = (swirl_amount * (1.0 - dist_from_wall)) + angle;
 	
 	vec2 uv_to_test = 0.5 * ((d * vec2(cos(new_angle), sin(new_angle))) + 1.0);
-	//uv_to_test = 1.0 - UV;
+	uv_to_test = UV + (.1 * d);
 	vec2 screen_uv = SCREEN_UV;
 	screen_uv = SCREEN_UV + ((uv_to_test - UV) * (SCREEN_PIXEL_SIZE / BOX_PIXEL_SIZE));
 	vec4 screen_color = texture(SCREEN_TEXTURE, screen_uv);

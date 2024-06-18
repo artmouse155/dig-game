@@ -129,7 +129,7 @@ func setup_triggers():
 	var all_components: Array[DrillerComponentObject] = Game.get_all_game_objects()
 	for i in range(len(all_components)):
 		var comp_save_data = Game.player_data.find_component_object_save_data(all_components[i])
-		if not comp_save_data.unlocked:
+		if not comp_save_data.recipe_found:
 			component_triggers.append(comp_save_data)
 	
 	var all_acheivements: Array[Achievement] = Game.get_all_achievements()
@@ -319,7 +319,7 @@ func _input(ev):
 			game_over("durability", true)
 			
 		if Input.is_action_just_pressed("debug_trigger"):
-			notificationSystem.add_unlock_notification(Game.player_data.hull)
+			notificationSystem.add_recipe_found_notification(Game.player_data.hull)
 
 		if Input.is_action_pressed("turbo"):
 			%Player.turbo()
@@ -473,13 +473,13 @@ func get_chunk_data(chunk_coords: Vector2i) -> Array:
 func check_triggers():
 	var rem = []
 	for i in range(len(component_triggers)):
-		var trigger: Trigger = component_triggers[i].base_component.unlock_trigger
+		var trigger: Trigger = component_triggers[i].base_component.recipe_found_trigger
 		if trigger.is_met(day_stats[trigger.trigger_stat_name]):
 			rem.append(component_triggers[i])
 	
 	for component_save in rem:
-		notificationSystem.add_unlock_notification(component_save.base_component)
-		Game.player_data.unlock_component(component_save.base_component)
+		notificationSystem.add_recipe_found_notification(component_save.base_component)
+		Game.player_data.set_found_recipe_for_component(component_save.base_component)
 		component_triggers.erase(component_save)
 
 	rem = []

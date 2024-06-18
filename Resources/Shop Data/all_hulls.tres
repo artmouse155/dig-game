@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=12 format=3 uid="uid://cfg30q0b26xgc"]
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=16 format=3 uid="uid://cfg30q0b26xgc"]
 
 [ext_resource type="Resource" uid="uid://dt5jkjk3gkmoq" path="res://Resources/Driller/Hulls/vanguard.tres" id="1_kwbs6"]
 [ext_resource type="Texture2D" uid="uid://b3w6n05hwqamo" path="res://Assets/Textures/logo.png" id="2_luyib"]
@@ -6,15 +6,27 @@
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="3_lc8r5"]
 [ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="4_l05wa"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="4_oi0lb"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="5_j0ra2"]
 [ext_resource type="Script" path="res://Resources/hull.gd" id="5_wmpfd"]
 [ext_resource type="Script" path="res://Resources/trigger.gd" id="6_5wxyk"]
+[ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="7_rf0nd"]
 
 [sub_resource type="Resource" id="Resource_ax83f"]
 script = ExtResource("3_lc8r5")
 buff_name = "magic powers"
 amount = 7
 
-[sub_resource type="Resource" id="Resource_fjq7k"]
+[sub_resource type="Resource" id="Resource_i08rg"]
+script = ExtResource("5_j0ra2")
+res_name = "ore"
+amount = 3000
+
+[sub_resource type="Resource" id="Resource_vcmfs"]
+script = ExtResource("5_j0ra2")
+res_name = "green_gem"
+amount = 10
+
+[sub_resource type="Resource" id="Resource_f0e16"]
 script = ExtResource("6_5wxyk")
 trigger_stat_name = "max_depth"
 trigger_stat_comparison = "greater_than"
@@ -23,7 +35,7 @@ trigger_stat_value = 10.0
 [sub_resource type="Resource" id="Resource_ocj2w"]
 script = ExtResource("5_wmpfd")
 drill_scale = 1.5
-component_object_name = "Fake Hull"
+component_object_name = "Test Hull 1"
 parent_group_name = "hull"
 component_object_tile_image = ExtResource("4_oi0lb")
 actual_texture = ExtResource("2_luyib")
@@ -32,7 +44,10 @@ desc = "This is not a real hull."
 locked_desc = "Unlock by playing my game."
 upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([ExtResource("3_2di1k"), ExtResource("3_2di1k")])
 base_buffs = Array[ExtResource("3_lc8r5")]([SubResource("Resource_ax83f")])
-unlock_trigger = SubResource("Resource_fjq7k")
+recipe_found_trigger = SubResource("Resource_f0e16")
+crafting_recipe = Array[ExtResource("5_j0ra2")]([SubResource("Resource_i08rg"), SubResource("Resource_vcmfs")])
+recipe_image = ExtResource("7_rf0nd")
+in_game_age = 0
 
 [resource]
 script = ExtResource("4_l05wa")

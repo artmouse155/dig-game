@@ -1,5 +1,8 @@
 extends HBoxContainer
 
+@export var iconNode: TextureRect
+@export var costLabel: RichTextLabel
+
 const COST_ICON_KEY : Dictionary = {
 	"ore" : preload("res://Assets/Textures/UI/Resource_Icons/ore.tres"),
 	"red_gem" : preload("res://Assets/Textures/UI/Resource_Icons/red_gem.tres"),
@@ -25,30 +28,43 @@ const POWERUP_ICON_KEY : Dictionary = {
 	"extra_speed" : preload("res://Assets/Textures/UI/Buff_Icons/speed.tres"),
 }
 
+const RED : Color = Color.DARK_RED
+const GREEN : Color = Color.MEDIUM_SEA_GREEN
+const WHITE : Color = Color.WHITE
+const BLUE : Color = Color.DARK_TURQUOISE
+
 func cost_setup(cost : ResourceData):
-	$Icon.texture = COST_ICON_KEY[cost.res_name]
+	iconNode.texture = COST_ICON_KEY[cost.res_name]
+	var s = ""
+	var color = WHITE
 	if ResourceData.compare_all([cost], Game.player_data.player_inventory):
-		$Cost.text = "✅ "
+		s = "✅ "
+		color = GREEN
 	else:
-		$Cost.text = "❌ "
+		s = "❌ "
+		color = RED
 	
-	$Cost.text += str(cost.amount)
+	set_text(s + str(cost.amount), color)
 
 func gem_setup(cost : ResourceData):
-	$Icon.texture = COST_ICON_KEY[cost.res_name]
-	$Cost.text = "+ "
-	
-	$Cost.text += str(cost.amount)
+	iconNode.texture = COST_ICON_KEY[cost.res_name]
+	set_text("+ " + str(cost.amount))
 
 
 func buff_setup(buff : BuffItem):
-	$Icon.texture = BUFF_ICON_KEY[buff.buff_name]
-	$Cost.text = str(buff.amount)
+	iconNode.texture = BUFF_ICON_KEY[buff.buff_name]
+	set_text(str(buff.amount), BLUE)
 	
 func powerup_setup(buff : BuffItem):
-	$Icon.texture = POWERUP_ICON_KEY[buff.buff_name]
-	$Cost.text = "+" + str(buff.amount)
+	iconNode.texture = POWERUP_ICON_KEY[buff.buff_name]
+	set_text("+" + str(buff.amount))
 
 func amount_setup(data : ResourceData):
-	$Icon.texture = COST_ICON_KEY[data.res_name]
-	$Cost.text = str(data.amount)
+	iconNode.texture = COST_ICON_KEY[data.res_name]
+	set_text(str(data.amount))
+
+func set_text(t : String, c : Color = Color.WHITE):
+	costLabel.text = ""
+	costLabel.push_color(c)
+	costLabel.append_text(t)
+	costLabel.pop()

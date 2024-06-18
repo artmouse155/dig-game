@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=13 format=3 uid="uid://doqwwsa3h0i6k"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=14 format=3 uid="uid://doqwwsa3h0i6k"]
 
 [ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Components/Batteries/sapling.png" id="1_64h17"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_k6kd2"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_jotfi"]
 [ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="3_8o1oh"]
 [ext_resource type="Script" path="res://Resources/resource_data.gd" id="4_r7aic"]
+[ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="4_tgs6w"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="5_oaiw3"]
 [ext_resource type="Script" path="res://Resources/upgrade.gd" id="5_opevw"]
 
@@ -45,3 +46,6 @@ desc = "A tried and true power source."
 locked_desc = ""
 upgrade_lists = Array[ExtResource("3_8o1oh")]([SubResource("Resource_tuctq")])
 base_buffs = Array[ExtResource("5_oaiw3")]([SubResource("Resource_8spuu")])
+crafting_recipe = Array[ExtResource("4_r7aic")]([])
+recipe_image = ExtResource("4_tgs6w")
+in_game_age = 0
