@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcvxetxrlr5ax"]
+[gd_scene load_steps=12 format=3 uid="uid://bcvxetxrlr5ax"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
 [ext_resource type="Texture2D" uid="uid://bp0noqfbq7shv" path="res://Assets/Textures/Main Menu/bg.jpg" id="1_ioy0u"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="5_gsjva"]
 [ext_resource type="Texture2D" uid="uid://b25ddw1h7acff" path="res://Assets/Textures/UI/garbage.png" id="7_11gcl"]
 [ext_resource type="Texture2D" uid="uid://bl8efy5hinc7f" path="res://Assets/Textures/UI/ok.png" id="8_n1ta6"]
+[ext_resource type="PackedScene" uid="uid://bew8orgykthfo" path="res://Scenes/UI/savePanel.tscn" id="9_a24rv"]
 [ext_resource type="Script" path="res://Scripts/ConfirmationBox.gd" id="9_m7866"]
 
 [sub_resource type="Theme" id="Theme_6uh8r"]
@@ -37,26 +38,23 @@ offset_bottom = 1080.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -91.0
-offset_bottom = -17.0
+offset_bottom = 1254.0
 grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_top = 200
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 0
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(1000, 300)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 texture = ExtResource("2_rbirt")
 stretch_mode = 5
 
@@ -121,6 +119,7 @@ delete_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/DeleteBu
 trashcan_texture = ExtResource("7_11gcl")
 ok_texture = ExtResource("8_n1ta6")
 confirmation_box = NodePath("../ConfirmationBox")
+save_panel_template = ExtResource("9_a24rv")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
 layout_mode = 2
@@ -149,9 +148,8 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 icon = ExtResource("7_11gcl")
 
-[node name="SavesGrid" type="GridContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="SavesGrid" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
-columns = 5
 
 [node name="BackButton" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2

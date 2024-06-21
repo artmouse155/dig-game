@@ -8,6 +8,8 @@ extends PanelContainer
 
 @export var confirmation_box: Control
 
+@export var save_panel_template : PackedScene
+
 var delete_mode: bool = false
 var name_to_delete: String
 
@@ -21,15 +23,19 @@ func setup():
 	remove_children(save_data_container)
 	
 	for i in range(len(save_names)):
-		var temp_button = Button.new()
-		temp_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		save_data_container.add_child(temp_button)
+		var temp_panel = save_panel_template.instantiate()
+		save_data_container.add_child(temp_panel)
 		var temp_data : PlayerData = Game.save_load.get_save_data_by_name(save_names[i])
 		var temp_days = temp_data.get_stat("day_number")
-		var temp_ore = temp_data.get_resource_amount("ore")
-		temp_button.text = "Save " + str(i+1) + "  Day " + str(temp_days) + "\nOre: " + str(temp_ore)
+		var temp_money = temp_data.get_resource_amount("ore")
+		
+		#TODO: Make functional
+		temp_panel.planet.text = "Yambinkus"
+		temp_panel.day_number.text = str(temp_days)
+		temp_panel.time.text = "150 Hrs"
+		temp_panel.money.text = str(temp_money)
 		#temp_button.text = "Save " + str(i + 1) + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
-		temp_button.pressed.connect(name_picked_func.bind(save_names[i]))
+		temp_panel.button.pressed.connect(name_picked_func.bind(save_names[i]))
 
 func name_picked_func(n : String):
 	if delete_mode:
