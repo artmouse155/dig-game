@@ -2,6 +2,9 @@ extends Node2D
 
 @export var continue_button : Button
 @export var new_game_button : Button
+
+@export var load_save_button : Button
+
 @export var menu_buttons : Control
 @export var save_select_screen : Control
 
@@ -11,9 +14,16 @@ func _ready():
 func show_menu_buttons():
 	if (Game.save_name == SaveLoad.DEFAULT_PLAYER_SAVE_NAME):
 		continue_button.disabled = true
+		continue_button.text = "Continue"
 	else:
 		continue_button.disabled = false
 		continue_button.text = "Continue (" + Game.save_name + ")"
+	
+	var num_saves: int = len(Game.get_save_names())
+	
+	load_save_button.disabled = num_saves == 0
+	
+	new_game_button.disabled = (num_saves == SaveLoad.MAX_NUM_SAVES)
 	
 	menu_buttons.show()
 	save_select_screen.hide()
@@ -35,7 +45,7 @@ func new_game():
 	Game.start_from_main_menu()
 
 func load_save_button_pressed():
-	save_select_screen.setup(Game.get_save_names())
+	save_select_screen.setup()
 	show_save_select_screen()
 	
 func show_settings():

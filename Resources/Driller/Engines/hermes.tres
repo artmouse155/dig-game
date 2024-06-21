@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=8 format=3 uid="uid://cf7lwurtkpbcw"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=9 format=3 uid="uid://cf7lwurtkpbcw"]
 
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Components/Engines/hermes.png" id="1_s23tu"]
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_8brhn"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="3_432a0"]
 [ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="4_4drih"]
+[ext_resource type="Resource" uid="uid://c5s4w4lfyvhra" path="res://Resources/Driller/default_trigger.tres" id="4_0706u"]
 
 [sub_resource type="Resource" id="Resource_mqdvs"]
 script = ExtResource("2_8brhn")
@@ -27,6 +28,7 @@ desc = "A humble engine of humble origins."
 locked_desc = ""
 upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
 base_buffs = Array[ExtResource("2_8brhn")]([SubResource("Resource_mqdvs"), SubResource("Resource_yp7bb")])
+recipe_found_trigger = ExtResource("4_0706u")
 crafting_recipe = Array[Resource("res://Resources/resource_data.gd")]([])
 recipe_image = ExtResource("4_4drih")
 in_game_age = 0

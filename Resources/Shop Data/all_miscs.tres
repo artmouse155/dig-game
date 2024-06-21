@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=7 format=3 uid="uid://b6id0t6t2uq66"]
+[gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=10 format=3 uid="uid://b6id0t6t2uq66"]
 
 [ext_resource type="Script" path="res://Resources/buff_item.gd" id="1_fpp55"]
 [ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="1_nhm1w"]
 [ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_icylg"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_wrmhr"]
+[ext_resource type="Resource" uid="uid://dkv6wnebvibrw" path="res://Resources/Driller/ten_ore.tres" id="3_4vk0q"]
+[ext_resource type="Resource" uid="uid://c5s4w4lfyvhra" path="res://Resources/Driller/default_trigger.tres" id="4_q2qs4"]
+[ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="5_72t8j"]
 
 [sub_resource type="Resource" id="Resource_0cin2"]
 script = ExtResource("1_fpp55")
@@ -20,6 +23,10 @@ desc = "What does it do?"
 locked_desc = ""
 upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([])
 base_buffs = Array[ExtResource("1_fpp55")]([SubResource("Resource_0cin2")])
+recipe_found_trigger = ExtResource("4_q2qs4")
+crafting_recipe = Array[Resource("res://Resources/resource_data.gd")]([ExtResource("3_4vk0q")])
+recipe_image = ExtResource("5_72t8j")
+in_game_age = 0
 
 [resource]
 script = ExtResource("1_nhm1w")

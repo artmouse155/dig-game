@@ -13,7 +13,7 @@ const GLOBAL_SAVE_DATA_NAME = "global_data"
 const SAVE_PREFIX = "save_"
 const SAVE_SUFFIX = ".tres"
 
-const MAX_NUM_SAVES = 100
+const MAX_NUM_SAVES = 5
 
 const DEFAULT_PLAYER_SAVE_NAME = ""
 #save filenames start with save_0, and go on numerically. if save_0 and save_2 exist, the next save created will be save_1.tres.
@@ -30,7 +30,7 @@ func save_new_player_data():
 			save_name = temp_filename
 			valid_name = true
 		i += 1
-		if i == MAX_NUM_SAVES:
+		if i == (MAX_NUM_SAVES + 1):
 			print("YOU HAVE TOO MANY SAVES!!!!!!!!!!!")
 			return ""
 	ResourceSaver.save(DEFAULT_PLAYER_SAVE_DATA, FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
@@ -45,9 +45,17 @@ func save_player_data(data: PlayerData, save_name: String):
 		print("Couldn't save to " + save_name)
 		return null
 
+func delete_player_data(save_name: String):
+	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
+	if dir.file_exists(save_name):
+		dir.remove(FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
+	else:
+		print("Couldn't delete " + save_name + ". File not found.")
+		return null
+
 func get_list_of_names_of_saves() -> PackedStringArray:
 	check_for_player_save_data()
-	print(FULL_PLAYER_SAVE_DATA_DIR)
+	#print(FULL_PLAYER_SAVE_DATA_DIR)
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	return dir.get_files()
 

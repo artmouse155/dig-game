@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcvxetxrlr5ax"]
+[gd_scene load_steps=11 format=3 uid="uid://bcvxetxrlr5ax"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
 [ext_resource type="Texture2D" uid="uid://bp0noqfbq7shv" path="res://Assets/Textures/Main Menu/bg.jpg" id="1_ioy0u"]
@@ -6,15 +6,19 @@
 [ext_resource type="Script" path="res://Scripts/save_select_screen.gd" id="4_0713j"]
 [ext_resource type="FontFile" uid="uid://be52u2oaw7iyq" path="res://Assets/Fonts/Aller_Bd.ttf" id="4_ffl0i"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="5_gsjva"]
+[ext_resource type="Texture2D" uid="uid://b25ddw1h7acff" path="res://Assets/Textures/UI/garbage.png" id="7_11gcl"]
+[ext_resource type="Texture2D" uid="uid://bl8efy5hinc7f" path="res://Assets/Textures/UI/ok.png" id="8_n1ta6"]
+[ext_resource type="Script" path="res://Scripts/ConfirmationBox.gd" id="9_m7866"]
 
 [sub_resource type="Theme" id="Theme_6uh8r"]
 default_font = ExtResource("4_ffl0i")
 default_font_size = 40
 
-[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "menu_buttons", "save_select_screen") groups=["scenes"]]
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "load_save_button", "menu_buttons", "save_select_screen") groups=["scenes"]]
 script = ExtResource("1_dkxu4")
 continue_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue")
 new_game_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game")
+load_save_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Load Save")
 menu_buttons = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer")
 save_select_screen = NodePath("Control/VBoxContainer/CenterContainer/SaveSelectScreen")
 
@@ -59,6 +63,8 @@ stretch_mode = 5
 [node name="CenterContainer" type="CenterContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("5_gsjva")
 
 [node name="MenuContainer" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer"]
 layout_mode = 2
@@ -106,11 +112,15 @@ layout_mode = 2
 text = "Quit
 "
 
-[node name="SaveSelectScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("save_data_container")]
+[node name="SaveSelectScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("save_data_container", "delete_button", "confirmation_box")]
 layout_mode = 2
 theme = ExtResource("5_gsjva")
 script = ExtResource("4_0713j")
 save_data_container = NodePath("MarginContainer/VBoxContainer/SavesGrid")
+delete_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/DeleteButton")
+trashcan_texture = ExtResource("7_11gcl")
+ok_texture = ExtResource("8_n1ta6")
+confirmation_box = NodePath("../ConfirmationBox")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
 layout_mode = 2
@@ -123,10 +133,21 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Saves"
 horizontal_alignment = 1
+
+[node name="DeleteButton" type="Button" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = ExtResource("7_11gcl")
 
 [node name="SavesGrid" type="GridContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -137,6 +158,62 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Back"
 
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SaveSelectScreen"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="ConfirmationBox" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("title", "description", "confirm_button", "back_button")]
+visible = false
+layout_mode = 2
+script = ExtResource("9_m7866")
+title = NodePath("MarginContainer/VBoxContainer/ConfirmTitle")
+description = NodePath("MarginContainer/VBoxContainer/MarginContainer2/ConfirmText")
+confirm_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/Confirm")
+back_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/Back")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer"]
+layout_mode = 2
+
+[node name="ConfirmTitle" type="Label" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Please Confirm!"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ConfirmText" type="Label" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(970, 0)
+layout_mode = 2
+text = "You are about to delete Save 1 FOREVER. Are you sure that you want this to happen?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Yes, Delete!"
+
+[node name="Back" type="Button" parent="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Uhh, Nevermind."
+
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue" to="." method="start_game"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game" to="." method="new_game"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Load Save" to="." method="load_save_button_pressed"]
@@ -144,4 +221,6 @@ text = "Back"
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Credits" to="." method="show_credits"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Quit" to="." method="quit_game"]
 [connection signal="name_picked" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen" to="." method="name_picked"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/MarginContainer/DeleteButton" to="Control/VBoxContainer/CenterContainer/SaveSelectScreen" method="delete_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/BackButton" to="." method="show_menu_buttons"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer/MarginContainer/Back" to="Control/VBoxContainer/CenterContainer/ConfirmationBox" method="hide_self"]

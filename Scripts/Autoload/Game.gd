@@ -44,8 +44,25 @@ func load_global_save_data():
 	if _data:
 		global_save_data = _data
 
+# used when showing the main menu
+func validate_global_save_data():
+	load_global_save_data()
+	var prev_name = global_save_data.prev_save_name
+	
+	
+	if prev_name in get_save_names():
+		print("prev_name ",prev_name)
+		save_name = prev_name
+	else:
+		global_save_data.prev_save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
+		save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
+		print("Couldn't find " + prev_name)
+
 func save_player_data_to_file():
 	save_load.save_player_data(player_data, save_name)
+
+func delete_player_data_file(_save_name: String):
+	save_load.delete_player_data(_save_name)
 
 func load_player_save_data(_save_name : String):
 	var _data = save_load.get_save_data_by_name(_save_name)
