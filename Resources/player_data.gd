@@ -124,6 +124,36 @@ func unlock_component(obj : DrillerComponentObject, p_unlock : bool = true):
 	else:
 		print("ERROR: component \"" + obj.component_object_name + "\" not found!")
 
+func get_component_find_order(obj : DrillerComponentObject):
+	var component_save : ComponentObjectSaveData = find_component_object_save_data(obj)
+	if component_save:
+		return component_save.find_order
+	else:
+		print("ERROR: component \"" + str(obj) + "\" not found!")
+		return null
+
+func set_component_find_order(obj : DrillerComponentObject, p_find_order : int):
+	var component_save : ComponentObjectSaveData = find_component_object_save_data(obj)
+	if component_save:
+		component_save.find_order = p_find_order
+	else:
+		print("ERROR: component \"" + obj.component_object_name + "\" not found!")
+
+func get_component_recipe_found_status(obj : DrillerComponentObject):
+	var component_save : ComponentObjectSaveData = find_component_object_save_data(obj)
+	if component_save:
+		return component_save.recipe_found
+	else:
+		print("ERROR: component \"" + str(obj) + "\" not found!")
+		return null
+
+func set_found_recipe_for_component(obj : DrillerComponentObject, p_recipe_found : bool = true):
+	var component_save : ComponentObjectSaveData = find_component_object_save_data(obj)
+	if component_save:
+		component_save.recipe_found = p_recipe_found
+	else:
+		print("ERROR: component \"" + obj.component_object_name + "\" not found!")
+
 func find_component_object_save_data(obj : DrillerComponentObject, create_new_if_missing : bool = true):
 	if obj:
 		for i in range(len(saved_component_data)):
@@ -132,7 +162,7 @@ func find_component_object_save_data(obj : DrillerComponentObject, create_new_if
 		if create_new_if_missing:
 			var component_save = ComponentObjectSaveData.new(obj)
 			saved_component_data.append(component_save)
-			print("Created save data for \"" + obj.component_object_name + "\". Trigger: " + str(obj.unlock_trigger))
+			print("Created save data for \"" + obj.component_object_name + "\". Trigger: " + str(obj.recipe_found_trigger))
 			return component_save
 	return null
 

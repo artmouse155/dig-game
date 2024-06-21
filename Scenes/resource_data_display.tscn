@@ -1,22 +1,28 @@
 [gd_scene load_steps=4 format=3 uid="uid://brxwt1eqa2ypl"]
 
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="1_33pka"]
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="1_kr2yu"]
 [ext_resource type="Script" path="res://Scripts/Shop/resource_data_display.gd" id="1_t4i5a"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_65dyi"]
-outline_size = 3
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
-
-[node name="ResourceDataDisplay" type="HBoxContainer"]
+[node name="ResourceDataDisplay" type="HBoxContainer" node_paths=PackedStringArray("iconNode", "costLabel")]
+theme = ExtResource("1_33pka")
 script = ExtResource("1_t4i5a")
+iconNode = NodePath("PanelContainer/Icon")
+costLabel = NodePath("Cost")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PanelContainer"]
 layout_mode = 2
 texture = ExtResource("1_kr2yu")
 stretch_mode = 2
 
-[node name="Cost" type="Label" parent="."]
+[node name="Cost" type="RichTextLabel" parent="."]
 layout_mode = 2
-text = "1000"
-label_settings = SubResource("LabelSettings_65dyi")
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "####"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

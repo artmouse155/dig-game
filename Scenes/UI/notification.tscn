@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0oomk4ixnu4m"]
 
 [ext_resource type="Script" path="res://Scripts/notification.gd" id="1_tb3qv"]
-[ext_resource type="Texture2D" uid="uid://c8q6afu87fgo7" path="res://Assets/Textures/UI/Driller/Drills/mark_1.png" id="2_vif10"]
+[ext_resource type="Texture2D" uid="uid://7l7jajrg5jtl" path="res://Assets/Textures/deepest_earth_icon.png" id="2_pxjvp"]
 
 [node name="Notification" type="PanelContainer" node_paths=PackedStringArray("tex", "title_text", "sub_title_text", "desc_text")]
 anchors_preset = 2
@@ -28,9 +28,11 @@ layout_mode = 2
 theme_override_constants/separation = 25
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = ExtResource("2_vif10")
-stretch_mode = 2
+texture = ExtResource("2_pxjvp")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

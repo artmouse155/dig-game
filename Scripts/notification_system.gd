@@ -14,12 +14,12 @@ var active_notifications : Array[Node] = []
 
 var queue_loop_active = false
 
-func add_unlock_notification(obj : DrillerComponentObject):
+func add_recipe_found_notification(obj : DrillerComponentObject):
 	var temp_notification = packed_notification.instantiate()
 	add_child(temp_notification)
 	temp_notification.position.x = NOTIFICATION_X_INIT_OFFSET
 	add_notification_to_queue(temp_notification)
-	temp_notification.unlock_setup(obj)
+	temp_notification.recipe_found_setup(obj)
 
 func add_achievement_notification(achievement : Achievement):
 	var temp_notification = packed_notification.instantiate()

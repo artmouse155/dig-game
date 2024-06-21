@@ -247,4 +247,4 @@ func update_hud():
 	
 func change_speed(amount : int = 1):
 	speed = clamp(speed + amount, -1, 3)
-	$"../../../UI/Throttle".update(speed)	
+	world.throttle.update(speed)	

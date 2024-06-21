@@ -1,0 +1,69 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://cp6j15g3jin84"]
+
+[ext_resource type="FontFile" uid="uid://cf4se4uuyd8mj" path="res://Assets/Fonts/AllerDisplay.ttf" id="1_hmrkw"]
+[ext_resource type="Texture2D" uid="uid://b1lhhowh5i8ws" path="res://Assets/Textures/UI/Button/button_nine_highlighted.png" id="2_3oue3"]
+[ext_resource type="Texture2D" uid="uid://c83lrskaqpljl" path="res://Assets/Textures/UI/Button/button_nine_disabled.png" id="2_neirh"]
+[ext_resource type="Texture2D" uid="uid://bax4mdjfs0e0k" path="res://Assets/Textures/UI/Button/button_nine.png" id="3_dast7"]
+[ext_resource type="Texture2D" uid="uid://cu541p14onyxu" path="res://Assets/Textures/UI/Button/button_nine_pressed.png" id="4_p0d3l"]
+[ext_resource type="Texture2D" uid="uid://eg6udlar1807" path="res://Assets/Textures/UI/Button/panel.png" id="5_uye1o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ac7x"]
+texture = ExtResource("2_neirh")
+texture_margin_left = 21.0
+texture_margin_top = 21.0
+texture_margin_right = 21.0
+texture_margin_bottom = 21.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ws1bd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t2mdy"]
+texture = ExtResource("2_3oue3")
+texture_margin_left = 21.0
+texture_margin_top = 21.0
+texture_margin_right = 21.0
+texture_margin_bottom = 21.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1i7fk"]
+texture = ExtResource("3_dast7")
+texture_margin_left = 21.0
+texture_margin_top = 21.0
+texture_margin_right = 21.0
+texture_margin_bottom = 21.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sm7fq"]
+texture = ExtResource("4_p0d3l")
+texture_margin_left = 21.0
+texture_margin_top = 21.0
+texture_margin_right = 21.0
+texture_margin_bottom = 21.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qhibk"]
+texture = ExtResource("5_uye1o")
+texture_margin_left = 21.0
+texture_margin_top = 21.0
+texture_margin_right = 21.0
+texture_margin_bottom = 21.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[resource]
+default_font = ExtResource("1_hmrkw")
+default_font_size = 46
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0.133333, 0.12549, 0.203922, 1)
+Button/font_sizes/font_size = 46
+Button/fonts/font = ExtResource("1_hmrkw")
+Button/styles/disabled = SubResource("StyleBoxTexture_3ac7x")
+Button/styles/focus = SubResource("StyleBoxEmpty_ws1bd")
+Button/styles/hover = SubResource("StyleBoxTexture_t2mdy")
+Button/styles/normal = SubResource("StyleBoxTexture_1i7fk")
+Button/styles/pressed = SubResource("StyleBoxTexture_sm7fq")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_qhibk")

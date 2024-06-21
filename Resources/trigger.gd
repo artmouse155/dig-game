@@ -19,3 +19,8 @@ func is_met(val) -> bool:
 			return (val <= trigger_stat_value)
 	print("error, trigger_stat_comparison not found:" + trigger_stat_comparison)
 	return false
+
+func init(p_trigger_stat_name: String = "max_depth", p_trigger_stat_comparison: String = "greater_than", p_trigger_stat_value: float = 10):
+	trigger_stat_name = p_trigger_stat_name
+	trigger_stat_comparison = p_trigger_stat_comparison
+	trigger_stat_value = p_trigger_stat_value

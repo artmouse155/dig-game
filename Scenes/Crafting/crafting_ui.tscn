@@ -1,0 +1,401 @@
+[gd_scene load_steps=14 format=3 uid="uid://b68iujguf6sks"]
+
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="1_1utsy"]
+[ext_resource type="Texture2D" uid="uid://dtrp2w1h8vvt1" path="res://Assets/Textures/UI/crafting_ui/background.png" id="2_mt4gv"]
+[ext_resource type="Texture2D" uid="uid://q8kd5c1lr4qe" path="res://Assets/Textures/UI/crafting_ui/ui_back.png" id="3_ucqod"]
+[ext_resource type="Texture2D" uid="uid://bue14r417rygd" path="res://Assets/Textures/UI/Button/left_arrow.png" id="4_hrpef"]
+[ext_resource type="Script" path="res://Scripts/Crafting UI/recipe_panel.gd" id="5_y3ef8"]
+[ext_resource type="Texture2D" uid="uid://b10hm4pt363ql" path="res://Assets/Textures/UI/Button/arrow.png" id="6_5jry6"]
+[ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="7_bkfrh"]
+[ext_resource type="Texture2D" uid="uid://bqjpxtxbbbsyr" path="res://Assets/Textures/UI/crafting_ui/gear.png" id="8_av583"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf8dl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arclr"]
+
+[sub_resource type="Curve" id="Curve_joy63"]
+min_value = 1.0
+max_value = 2.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.824176, 1.1978), 0.689655, 0.689655, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5esn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7f77u"]
+bg_color = Color(0.136748, 0.0486053, 0.0152379, 1)
+
+[node name="CraftingUi" type="Node2D" groups=["scenes"]]
+
+[node name="Base" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme = ExtResource("1_1utsy")
+
+[node name="TextureRect" type="TextureRect" parent="Base"]
+z_index = -10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mt4gv")
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Base"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = -65.0
+offset_right = 1744.0
+offset_bottom = 1461.0
+scale = Vector2(0.854011, 0.854011)
+texture = ExtResource("3_ucqod")
+
+[node name="MarginContainer" type="MarginContainer" parent="Base"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -421.0
+offset_top = -122.5
+offset_bottom = 122.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 200
+
+[node name="PanelContainer2" type="PanelContainer" parent="Base/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/MarginContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Base/MarginContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Sort By"
+
+[node name="OptionButton" type="OptionButton" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+item_count = 2
+selected = 0
+popup/item_0/text = "Date Found"
+popup/item_0/id = 0
+popup/item_1/text = "Age"
+popup/item_1/id = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Show prevously
+crafted recipes"
+
+[node name="PanelContainer" type="PanelContainer" parent="Base"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -498.0
+offset_right = 498.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pf8dl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Base/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Back" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Back"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "CRAFT EQUIPMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="RecipeLeft" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
+icon = ExtResource("4_hrpef")
+
+[node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear", "sort_method_node", "show_prev_crafted_Node", "ingredient_list_node", "recipe_name_node", "desc_node", "craft_button", "all_recipes_crafted_node")]
+clip_children = 2
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("5_y3ef8")
+icons_center = NodePath("Control")
+left_button = NodePath("../RecipeLeft")
+right_button = NodePath("../RecipeRight")
+left_gear = NodePath("../../../../Gears/LeftGear")
+right_gear = NodePath("../../../../Gears/RightGear")
+scale_curve = SubResource("Curve_joy63")
+sort_method_node = NodePath("../../../../../MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/OptionButton")
+show_prev_crafted_Node = NodePath("../../../../../MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/CheckBox")
+ingredient_list_node = NodePath("../../../MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List")
+recipe_name_node = NodePath("MarginContainer/Recipe Name")
+desc_node = NodePath("../../../MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/Recipe Desc")
+craft_button = NodePath("../../../MarginContainer4/PanelContainer/MarginContainer/CraftButton")
+all_recipes_crafted_node = NodePath("All Recipes Crafed")
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 20
+
+[node name="Recipe Name" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel/MarginContainer"]
+z_index = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 48
+text = "Mach II Drill"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="All Recipes Crafed" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel"]
+layout_mode = 2
+text = "All Recipes Crafted"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RecipeRight" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y5esn")
+icon = ExtResource("6_5jry6")
+
+[node name="MarginContainer4" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+
+[node name="PanelContainer" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_7f77u")
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Recipe Desc" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "\"A drill so powerful, you will never need another one.\""
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "RECIPE"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="Ingredient List" type="VBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_bkfrh")
+
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "20,000 Gold"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("7_bkfrh")
+
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "20 Ore"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("7_bkfrh")
+
+[node name="Label" type="Label" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/VBoxContainer/MarginContainer3/Ingredient List/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "100 Brick"
+
+[node name="MarginContainer" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="CraftButton" type="Button" parent="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 64
+disabled = true
+text = "CRAFT"
+
+[node name="Gears" type="Node2D" parent="Base/PanelContainer"]
+
+[node name="LeftGear" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+position = Vector2(158, 569)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="RightGear" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+position = Vector2(840, 586)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear3" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(3, 108)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear4" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(-18, 254)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear5" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(1013, 991)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear6" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(996, 848)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear7" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(-10, 949)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[node name="Gear8" type="Sprite2D" parent="Base/PanelContainer/Gears"]
+z_index = -1
+position = Vector2(1018, 231)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_av583")
+
+[connection signal="item_selected" from="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/OptionButton" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="sort_item_selected"]
+[connection signal="toggled" from="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer2/CheckBox" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="checkbox_toggled"]
+[connection signal="pressed" from="Base/PanelContainer/VBoxContainer/MarginContainer/Back" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="go_to_shop"]
+[connection signal="pressed" from="Base/PanelContainer/VBoxContainer/MarginContainer4/PanelContainer/MarginContainer/CraftButton" to="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer/Recipe Panel" method="craft_current_recipe"]

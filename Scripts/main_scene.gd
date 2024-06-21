@@ -7,15 +7,11 @@ class_name MainScene
 
 func _ready():
 	Game.main_scene = self
+	
 	Game.load_global_save_data()
-	var prev_name = Game.global_save_data.prev_save_name
-	if prev_name in Game.get_save_names():
-		print("prev_name ",prev_name)
-		Game.save_name = prev_name
-	else:
-		Game.global_save_data.prev_save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
-		Game.save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
-		print("Couldn't find " + prev_name)
+	
+	Game.validate_global_save_data()
+	
 	if Debug.quickstart and (len(Game.get_save_names()) > 0):
 		Game.load_player_save_data(Game.get_save_names()[0])
 		Game.new_day()

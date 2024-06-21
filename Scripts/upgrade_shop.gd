@@ -30,6 +30,9 @@ func _input(event):
 	if Input.is_action_just_pressed("new day (from shop)"):
 			Game.new_day()
 	
+	if Input.is_action_just_pressed("craft (from shop)"):
+			Game.go_to_crafting()
+	
 	if event is InputEventMouseMotion:
 		tooltip.position = get_local_mouse_position() + Vector2(1,1)
 
