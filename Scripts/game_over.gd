@@ -1,7 +1,7 @@
 extends Node2D
 
 const INIT_Y = 500
-const FINAL_Y = -50
+const FINAL_Y = -75
 
 func game_over(reason):
 	

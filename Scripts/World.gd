@@ -34,7 +34,6 @@ var score: float = 0.0
 var chunks = {}
 
 #TODO: make all resolution changes dynamic
-var resolution = Vector2(1920, 1080)
 const CHUNK_RESOLUTION: int = 16
 var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 #@export var noise_texture : NoiseTexture2D
@@ -98,7 +97,7 @@ var start_time_ms = 0
 
 func _ready():
 	
-	start_time_ms = Time.get_ticks_msec() / 1000.0
+	start_time_ms = Time.get_ticks_msec()
 	
 	#print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
 	
@@ -142,7 +141,7 @@ func setup_triggers():
 			achievement_triggers.append(all_acheivements[i])
 
 func update_h_follow_pos():
-	%HFollow.position.x = %Player.position.x - resolution.x / 2
+	%HFollow.position.x = %Player.position.x - Game.RESOLUTION.x / 2
 
 #TODO: Doesn't need to happen every single tick?
 func check_chunk_regions():

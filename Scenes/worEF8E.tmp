@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://yre8wvqiht01"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_37iqd"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Texture2D" uid="uid://b8sfy44yex4sr" path="res://Assets/Textures/Tiles/particle.png" id="3_q8ww8"]
 [ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]

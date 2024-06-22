@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c83lrskaqpljl"
-path="res://.godot/imported/button_nine_disabled.png-8643174a23d2c6aa19526d4756195abe.ctex"
+uid="uid://ydm2i4rlrekp"
+path="res://.godot/imported/wood.png-6dd3ca2b395b9bcc827bf3fb52be674a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Button/button_nine_disabled.png"
-dest_files=["res://.godot/imported/button_nine_disabled.png-8643174a23d2c6aa19526d4756195abe.ctex"]
+source_file="res://Assets/Textures/UI/Default Theme/wood.png"
+dest_files=["res://.godot/imported/wood.png-6dd3ca2b395b9bcc827bf3fb52be674a.ctex"]
 
 [params]
 

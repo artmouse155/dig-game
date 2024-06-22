@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=3 uid="uid://b68iujguf6sks"]
 
-[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="1_1utsy"]
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="1_1etoh"]
 [ext_resource type="Texture2D" uid="uid://dtrp2w1h8vvt1" path="res://Assets/Textures/UI/crafting_ui/background.png" id="2_mt4gv"]
 [ext_resource type="Texture2D" uid="uid://q8kd5c1lr4qe" path="res://Assets/Textures/UI/crafting_ui/ui_back.png" id="3_ucqod"]
-[ext_resource type="Texture2D" uid="uid://bue14r417rygd" path="res://Assets/Textures/UI/Button/left_arrow.png" id="4_hrpef"]
+[ext_resource type="Texture2D" uid="uid://bue14r417rygd" path="res://Assets/Textures/UI/Default Theme/left_arrow.png" id="4_c7auf"]
 [ext_resource type="Script" path="res://Scripts/Crafting UI/recipe_panel.gd" id="5_y3ef8"]
-[ext_resource type="Texture2D" uid="uid://b10hm4pt363ql" path="res://Assets/Textures/UI/Button/arrow.png" id="6_5jry6"]
+[ext_resource type="Texture2D" uid="uid://bc5ge35bxf0wq" path="res://Assets/Textures/UI/Default Theme/right_arrow.png" id="6_2b5d7"]
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="7_bkfrh"]
 [ext_resource type="Texture2D" uid="uid://bqjpxtxbbbsyr" path="res://Assets/Textures/UI/crafting_ui/gear.png" id="8_av583"]
 
@@ -31,7 +31,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-theme = ExtResource("1_1utsy")
+theme = ExtResource("1_1etoh")
 
 [node name="TextureRect" type="TextureRect" parent="Base"]
 z_index = -10
@@ -173,7 +173,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
-icon = ExtResource("4_hrpef")
+icon = ExtResource("4_c7auf")
 
 [node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear", "sort_method_node", "show_prev_crafted_Node", "ingredient_list_node", "recipe_name_node", "desc_node", "craft_button", "all_recipes_crafted_node")]
 clip_children = 2
@@ -232,7 +232,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_y5esn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_y5esn")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_y5esn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y5esn")
-icon = ExtResource("6_5jry6")
+icon = ExtResource("6_2b5d7")
 
 [node name="MarginContainer4" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]
 layout_mode = 2

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7l7jajrg5jtl"
-path="res://.godot/imported/deepest_earth_icon.png-b1672605d4f22ece6072136d9e3f2304.ctex"
+uid="uid://cu541p14onyxu"
+path="res://.godot/imported/button_nine_pressed.png-f2eaf89689fdb43084b70e7de0e11e8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/deepest_earth_icon.png"
-dest_files=["res://.godot/imported/deepest_earth_icon.png-b1672605d4f22ece6072136d9e3f2304.ctex"]
+source_file="res://Assets/Textures/UI/Default Theme/button_nine_pressed.png"
+dest_files=["res://.godot/imported/button_nine_pressed.png-f2eaf89689fdb43084b70e7de0e11e8c.ctex"]
 
 [params]
 

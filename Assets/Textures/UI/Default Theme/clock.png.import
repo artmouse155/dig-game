@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu541p14onyxu"
-path="res://.godot/imported/button_nine_pressed.png-f7e1e2fb0e81f2b1ae47565e71697ba1.ctex"
+uid="uid://ddyhan03a0oyk"
+path="res://.godot/imported/clock.png-d3c91b04e476a0b017b63f22330e9510.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Button/button_nine_pressed.png"
-dest_files=["res://.godot/imported/button_nine_pressed.png-f7e1e2fb0e81f2b1ae47565e71697ba1.ctex"]
+source_file="res://Assets/Textures/UI/Default Theme/clock.png"
+dest_files=["res://.godot/imported/clock.png-d3c91b04e476a0b017b63f22330e9510.ctex"]
 
 [params]
 

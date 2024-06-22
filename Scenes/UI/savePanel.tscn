@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bew8orgykthfo"]
+[gd_scene load_steps=6 format=3 uid="uid://bew8orgykthfo"]
 
-[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="1_8hsya"]
 [ext_resource type="Script" path="res://Scripts/savePanel.gd" id="1_jfe5o"]
-[ext_resource type="Texture2D" uid="uid://ddyhan03a0oyk" path="res://Assets/Textures/UI/Button/clock.png" id="2_qvbcb"]
-[ext_resource type="Texture2D" uid="uid://cvwnttxyovp66" path="res://Assets/Textures/UI/Button/coins.png" id="3_jc0gu"]
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="1_uvxx2"]
+[ext_resource type="Texture2D" uid="uid://ydm2i4rlrekp" path="res://Assets/Textures/UI/Default Theme/wood.png" id="3_v8i33"]
+[ext_resource type="Texture2D" uid="uid://ddyhan03a0oyk" path="res://Assets/Textures/UI/Default Theme/clock.png" id="4_g0vx0"]
+[ext_resource type="Texture2D" uid="uid://cvwnttxyovp66" path="res://Assets/Textures/UI/Default Theme/coins.png" id="5_jifht"]
 
 [node name="SavePanel" type="PanelContainer" node_paths=PackedStringArray("planet", "day_number", "time", "money", "button")]
 custom_minimum_size = Vector2(720, 0)
-theme = ExtResource("1_8hsya")
+theme = ExtResource("1_uvxx2")
+theme_type_variation = &"ClearPanel"
 script = ExtResource("1_jfe5o")
 planet = NodePath("HBoxContainer/VBoxContainer/Planet")
 day_number = NodePath("HBoxContainer/VBoxContainer/Day Number")
@@ -15,10 +17,24 @@ time = NodePath("HBoxContainer/MarginContainer/VBoxContainer2/MarginContainer/HB
 money = NodePath("HBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer2/Money")
 button = NodePath("MarginContainer2/Button")
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+show_behind_parent = true
+layout_mode = 2
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
+
+[node name="BG" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_v8i33")
+stretch_mode = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("1_uvxx2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -59,7 +75,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_qvbcb")
+texture = ExtResource("4_g0vx0")
 stretch_mode = 2
 
 [node name="Time" type="RichTextLabel" parent="HBoxContainer/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer"]
@@ -81,7 +97,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer2/PanelContainer"]
 layout_mode = 2
-texture = ExtResource("3_jc0gu")
+texture = ExtResource("5_jifht")
 
 [node name="Money" type="RichTextLabel" parent="HBoxContainer/MarginContainer/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
@@ -96,6 +112,7 @@ autowrap_mode = 0
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
+theme = ExtResource("1_uvxx2")
 theme_override_constants/margin_right = 20
 
 [node name="Button" type="Button" parent="MarginContainer2"]

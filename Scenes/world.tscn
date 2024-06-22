@@ -1,6 +1,6 @@
 [gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_dqgye"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
@@ -29,11 +29,13 @@
 [ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="23_ps24a"]
 [ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
 [ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
 [ext_resource type="Texture2D" uid="uid://sj4g5hoky4bt" path="res://Assets/Textures/UI/throttle/throttle_knob.png" id="30_rkleb"]
 [ext_resource type="Script" path="res://Scripts/game_over.gd" id="32_v23fj"]
+[ext_resource type="Texture2D" uid="uid://ydm2i4rlrekp" path="res://Assets/Textures/UI/Default Theme/wood.png" id="34_mdtfy"]
 
 [sub_resource type="Curve" id="Curve_gru56"]
 _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
@@ -184,17 +186,6 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0bq4"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.160784, 0.160784, 0.160784, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-
 [sub_resource type="Gradient" id="Gradient_fnkcb"]
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0.719454, 2.55093e-06, 5.77569e-07, 1, 0.73, 0.48691, 0.4599, 1, 0.719454, 2.55093e-06, 5.77569e-07, 1)
@@ -219,15 +210,8 @@ height = 200
 fill_to = Vector2(0, 1)
 metadata/_snap_enabled = true
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs6xb"]
-bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.47451)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [node name="World" type="Node2D" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle") groups=["scenes"]]
-script = ExtResource("1_dqgye")
+script = ExtResource("1_tt843")
 linear_curve = SubResource("Curve_gru56")
 bell_curve = SubResource("Curve_pe81p")
 smooth_curve = SubResource("Curve_ggsgv")
@@ -387,6 +371,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
+theme = ExtResource("23_ps24a")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 layout_mode = 2
@@ -406,7 +391,6 @@ z_index = 20
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/MarginContainer2/Score Panel"]
 layout_mode = 2
@@ -414,7 +398,7 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/MarginContainer2/Score Panel/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_cok10")
-stretch_mode = 2
+expand_mode = 3
 
 [node name="Score" type="Label" parent="UI/MarginContainer/MarginContainer2/Score Panel/HBoxContainer"]
 unique_name_in_owner = true
@@ -506,9 +490,9 @@ theme_override_constants/separation = 20
 
 [node name="Turbo Panel" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox"]
 z_index = 20
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Turbo Panel"]
 layout_mode = 2
@@ -526,27 +510,24 @@ theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("7_p568w")
 text = "1"
 
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Turbo Panel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Turbo Panel"]
 layout_mode = 2
+size_flags_horizontal = 8
 texture = ExtResource("10_tp47c")
+expand_mode = 3
+stretch_mode = 4
 
 [node name="Speed Panel" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox"]
 z_index = 20
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Speed Panel"]
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Speed Panel/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-
-[node name="Speed" type="Label" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Speed Panel/HBoxContainer"]
+[node name="Speed" type="Label" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Speed Panel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.0627451, 0.784314, 0.25098, 1)
 theme_override_colors/font_outline_color = Color(0.0627451, 0.784314, 0.25098, 1)
 theme_override_constants/outline_size = 3
@@ -555,33 +536,34 @@ text = "0.0
 "
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Speed Panel/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 20
-
 [node name="Depth Panel" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox"]
 z_index = 20
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f0bq4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel"]
-layout_mode = 2
-
-[node name="Depth" type="Label" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel/HBoxContainer"]
+[node name="Depth" type="Label" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("7_p568w")
 text = "0m"
 horizontal_alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel"]
 layout_mode = 2
+size_flags_horizontal = 8
 texture = ExtResource("11_20etr")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel"]
+layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_top = 970
@@ -645,107 +627,96 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.384314)
 
-[node name="Box" type="Control" parent="GameOver"]
+[node name="Box" type="PanelContainer" parent="GameOver"]
 z_index = 5
-layout_mode = 3
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -50.0
-offset_right = 250.0
-offset_bottom = 350.0
+offset_left = -492.0
+offset_top = -75.0
+offset_right = 492.0
+offset_bottom = 402.0
 grow_horizontal = 2
-grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("23_ps24a")
 
-[node name="Panel" type="Panel" parent="GameOver/Box"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bs6xb")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/Box/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/Panel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 50
 
-[node name="Panel" type="Panel" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="GameOver/Box/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme_type_variation = &"ClearPanel"
 
-[node name="Message" type="Label" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.368627, 0.368627, 0.368627, 1)
-theme_override_fonts/font = ExtResource("7_p568w")
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Message" type="Label" parent="GameOver/Box/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 0
 text = "Pro Gaming Advice"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Tip" type="Label" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/Panel"]
+[node name="Tip" type="Label" parent="GameOver/Box/MarginContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("7_p568w")
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "This is a Pro Tip. This is such a pro tip that if you do what I do you will succeed!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/Box/MarginContainer/VBoxContainer/PanelContainer"]
+show_behind_parent = true
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="BG" type="TextureRect" parent="GameOver/Box/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("34_mdtfy")
+stretch_mode = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameOver/Box/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="HBoxContainer" parent="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/separation = 30
 
-[node name="Try_Again" type="Button" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Try_Again" type="Button" parent="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_p568w")
 text = "New Day"
 
-[node name="Shop" type="Button" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Shop" type="Button" parent="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_p568w")
 text = "Shop
 "
 
-[node name="Main_menu" type="Button" parent="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Main_menu" type="Button" parent="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
 
@@ -802,6 +773,6 @@ offset_right = 272.0
 offset_bottom = 213.0
 text = "DEBUG DEBUG DEBUG"
 
-[connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/Try_Again" to="." method="new_day_button_pressed"]
-[connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/Shop" to="." method="shop_button_pressed"]
-[connection signal="pressed" from="GameOver/Box/Panel/HBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/Main_menu" to="." method="main_menu_button_pressed"]
+[connection signal="pressed" from="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Try_Again" to="." method="new_day_button_pressed"]
+[connection signal="pressed" from="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Shop" to="." method="shop_button_pressed"]
+[connection signal="pressed" from="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Main_menu" to="." method="main_menu_button_pressed"]

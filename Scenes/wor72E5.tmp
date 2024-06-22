@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://yre8wvqiht01"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_37iqd"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_37iqd"]
 [ext_resource type="Script" path="res://Scripts/GameOver.gd" id="2_i8h8n"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]

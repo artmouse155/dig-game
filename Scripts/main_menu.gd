@@ -7,6 +7,7 @@ extends Node2D
 
 @export var menu_buttons : Control
 @export var save_select_screen : Control
+@export var settings_screen : Control
 
 func _ready():
 	show_menu_buttons()
@@ -26,6 +27,7 @@ func show_menu_buttons():
 	new_game_button.disabled = (num_saves == SaveLoad.MAX_NUM_SAVES)
 	
 	menu_buttons.show()
+	settings_screen.hide()
 	save_select_screen.hide()
 
 func show_save_select_screen():
@@ -49,7 +51,9 @@ func load_save_button_pressed():
 	show_save_select_screen()
 	
 func show_settings():
-	pass
+	settings_screen.show_save_data_settings()
+	settings_screen.show()
+	menu_buttons.hide()
 	
 func show_credits():
 	pass

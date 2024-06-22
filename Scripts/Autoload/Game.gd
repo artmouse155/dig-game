@@ -24,7 +24,8 @@ const SCENES = {
 var paused = false
 var is_transition_running = false
 
-var resolution = Vector2(1920, 1080)
+const RESOLUTION = Vector2(1920, 1080)
+const WINDOWED_SCALE: float = .9
 
 var tips = [
 	"If you want to mine for longer, grab some upgrades from the shop!",
@@ -37,7 +38,7 @@ var debug = false
 var main_scene : MainScene
 
 func save_global_data_to_file():
-	save_load.save_player_data(player_data, save_name)
+	save_load.save_global_data(global_save_data)
 
 func load_global_save_data():
 	var _data = save_load.get_global_save_data()
@@ -108,7 +109,7 @@ func go_to_crafting():
 
 func start_from_main_menu():
 	global_save_data.prev_save_name = save_name
-	save_load.save_global_data(global_save_data)
+	save_global_data_to_file()
 	
 	load_player_save_data(save_name)
 	if player_data.get_stat("completed_tutorial"):

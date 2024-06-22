@@ -30,11 +30,11 @@ func setup():
 		var seconds_played = temp_data.get_stat("total_time_mining")
 		var temp_seconds_played = ""
 		if seconds_played < 60:
-			temp_seconds_played = str(floor(seconds_played)) + "Sec"
+			temp_seconds_played = str(floor(seconds_played)) + " Sec"
 		elif seconds_played < (60 * 60):
-			temp_seconds_played = str(floor(seconds_played / 60.0)) + "Min"
+			temp_seconds_played = str(floor(seconds_played / 60.0)) + " Min"
 		else:
-			temp_seconds_played = str(floor(seconds_played / (60 * 60))) + "Hrs"
+			temp_seconds_played = str(floor(seconds_played / (60 * 60))) + " Hrs"
 		
 		
 		var temp_money = temp_data.get_resource_amount("ore")
@@ -42,8 +42,17 @@ func setup():
 		#TODO: Make functional
 		temp_panel.planet.text = "Yambinkus"
 		temp_panel.day_number.text = str(temp_days)
-		temp_panel.time.text = temp_seconds_played
-		temp_panel.money.text = str(temp_money)
+		
+		temp_panel.time.text = ""
+		temp_panel.time.push_font_size(temp_panel.TIME_FONT_SIZE)
+		temp_panel.time.append_text(temp_seconds_played)
+		temp_panel.time.pop()
+		
+		temp_panel.money.text = ""
+		temp_panel.money.push_font_size(temp_panel.MONEY_FONT_SIZE)
+		temp_panel.money.append_text(str(temp_money))
+		temp_panel.money.pop()
+		
 		#temp_button.text = "Save " + str(i + 1) + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
 		temp_panel.button.pressed.connect(name_picked_func.bind(save_names[i]))
 
@@ -59,6 +68,8 @@ func remove_children(node):
 		child.queue_free()
 
 func delete_save(s: String):
+	if s == Game.save_name:
+		Game.player_data = null
 	Game.delete_player_data_file(s)
 
 func setup_confirmation_box():
@@ -83,7 +94,7 @@ func delete_confirm_button_pressed():
 	confirmation_box.hide()
 	
 	if len(Game.get_save_names()) == 0:
-		name_picked.emit("")
+		name_picked.emit(SaveLoad.DEFAULT_PLAYER_SAVE_NAME)
 	else:
 		setup()
 		delete_button_pressed()

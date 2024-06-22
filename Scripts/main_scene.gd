@@ -8,9 +8,14 @@ class_name MainScene
 func _ready():
 	Game.main_scene = self
 	
-	Game.load_global_save_data()
-	
 	Game.validate_global_save_data()
+	
+	if Game.global_save_data:
+		match Game.global_save_data.display_mode:
+			"Windowed":
+				set_fullscreen(false)
+			"Fullscreen":
+				set_fullscreen(true)
 	
 	if Debug.quickstart and (len(Game.get_save_names()) > 0):
 		Game.load_player_save_data(Game.get_save_names()[0])
@@ -50,4 +55,17 @@ func get_camera_center():
 	var cameras = get_tree().get_nodes_in_group("camera")
 	if len(cameras) > 0:
 		return cameras[0].position
-	return Game.resolution / 2.0
+	return Game.RESOLUTION / 2.0
+
+#from logic gate game!
+func set_fullscreen(mode: bool = true):
+	var f = (DisplayServer.WINDOW_MODE_FULLSCREEN if mode else DisplayServer.WINDOW_MODE_WINDOWED)
+	var w = DisplayServer.window_get_mode()
+	ProjectSettings.set_setting("display/window/size/mode", f)
+	if (w != f):
+		ProjectSettings.save()
+		DisplayServer.window_set_mode(f)
+		if (f == DisplayServer.WINDOW_MODE_WINDOWED):
+			DisplayServer.window_set_size(Game.RESOLUTION * Game.WINDOWED_SCALE)
+			#This code is from https://ask.godotengine.org/485/how-to-center-game-window
+			DisplayServer.window_set_position(Vector2(DisplayServer.screen_get_position()) + DisplayServer.screen_get_size()*0.5 - DisplayServer.window_get_size()*0.5)

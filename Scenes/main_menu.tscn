@@ -1,40 +1,44 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcvxetxrlr5ax"]
+[gd_scene load_steps=13 format=3 uid="uid://bcvxetxrlr5ax"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
-[ext_resource type="Texture2D" uid="uid://bp0noqfbq7shv" path="res://Assets/Textures/Main Menu/bg.jpg" id="1_ioy0u"]
+[ext_resource type="Texture2D" uid="uid://bl16hy1l7qrb3" path="res://Assets/Textures/Main Menu/bg.png" id="2_gnmwa"]
 [ext_resource type="Texture2D" uid="uid://1414ge0bm65x" path="res://Assets/Textures/Main Menu/title.png" id="2_rbirt"]
+[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="4_7jqty"]
 [ext_resource type="Script" path="res://Scripts/save_select_screen.gd" id="4_0713j"]
 [ext_resource type="FontFile" uid="uid://be52u2oaw7iyq" path="res://Assets/Fonts/Aller_Bd.ttf" id="4_ffl0i"]
-[ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/button_default.tres" id="5_gsjva"]
 [ext_resource type="Texture2D" uid="uid://b25ddw1h7acff" path="res://Assets/Textures/UI/garbage.png" id="7_11gcl"]
 [ext_resource type="Texture2D" uid="uid://bl8efy5hinc7f" path="res://Assets/Textures/UI/ok.png" id="8_n1ta6"]
 [ext_resource type="PackedScene" uid="uid://bew8orgykthfo" path="res://Scenes/UI/savePanel.tscn" id="9_a24rv"]
 [ext_resource type="Script" path="res://Scripts/ConfirmationBox.gd" id="9_m7866"]
+[ext_resource type="Script" path="res://Scripts/SettingsScreen.gd" id="11_08ha8"]
 
 [sub_resource type="Theme" id="Theme_6uh8r"]
 default_font = ExtResource("4_ffl0i")
 default_font_size = 40
 
-[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "load_save_button", "menu_buttons", "save_select_screen") groups=["scenes"]]
+[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("continue_button", "new_game_button", "load_save_button", "menu_buttons", "save_select_screen", "settings_screen") groups=["scenes"]]
 script = ExtResource("1_dkxu4")
 continue_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue")
 new_game_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game")
 load_save_button = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Load Save")
 menu_buttons = NodePath("Control/VBoxContainer/CenterContainer/MenuContainer")
 save_select_screen = NodePath("Control/VBoxContainer/CenterContainer/SaveSelectScreen")
-
-[node name="Bg" type="TextureRect" parent="."]
-offset_left = -27.0
-offset_top = -700.0
-offset_right = 1952.0
-offset_bottom = 1279.0
-texture = ExtResource("1_ioy0u")
+settings_screen = NodePath("Control/VBoxContainer/CenterContainer/SettingsScreen")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
+
+[node name="Bg" type="TextureRect" parent="Control"]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_gnmwa")
+stretch_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -62,11 +66,11 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme = ExtResource("5_gsjva")
+theme = ExtResource("4_7jqty")
 
 [node name="MenuContainer" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer"]
 layout_mode = 2
-theme = ExtResource("5_gsjva")
+theme = ExtResource("4_7jqty")
 
 [node name="MenuMargin" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/MenuContainer"]
 layout_mode = 2
@@ -78,7 +82,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="MenuButtons" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin"]
 layout_mode = 2
-theme = ExtResource("5_gsjva")
+theme = ExtResource("4_7jqty")
 theme_override_constants/separation = 20
 
 [node name="Continue" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
@@ -94,7 +98,6 @@ layout_mode = 2
 text = "Load Save"
 
 [node name="Settings" type="Button" parent="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons"]
-visible = false
 layout_mode = 2
 text = "Settings
 "
@@ -111,8 +114,9 @@ text = "Quit
 "
 
 [node name="SaveSelectScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("save_data_container", "delete_button", "confirmation_box")]
+visible = false
 layout_mode = 2
-theme = ExtResource("5_gsjva")
+theme = ExtResource("4_7jqty")
 script = ExtResource("4_0713j")
 save_data_container = NodePath("MarginContainer/VBoxContainer/SavesGrid")
 delete_button = NodePath("MarginContainer/VBoxContainer/MarginContainer/DeleteButton")
@@ -212,6 +216,56 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Uhh, Nevermind."
 
+[node name="SettingsScreen" type="PanelContainer" parent="Control/VBoxContainer/CenterContainer" node_paths=PackedStringArray("display_mode_node")]
+layout_mode = 2
+script = ExtResource("11_08ha8")
+display_mode_node = NodePath("MarginContainer/VBoxContainer/HBoxContainer/DisplayMode")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SettingsScreen"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Display Mode"
+
+[node name="DisplayMode" type="OptionButton" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="OK" type="Button" parent="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "OK"
+
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Continue" to="." method="start_game"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/New Game" to="." method="new_game"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/MenuContainer/MenuMargin/MenuButtons/Load Save" to="." method="load_save_button_pressed"]
@@ -222,3 +276,5 @@ text = "Uhh, Nevermind."
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/MarginContainer/DeleteButton" to="Control/VBoxContainer/CenterContainer/SaveSelectScreen" method="delete_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SaveSelectScreen/MarginContainer/VBoxContainer/BackButton" to="." method="show_menu_buttons"]
 [connection signal="pressed" from="Control/VBoxContainer/CenterContainer/ConfirmationBox/MarginContainer/VBoxContainer/MarginContainer/Back" to="Control/VBoxContainer/CenterContainer/ConfirmationBox" method="hide_self"]
+[connection signal="item_selected" from="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/HBoxContainer/DisplayMode" to="Control/VBoxContainer/CenterContainer/SettingsScreen" method="display_mode_selected"]
+[connection signal="pressed" from="Control/VBoxContainer/CenterContainer/SettingsScreen/MarginContainer/VBoxContainer/MarginContainer2/OK" to="." method="show_menu_buttons"]

@@ -6,7 +6,7 @@ const DEFAULT_PLAYER_SAVE_DATA: PlayerData = preload ("res://Resources/Player Da
 
 const USER_DIR = "user://"
 const PLAYER_SAVE_DATA_DIR_NAME = "save_data"
-const FULL_PLAYER_SAVE_DATA_DIR = USER_DIR	 + PLAYER_SAVE_DATA_DIR_NAME
+const FULL_PLAYER_SAVE_DATA_DIR = USER_DIR	 + PLAYER_SAVE_DATA_DIR_NAME + "/"
 
 const GLOBAL_SAVE_DATA_NAME = "global_data"
 
@@ -33,14 +33,14 @@ func save_new_player_data():
 		if i == (MAX_NUM_SAVES + 1):
 			print("YOU HAVE TOO MANY SAVES!!!!!!!!!!!")
 			return ""
-	ResourceSaver.save(DEFAULT_PLAYER_SAVE_DATA, FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
+	ResourceSaver.save(DEFAULT_PLAYER_SAVE_DATA, FULL_PLAYER_SAVE_DATA_DIR + save_name)
 	return save_name
 
 func save_player_data(data: PlayerData, save_name: String):
 	check_for_player_save_data()
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	if dir.file_exists(save_name):
-		ResourceSaver.save(data, FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
+		ResourceSaver.save(data, FULL_PLAYER_SAVE_DATA_DIR + save_name)
 	else:
 		print("Couldn't save to " + save_name)
 		return null
@@ -48,7 +48,7 @@ func save_player_data(data: PlayerData, save_name: String):
 func delete_player_data(save_name: String):
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	if dir.file_exists(save_name):
-		dir.remove(FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
+		dir.remove(FULL_PLAYER_SAVE_DATA_DIR + save_name)
 	else:
 		print("Couldn't delete " + save_name + ". File not found.")
 		return null
@@ -63,7 +63,7 @@ func get_save_data_by_name(save_name: String) -> PlayerData:
 	check_for_player_save_data()
 	var dir = DirAccess.open(FULL_PLAYER_SAVE_DATA_DIR)
 	if dir.file_exists(save_name):
-		return ResourceLoader.load(FULL_PLAYER_SAVE_DATA_DIR + "/" + save_name)
+		return ResourceLoader.load(FULL_PLAYER_SAVE_DATA_DIR + save_name)
 	else:
 		print("Couldn't find " + save_name)
 		return null
@@ -91,12 +91,12 @@ func check_for_global_save_data():
 
 func init_global_save_data():
 	print("created new global save data.")
-	ResourceSaver.save(DEFAULT_GLOBAL_SAVE_DATA, USER_DIR + "/" + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
+	ResourceSaver.save(DEFAULT_GLOBAL_SAVE_DATA, USER_DIR + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
 
 func save_global_data(data: GlobalData):
 	check_for_global_save_data()
-	ResourceSaver.save(data, USER_DIR + "/" + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
+	ResourceSaver.save(data, USER_DIR + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
 
 func get_global_save_data() -> GlobalData:
 	check_for_global_save_data()
-	return ResourceLoader.load(USER_DIR + "/" + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
+	return ResourceLoader.load(USER_DIR + GLOBAL_SAVE_DATA_NAME + SAVE_SUFFIX)
