@@ -27,12 +27,22 @@ func setup():
 		save_data_container.add_child(temp_panel)
 		var temp_data : PlayerData = Game.save_load.get_save_data_by_name(save_names[i])
 		var temp_days = temp_data.get_stat("day_number")
+		var seconds_played = temp_data.get_stat("total_time_mining")
+		var temp_seconds_played = ""
+		if seconds_played < 60:
+			temp_seconds_played = str(floor(seconds_played)) + "Sec"
+		elif seconds_played < (60 * 60):
+			temp_seconds_played = str(floor(seconds_played / 60.0)) + "Min"
+		else:
+			temp_seconds_played = str(floor(seconds_played / (60 * 60))) + "Hrs"
+		
+		
 		var temp_money = temp_data.get_resource_amount("ore")
 		
 		#TODO: Make functional
 		temp_panel.planet.text = "Yambinkus"
 		temp_panel.day_number.text = str(temp_days)
-		temp_panel.time.text = "150 Hrs"
+		temp_panel.time.text = temp_seconds_played
 		temp_panel.money.text = str(temp_money)
 		#temp_button.text = "Save " + str(i + 1) + "\nDay " + str(temp_days) + "\nOre: " + str(temp_ore)
 		temp_panel.button.pressed.connect(name_picked_func.bind(save_names[i]))

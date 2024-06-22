@@ -34,7 +34,7 @@ class_name PlayerData
 		"total_boosts_used" : 0,
 		"total_blocks_broken" : 0,
 		"total_speed" : 0,
-		"total_time_mining" : 0
+		"total_time_mining" : 0 # in seconds
 		},
 	"per_day" : {
 		"max_depth" : 0,
@@ -47,7 +47,7 @@ class_name PlayerData
 		"max_boosts_used" : 0,
 		"max_blocks_broken" : 0,
 		"max_speed" : 0,
-		"max_time_mining" : 0
+		"max_time_mining" : 0 # in seconds
 		},
 	"other" : {
 		"day_number" : 0,

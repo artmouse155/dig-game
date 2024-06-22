@@ -90,6 +90,7 @@ func new_day():
 	main_scene.switch_scene(WORLD_1, true, true)
 
 func end_day():
+	
 	save_global_data_to_file() #so if you make a new game and then leave, it saves prev_name
 	save_player_data_to_file()
 

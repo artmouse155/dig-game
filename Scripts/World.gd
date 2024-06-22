@@ -94,8 +94,12 @@ var day_stats = {
 var component_triggers: Array[ComponentObjectSaveData] = []
 var achievement_triggers: Array[Achievement] = []
 
-func _ready():
+var start_time_ms = 0
 
+func _ready():
+	
+	start_time_ms = Time.get_ticks_msec() / 1000.0
+	
 	#print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
@@ -536,6 +540,10 @@ func save_day_to_file():
 		Game.end_day()
 
 func game_over(reason: String="none", show_game_over_screen: bool=false):
+	#TODO: Make this happen for every stat
+	day_stats["max_time_mining"] = ((Time.get_ticks_msec() - start_time_ms) / 1000.0)
+	Game.player_data.stats["all_time"]["total_time_mining"] = Game.player_data.stats["all_time"]["total_time_mining"] + day_stats["max_time_mining"]
+	Game.player_data.stats["per_day"]["max_time_mining"] = max(Game.player_data.stats["per_day"]["max_time_mining"], day_stats["max_time_mining"])
 	save_day_to_file()
 	if show_game_over_screen:
 		gameover.game_over(reason)
