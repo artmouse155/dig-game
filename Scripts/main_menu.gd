@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var continue_button : Button
 @export var new_game_button : Button

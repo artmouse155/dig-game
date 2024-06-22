@@ -3,13 +3,23 @@
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
 
-[node name="MainScene" type="Node2D" groups=["main scene"]]
+[node name="MainScene" type="Control" groups=["main scene"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_q33fh")
 
-[node name="InitScene" type="Node2D" parent="." groups=["scenes"]]
+[node name="InitScene" type="Control" parent="." groups=["scenes"]]
+anchors_preset = 0
 
 [node name="FadeWipe" parent="." instance=ExtResource("2_k7hjb")]
 visible = false
 z_index = 100
+layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0

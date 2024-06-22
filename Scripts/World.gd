@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var linear_curve: Curve
 @export var bell_curve: Curve

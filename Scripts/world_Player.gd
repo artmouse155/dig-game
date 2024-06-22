@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var world : Node2D
+@export var world : Control
 @export var player_texture : Node2D
 
 @export var intermediate_damage_curve : Curve

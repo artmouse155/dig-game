@@ -210,7 +210,15 @@ height = 200
 fill_to = Vector2(0, 1)
 metadata/_snap_enabled = true
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle") groups=["scenes"]]
+[node name="World" type="Control" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle") groups=["scenes"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_tt843")
 linear_curve = SubResource("Curve_gru56")
 bell_curve = SubResource("Curve_pe81p")
@@ -221,19 +229,27 @@ smooth_noise = SubResource("FastNoiseLite_6w0px")
 day_number_label = NodePath("SubViewportContainer/SubViewport/Control2/Control/Day Number")
 gen_data = Array[Resource("res://Resources/gen.gd")]([ExtResource("2_r1251"), ExtResource("3_t0cxn"), ExtResource("4_uwscm"), ExtResource("5_707rn"), ExtResource("6_xowi1"), ExtResource("7_5e5g1"), ExtResource("8_mi6a4"), ExtResource("6_jutqh"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("13_gw8xf"), ExtResource("7_jx3ys")])
 iconAndTextParticle = ExtResource("15_mp0r6")
-notificationSystem = NodePath("UI/MarginContainer/MarginContainer3/Control/NotificationSystem")
+notificationSystem = NodePath("UI/MarginContainer/NotificationMargin/Control/NotificationSystem")
 throttle = NodePath("UI/Throttle")
 
 [node name="Darkness" type="ColorRect" parent="."]
 z_index = -10
 z_as_relative = false
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
@@ -367,16 +383,21 @@ stretch_mode = 2
 
 [node name="UI" type="Control" parent="."]
 z_index = 5
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("23_ps24a")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
-layout_mode = 2
-offset_right = 1920.0
-offset_bottom = 50.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
@@ -412,28 +433,15 @@ text = "0"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Status Bars" type="Control" parent="UI/MarginContainer/VBoxContainer"]
+[node name="Status Bars" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 205)
 layout_mode = 2
 
 [node name="HBoxL" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/Status Bars"]
 layout_mode = 2
-offset_top = 4.0
-offset_right = 1920.0
-offset_bottom = 56.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/Status Bars"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1548.0
-offset_top = -100.0
-offset_bottom = 100.0
-grow_horizontal = 0
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 50
@@ -562,16 +570,16 @@ stretch_mode = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/HBox/Depth Panel"]
 layout_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer"]
-visible = false
+[node name="NotificationMargin" type="MarginContainer" parent="UI/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
 theme_override_constants/margin_top = 970
 
-[node name="Control" type="Control" parent="UI/MarginContainer/MarginContainer3"]
+[node name="Control" type="Control" parent="UI/MarginContainer/NotificationMargin"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 
-[node name="NotificationSystem" parent="UI/MarginContainer/MarginContainer3/Control" instance=ExtResource("28_xbrhy")]
+[node name="NotificationSystem" parent="UI/MarginContainer/NotificationMargin/Control" instance=ExtResource("28_xbrhy")]
 
 [node name="Throttle" type="Control" parent="UI"]
 custom_minimum_size = Vector2(300, 320)
@@ -725,13 +733,10 @@ z_index = 10
 position = Vector2(0, -75)
 texture = ExtResource("3_6s8mq")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_f6g2e")
-
 [node name="PB" type="Control" parent="."]
 visible = false
 z_index = 1
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_right = 1000.0
@@ -772,6 +777,9 @@ offset_top = 190.0
 offset_right = 272.0
 offset_bottom = 213.0
 text = "DEBUG DEBUG DEBUG"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_f6g2e")
 
 [connection signal="pressed" from="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Try_Again" to="." method="new_day_button_pressed"]
 [connection signal="pressed" from="GameOver/Box/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Shop" to="." method="shop_button_pressed"]
