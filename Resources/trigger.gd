@@ -5,6 +5,10 @@ class_name Trigger
 @export_enum("greater_than", "equal_to", "less_than", "greater_than_or_equal_to", "less_than_or_equal_to") var trigger_stat_comparison: String = "greater_than"
 @export var trigger_stat_value : float = 10
 
+# NOTE: This exists because of the bug report I had earlier. basically this is the only
+# way that I can assign null triggers to components.
+@export var is_null: bool = false
+
 func is_met(val) -> bool:
 	match trigger_stat_comparison:
 		"greater_than":

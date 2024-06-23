@@ -772,6 +772,7 @@ default_color = Color(1, 0, 0, 1)
 [node name="DEBUG" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 offset_left = 112.0
 offset_top = 190.0
 offset_right = 272.0

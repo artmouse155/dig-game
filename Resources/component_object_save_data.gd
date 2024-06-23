@@ -22,6 +22,9 @@ func _init(p_base_component : DrillerComponentObject = null, p_unlocked : bool =
 		base_component = p_base_component
 		if p_recipe_found or (not base_component.recipe_found_trigger):
 			recipe_found = true
+		if base_component.recipe_found_trigger:
+			if base_component.recipe_found_trigger.is_null:
+				recipe_found = true
 		if p_unlocked or (base_component.crafting_recipe == []):
 			unlocked = true
 		

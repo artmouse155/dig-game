@@ -6,7 +6,7 @@ var global_save_data : GlobalData
 
 var save_name = SaveLoad.DEFAULT_PLAYER_SAVE_NAME
 
-var all_data : AllData = preload("res://Resources/all_data.tres")
+const all_data : AllData = preload("res://Resources/all_data.tres")
 
 const TILE_WIDTH = 32
 const PLAYER_STARTING_POS = Vector2(960,-200)
@@ -121,9 +121,10 @@ func start_from_main_menu():
 #TODO: Make Work!
 func get_all_game_objects() -> Array[DrillerComponentObject]:
 	var all_objects : Array[DrillerComponentObject] = []
-	for group in all_data.all_driller_component_groups:
-		for item in group.component_objects:
-			all_objects.append(item)
+	var groups = all_data.all_driller_component_groups
+	for i in range(len(groups)):
+		for j in range(len(groups[i].component_objects)):
+			all_objects.append(groups[i].component_objects[j])
 	
 	return all_objects
 

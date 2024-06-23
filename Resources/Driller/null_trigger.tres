@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Trigger" load_steps=2 format=3 uid="uid://gq6ijo3765sv"]
+
+[ext_resource type="Script" path="res://Resources/trigger.gd" id="1_eyhua"]
+
+[resource]
+script = ExtResource("1_eyhua")
+trigger_stat_name = "max_depth"
+trigger_stat_comparison = "greater_than"
+trigger_stat_value = 10.0
+is_null = true
