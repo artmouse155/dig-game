@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvo74v4p1vl5s"]
+[gd_scene load_steps=6 format=3 uid="uid://bvo74v4p1vl5s"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
+[ext_resource type="Script" path="res://Scripts/debug_settings.gd" id="3_tgtwy"]
+
+[sub_resource type="Theme" id="Theme_ebuke"]
+default_font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjuix"]
+bg_color = Color(0.0901961, 0.0901961, 0.0901961, 0.270588)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.0784314, 0.462745, 0.639216, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="MainScene" type="Control" groups=["main scene"]]
 layout_mode = 3
@@ -23,3 +39,28 @@ z_index = 100
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
+
+[node name="DebugSettings" type="PanelContainer" parent="."]
+z_index = 10
+layout_mode = 0
+offset_left = 124.0
+offset_top = 83.0
+offset_right = 235.0
+offset_bottom = 123.0
+theme = SubResource("Theme_ebuke")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jjuix")
+script = ExtResource("3_tgtwy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugSettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugSettings/VBoxContainer"]
+layout_mode = 2
+text = "Debug Settings"
+
+[node name="Debug Settings" type="VBoxContainer" parent="DebugSettings/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="gui_input" from="DebugSettings" to="DebugSettings" method="gui_input_func"]
+[connection signal="mouse_entered" from="DebugSettings" to="DebugSettings" method="mouse_entered_func"]
+[connection signal="mouse_exited" from="DebugSettings" to="DebugSettings" method="mouse_exited_func"]

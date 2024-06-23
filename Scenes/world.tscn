@@ -615,7 +615,6 @@ offset_bottom = 146.0
 texture = ExtResource("30_rkleb")
 
 [node name="GameOver" type="Node2D" parent="."]
-visible = false
 z_index = 1
 position = Vector2(960, 540)
 script = ExtResource("32_v23fj")
@@ -640,13 +639,13 @@ z_index = 5
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -492.0
+offset_left = -494.0
 offset_top = -75.0
-offset_right = 492.0
-offset_bottom = 402.0
+offset_right = 494.0
+offset_bottom = 321.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme = ExtResource("23_ps24a")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameOver/Box"]
