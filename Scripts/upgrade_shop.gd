@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const RESOURCE_DISPLAY = preload("res://Scenes/resource_data_display.tscn")
 
@@ -28,10 +28,13 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_pressed("new day (from shop)"):
-			Game.new_day()
+		Game.new_day()
 	
 	if Input.is_action_just_pressed("craft (from shop)"):
-			Game.go_to_crafting()
+		Game.go_to_crafting()
+	
+	if Input.is_action_just_pressed("statistics (from shop)"):
+		Game.go_to_statistics()
 	
 	if event is InputEventMouseMotion:
 		tooltip.position = get_local_mouse_position() + Vector2(1,1)

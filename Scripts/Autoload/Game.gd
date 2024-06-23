@@ -11,7 +11,7 @@ const all_data : AllData = preload("res://Resources/all_data.tres")
 const TILE_WIDTH = 32
 const PLAYER_STARTING_POS = Vector2(960,-200)
 
-enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS, CRAFTING}
+enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS, CRAFTING, STATISTICS}
 
 const SCENES = {
 	MAIN_MENU : preload("res://Scenes/main_menu.tscn"),
@@ -19,6 +19,7 @@ const SCENES = {
 	SHOP : preload("res://Scenes/upgrade_shop.tscn"),
 	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn"),
 	CRAFTING : preload("res://Scenes/Crafting/crafting_ui.tscn"),
+	STATISTICS : preload("res://Scenes/statistics_screen.tscn")
 }
 
 var paused = false
@@ -72,6 +73,7 @@ func load_player_save_data(_save_name : String):
 		player_data = _data
 		
 		if Debug.reset_saved_component_data:
+			print("rip. saved component data is deleted.")
 			player_data.saved_component_data = []
 	else:
 		print("load player dave data failed")
@@ -106,6 +108,9 @@ func go_to_achievements():
 
 func go_to_crafting():
 	main_scene.switch_scene(CRAFTING)
+
+func go_to_statistics():
+	main_scene.switch_scene(STATISTICS)
 
 func start_from_main_menu():
 	global_save_data.prev_save_name = save_name

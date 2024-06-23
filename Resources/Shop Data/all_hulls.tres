@@ -31,6 +31,7 @@ script = ExtResource("6_5wxyk")
 trigger_stat_name = "max_depth"
 trigger_stat_comparison = "greater_than"
 trigger_stat_value = 10.0
+is_null = false
 
 [sub_resource type="Resource" id="Resource_ocj2w"]
 script = ExtResource("5_wmpfd")

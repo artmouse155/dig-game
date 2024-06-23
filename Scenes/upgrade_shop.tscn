@@ -8,7 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="6_te06w"]
 [ext_resource type="Resource" uid="uid://dic2ov3rjcn0u" path="res://Resources/Player Data/sample_player_data.tres" id="7_35pis"]
 
-[node name="UpgradeShop" type="Node2D" node_paths=PackedStringArray("shop_tab_container", "buff_label", "resource_display_container", "extra_scale_node", "player") groups=["scenes"]]
+[node name="UpgradeShop" type="Control" node_paths=PackedStringArray("shop_tab_container", "buff_label", "resource_display_container", "extra_scale_node", "player") groups=["scenes"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_oar08")
 shop_tab_container = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer/VBoxContainer/UpgradeGroupsTabContainer")
 buff_label = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer2/MarginContainer/Label")
@@ -17,19 +23,22 @@ extra_scale_node = NodePath("Container2/Container/HBoxContainer/VBoxContainer/Pa
 player = NodePath("Container2/Container/HBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/PlayerPreviewContainer/Control/ExtraScale/Player")
 
 [node name="Background" type="TextureRect" parent="."]
-visible = false
-offset_left = -39.0
-offset_top = -848.0
-offset_right = 2961.0
-offset_bottom = 1152.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_b3vi6")
-stretch_mode = 4
+stretch_mode = 6
 
 [node name="Container2" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Container2"]
 layout_mode = 1
@@ -252,6 +261,7 @@ button_color = Color(0.329412, 0.560784, 0.211765, 1)
 [node name="Tooltip" parent="." instance=ExtResource("3_qsc1y")]
 visible = false
 z_index = 1
+layout_mode = 1
 
 [connection signal="pressed" from="Container2/MarginContainer/MainMenu" to="." method="return_to_main_menu"]
 [connection signal="pressed" from="Container2/MarginContainer2/Achievements" to="." method="achievements_screen"]

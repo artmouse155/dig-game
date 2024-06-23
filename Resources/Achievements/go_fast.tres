@@ -10,6 +10,7 @@ script = ExtResource("1_o450v")
 trigger_stat_name = "max_speed"
 trigger_stat_comparison = "greater_than_or_equal_to"
 trigger_stat_value = 10.0
+is_null = false
 
 [sub_resource type="Resource" id="Resource_ogvhb"]
 script = ExtResource("3_tou7n")

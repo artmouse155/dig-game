@@ -162,7 +162,7 @@ func find_component_object_save_data(obj : DrillerComponentObject, create_new_if
 		if create_new_if_missing:
 			var component_save = ComponentObjectSaveData.new(obj)
 			saved_component_data.append(component_save)
-			print("Created save data for \"" + obj.component_object_name + "\". Trigger: " + str(obj.recipe_found_trigger))
+			print("Created save data for \"" + obj.component_object_name + "\". Length of saved component data: " + str(len(saved_component_data)))
 			return component_save
 	return null
 

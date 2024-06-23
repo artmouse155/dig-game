@@ -41,7 +41,7 @@ func setup():
 		
 		#TODO: Make functional
 		temp_panel.planet.text = "Yambinkus"
-		temp_panel.day_number.text = str(temp_days)
+		temp_panel.day_number.text = "Day " + str(temp_days)
 		
 		temp_panel.time.text = ""
 		temp_panel.time.push_font_size(temp_panel.TIME_FONT_SIZE)
