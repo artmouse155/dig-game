@@ -34,7 +34,7 @@ func set_debug_debug(value: bool):
 func update_self():
 	var debug_value = Debug.debug
 	
-	debug_v_box.modulate.a = 1 if debug_value else .5
+	debug_v_box.modulate.a = 1.0 if debug_value else 0.5
 	
 	for box in checkboxes_to_update:
 		box.disabled = not debug_value
