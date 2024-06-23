@@ -93,7 +93,7 @@ func _ready():
 	
 	position = starting_pos
 	set_sprite_rotation()
-	if not Debug.override_player_durability_and_energy:
+	if not Debug.settings.override_player_durability_and_energy:
 		calc_base_variables()
 	recalc_driller_variables()
 		
@@ -120,14 +120,14 @@ func calc_base_variables():
 	base_rotational_velocity = calc_rot_vel(agility)
 	degrees_of_freedom = calc_deg_freedom(agility)
 	
-	if Debug.best_driller:
+	if Debug.settings.best_driller:
 		base_engine_power = 1000
 		base_max_speed = 4000
 		total_durability = 9999999999
 		total_energy = 9999999999
 	
 	turbos = base_turbos
-	if Debug.infinite_boosts:
+	if Debug.settings.infinite_boosts:
 		turbos = 99999
 	durability = total_durability
 	energy = total_energy

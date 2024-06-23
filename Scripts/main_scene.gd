@@ -17,7 +17,7 @@ func _ready():
 			"Fullscreen":
 				set_fullscreen(true)
 	
-	if Debug.quickstart and (len(Game.get_save_names()) > 0):
+	if Debug.settings.quickstart and (len(Game.get_save_names()) > 0):
 		Game.load_player_save_data(Game.get_save_names()[0])
 		Game.new_day()
 	else:

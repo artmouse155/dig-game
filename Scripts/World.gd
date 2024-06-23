@@ -229,7 +229,7 @@ func draw_chunk(chunk_coords: Vector2i):
 				if get_tile_data(coords):
 					var gen = get_chunk_data(chunk_coords)[x][y]["gen"]
 					tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
-					if !Debug.fullbright:
+					if !Debug.settings.fullbright:
 						tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0, 0))
 
 func _process(delta):

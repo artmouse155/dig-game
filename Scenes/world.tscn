@@ -615,6 +615,7 @@ offset_bottom = 146.0
 texture = ExtResource("30_rkleb")
 
 [node name="GameOver" type="Node2D" parent="."]
+visible = false
 z_index = 1
 position = Vector2(960, 540)
 script = ExtResource("32_v23fj")

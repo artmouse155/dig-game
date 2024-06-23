@@ -72,7 +72,7 @@ func load_player_save_data(_save_name : String):
 		save_name = _save_name
 		player_data = _data
 		
-		if Debug.reset_saved_component_data:
+		if Debug.settings.reset_saved_component_data:
 			print("rip. saved component data is deleted.")
 			player_data.saved_component_data = []
 	else:

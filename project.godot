@@ -42,7 +42,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_conventions_cheat_sheet/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [file_customization]
 
