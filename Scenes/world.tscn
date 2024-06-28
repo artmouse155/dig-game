@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=53 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
 [ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/world_1_tiles.png" id="16_lkowb"]
+[ext_resource type="Texture2D" uid="uid://clppqwcfu2cxv" path="res://Assets/Textures/GameWorld/sky.png" id="21_eubkt"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="23_ps24a"]
 [ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
@@ -326,7 +327,7 @@ offset_bottom = 1080.0
 [node name="Control" type="Control" parent="SubViewportContainer/SubViewport/HFollow"]
 anchors_preset = 0
 
-[node name="Sky" type="ColorRect" parent="SubViewportContainer/SubViewport/HFollow/Control"]
+[node name="Sky" type="TextureRect" parent="SubViewportContainer/SubViewport/HFollow/Control"]
 z_index = -5
 z_as_relative = false
 layout_mode = 1
@@ -336,7 +337,7 @@ anchor_bottom = 1.0
 offset_top = -1080.0
 offset_right = 1920.0
 grow_vertical = 0
-color = Color(0.588235, 0.780392, 0.94902, 1)
+texture = ExtResource("21_eubkt")
 
 [node name="PB" type="Control" parent="SubViewportContainer/SubViewport/HFollow"]
 z_index = 1
