@@ -123,7 +123,7 @@ func start_from_main_menu():
 		player_data.set_stat("completed_tutorial", true)
 		new_day()
 
-#TODO: Make Work!
+
 func get_all_game_objects() -> Array[DrillerComponentObject]:
 	var all_objects : Array[DrillerComponentObject] = []
 	var groups = all_data.all_driller_component_groups
@@ -133,7 +133,7 @@ func get_all_game_objects() -> Array[DrillerComponentObject]:
 	
 	return all_objects
 
-#TODO: Make Work!
+
 func get_all_achievements()-> Array[Achievement]:
 	return all_data.all_achievements
 

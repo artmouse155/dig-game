@@ -1,7 +1,6 @@
 [gd_scene load_steps=52 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
-[ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/tilemap_small.png" id="2_p5811"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
 [ext_resource type="Resource" uid="uid://camjt31i8lv7f" path="res://Resources/World Generation/Gems/red_gem.tres" id="3_t0cxn"]
@@ -29,6 +28,7 @@
 [ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
+[ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/world_1_tiles.png" id="16_lkowb"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="23_ps24a"]
 [ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
@@ -66,7 +66,7 @@ frequency = 0.15
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imo1k"]
 resource_name = "GROUND"
-texture = ExtResource("2_p5811")
+texture = ExtResource("16_lkowb")
 texture_region_size = Vector2i(32, 32)
 0:0/next_alternative_id = 2
 0:0/0 = 0
