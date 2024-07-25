@@ -33,11 +33,29 @@ var score: float = 0.0
 
 var chunks = {}
 
+#ID's of chunks to load when the game is first started.
+var preloaded_chunks: Array[Vector2i] = [
+	Vector2i(-4,0),
+	Vector2i(-3,0),
+	Vector2i(-2,0),
+	Vector2i(-1,0),
+	Vector2i(0,0),
+	Vector2i(1,0),
+	Vector2i(2,0),
+	Vector2i(3,0),
+	Vector2i(4,0),
+]
+var pregeneration_completed = false
+
 #TODO: make all resolution changes dynamic
 const CHUNK_RESOLUTION: int = 16
 var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 #@export var noise_texture : NoiseTexture2D
-@onready var tilemap = %TileMap
+
+#tm is tile map
+@onready var bg_tm = %TileMap/Background
+@onready var earth_tm = %TileMap/Earth
+@onready var light_tm = %TileMap/Light
 @onready var chunk_path = %Player/ChunkRegion/PathFollow2D
 
 const BACKGROUND_LAYER = -1
@@ -50,6 +68,8 @@ var camera_pos = Vector2.ZERO # Vector2(1920,1080)
 
 var ground_source_id = 1
 var light_source_id = 2
+
+#const GRASS_ATLAS = Vector2i(7, 3)
 
 var light_radius = 9
 
@@ -95,11 +115,11 @@ var achievement_triggers: Array[Achievement] = []
 
 var start_time_ms = 0
 
+signal loaded
+var is_loaded = false
+
 func _ready():
-	
 	start_time_ms = Time.get_ticks_msec()
-	
-	#print("air: " + str(tilemap.get_cell_atlas_coords(GROUND_LAYER, Vector2i(0, -100))))
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
 
@@ -111,10 +131,10 @@ func _ready():
 				i.noise_res = smooth_noise.duplicate()
 		i.noise_res.seed = randi()
 
-	tilemap.add_layer(LIGHT_LAYER)
-	tilemap.set_layer_z_index(LIGHT_LAYER, LIGHT_LAYER)
-	tilemap.add_layer(BACKGROUND_LAYER)
-	tilemap.set_layer_z_index(BACKGROUND_LAYER, BACKGROUND_LAYER)
+	#tilemap.add_layer(LIGHT_LAYER)
+	#tilemap.set_layer_z_index(LIGHT_LAYER, LIGHT_LAYER)
+	#tilemap.add_layer(BACKGROUND_LAYER)
+	#tilemap.set_layer_z_index(BACKGROUND_LAYER, BACKGROUND_LAYER)
 	
 	day_number_label.text = "Day " + str(Game.player_data.get_stat("day_number"))
 	day_number_label.position.y = DAY_NUMBER_Y_OFFSET
@@ -125,8 +145,11 @@ func _ready():
 	update_h_follow_pos()
 
 	setup_triggers()
-
 	generate_world()
+	print("pregeneration_completed.")
+	is_loaded = true
+	loaded.emit()
+	
 
 func setup_triggers():
 	var all_components: Array[DrillerComponentObject] = Game.get_all_game_objects()
@@ -153,7 +176,8 @@ func check_chunk_regions():
 			generate_chunk(chunk_coordinate)
 
 func generate_world():
-	generate_chunk(Vector2.ZERO)
+	for chunk in preloaded_chunks:
+		generate_chunk(chunk)
 
 func generate_chunk(chunk_coords: Vector2i):
 	var start_time = Time.get_ticks_msec()
@@ -165,7 +189,6 @@ func generate_chunk(chunk_coords: Vector2i):
 		for y in range(DEFAULT_CHUNK.y):
 			temp_chunk[x].append(null)
 	
-	#print("Generating chunk: " + str(chunk_coords))
 	if !(chunk_coords.x in chunks.keys()):
 		chunks[chunk_coords.x] = {}
 	if !(chunk_coords.y in chunks[chunk_coords.x].keys()):
@@ -200,7 +223,7 @@ func generate_chunk(chunk_coords: Vector2i):
 			for y in range(DEFAULT_CHUNK.y):
 				var y_cor = y + (DEFAULT_CHUNK.y * chunk_coords.y)
 				if (y_cor >= i.min_depth) and (y_cor <= i.max_depth):
-					var function_input = float(y_cor - i.min_depth) / (i.max_depth - i.min_depth)
+					var function_input = float(y_cor - i.min_depth) / (1 + (i.max_depth - i.min_depth))
 					var threshold_value = (curve.sample(function_input) * (i.max_freq - i.min_freq)) + i.min_freq
 					for x in range(DEFAULT_CHUNK.x):
 						var coords = Vector2i(x, y) + Vector2i(chunk_coords.x * DEFAULT_CHUNK.x, chunk_coords.y * DEFAULT_CHUNK.y)
@@ -215,10 +238,15 @@ func generate_chunk(chunk_coords: Vector2i):
 	var mid_elapsed_time = mid_time - start_time
 
 	draw_chunk(chunk_coords)
+	#print("drew chunk at ", chunk_coords)
 	var end_time = Time.get_ticks_msec()
 	var elapsed_time = end_time - start_time
 	print("Chunk generated in ", elapsed_time, "ms (", mid_elapsed_time, "ms + ", (end_time - mid_time), "ms)")
 
+func generate_structure(structure: PackedScene, chunk_coords: Vector2i, tile_coords: Vector2i):
+	structure = preload("res://Scenes/Rooms/sample_room.tscn")
+	#check if structure can be placed at the location
+	#check if structure intersects with any existing structures
 func draw_chunk(chunk_coords: Vector2i):
 	#print("CHUNK: " + str(chunks[0][0]))
 	
@@ -228,37 +256,41 @@ func draw_chunk(chunk_coords: Vector2i):
 			if tile_has_data(coords):
 				if get_tile_data(coords):
 					var gen = get_chunk_data(chunk_coords)[x][y]["gen"]
-					tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
+					earth_tm.set_cell(coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
 					if !Debug.settings.fullbright:
-						tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0, 0))
+						#dont put light on topmost layer
+						if coords.y != 0:
+							light_tm.set_cell(coords, light_source_id, Vector2i(0, 0))
 
 func _process(delta):
 	print("Speed: ",%Player.speed)
 	
 	if not Game.paused:
-		if Input.is_action_just_pressed("accelerate"):
-			%Player.change_speed()
-		elif Input.is_action_just_pressed("decelerate"):
-			%Player.change_speed(-1)
-		update_h_follow_pos()
-		mine(delta)
-		check_chunk_regions()
+		if is_loaded:
+			if Input.is_action_just_pressed("accelerate"):
+				%Player.change_speed()
+			elif Input.is_action_just_pressed("decelerate"):
+				%Player.change_speed(-1)
+			update_h_follow_pos()
+			mine_and_move(delta)
 
-		check_triggers()
+			check_chunk_regions()
 
-		day_stats["max_speed"] = max(day_stats["max_speed"], %Player.velocity)
-		day_stats["max_depth"] = max(day_stats["max_depth"], %Player.depth)
-		#damage_tile(center_tile, %Player.drill_speed * delta)
-		#tile_break_particle.position = get_global_mouse_position()
+			check_triggers()
 
-func mine(delta):
+			day_stats["max_speed"] = max(day_stats["max_speed"], %Player.velocity)
+			day_stats["max_depth"] = max(day_stats["max_depth"], %Player.depth)
+			#damage_tile(center_tile, %Player.drill_speed * delta)
+			#tile_break_particle.position = get_global_mouse_position()
+
+func mine_and_move(delta):
 		#Code for mining
 		#%Sky.position.x = %Player.position.x - resolution.x/2
 		
-		var center_tile = tilemap.local_to_map( %Player.position)
+		var center_tile = earth_tm.local_to_map( %Player.position)
 		light_up_around_coords(center_tile)
 		
-		var drill_tile = tilemap.local_to_map( %Player.player_texture.get_drill_center().global_position)
+		var drill_tile = earth_tm.local_to_map( %Player.player_texture.get_drill_center().global_position)
 		
 		#stop if we can't break it in .5 seconds.
 		#slow if we can't break it in .1 seconds.
@@ -289,16 +321,13 @@ func mine(delta):
 						var eqn_dist = (sqrt(pow(drill_radius, 2) + pow(normalized_x_y.x, 2)) - normalized_x_y.y)
 						if (eqn_dist >= MINE_DIST):
 							var t = (health / damage)
-							#print(get_tile_data(tile_pos)["health"])
 							var needed_decel = (2 * pow(t, 2)) * (eqn_dist - (%Player.velocity * t))
 							max_accel = max(max_accel, needed_decel)
 							var complete_stop_threshold: float = (damage * eqn_dist / (%Player.velocity))
 							if health > complete_stop_threshold:
 								print("stopped! eqn dist:" + str(eqn_dist))
-								#print("health:  " + str(health) + " thrshld: " + str(complete_stop_threshold))
 								complete_stop_threshold_met = true
 							else:
-								#print("health:  " + str(health))
 								max_damage_ratio = max(max_damage_ratio, float(health) / complete_stop_threshold)
 
 						damage_tile(tile_pos, damage * delta)
@@ -310,7 +339,10 @@ func mine(delta):
 		%Player.move(delta)
 		
 func _input(ev):
-
+	
+	if Input.is_key_pressed(KEY_8):
+		loaded.emit()
+	
 	if not Game.paused:
 		if Input.is_action_just_pressed("shop"):
 			shop_button_pressed()
@@ -329,7 +361,7 @@ func _input(ev):
 
 		if ev is InputEventMouseButton:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				var center_tile = tilemap.local_to_map( %Player.get_local_mouse_position() + %Player.position)
+				var center_tile = earth_tm.local_to_map( %Player.get_local_mouse_position() + %Player.position)
 				%Player.screenshake()
 				
 				for x in range(1 + (2 * BOMB_RADIUS)):
@@ -344,7 +376,7 @@ func mine_tile(coords, tileGen: Gen):
 	if tile_exists(coords):
 		var particle = preload ("res://Scenes/tile_break_particle.tscn").instantiate()
 		subviewport.add_child(particle)
-		particle.position = tilemap.map_to_local(coords)
+		particle.position = earth_tm.map_to_local(coords)
 		particle.restart()
 		particle.finished.connect(particle.queue_free)
 		
@@ -352,23 +384,23 @@ func mine_tile(coords, tileGen: Gen):
 			var points_indicator = preload ("res://Scenes/label_particle.tscn").instantiate()
 			points_indicator.setup(str(tileGen.value))
 			subviewport.add_child(points_indicator)
-			points_indicator.position = tilemap.map_to_local(coords)
+			points_indicator.position = earth_tm.map_to_local(coords)
 			points_indicator.particle_maker.restart()
 			points_indicator.particle_maker.finished.connect(points_indicator.queue_free)
 		
 		elif (tileGen.group == "gem"):
 			var temp_particle = iconAndTextParticle.instantiate()
-			temp_particle.gem_setup(tilemap.map_to_local(coords), ResourceData.new(tileGen.name, floor(tileGen.value)))
+			temp_particle.gem_setup(earth_tm.map_to_local(coords), ResourceData.new(tileGen.name, floor(tileGen.value)))
 			subviewport.add_child(temp_particle)
 		
 		elif (tileGen.group == "powerup"):
 			var temp_particle = iconAndTextParticle.instantiate()
-			temp_particle.powerup_setup(tilemap.map_to_local(coords), BuffItem.new(tileGen.name, tileGen.value))
+			temp_particle.powerup_setup(earth_tm.map_to_local(coords), BuffItem.new(tileGen.name, tileGen.value))
 			subviewport.add_child(temp_particle)
 		
 		day_stats["max_blocks_broken"] = day_stats["max_blocks_broken"] + 1
-		tilemap.set_cell(BACKGROUND_LAYER, coords, ground_source_id, background_atlas)
-		tilemap.erase_cell(GROUND_LAYER, coords)
+		bg_tm.set_cell(coords, ground_source_id, background_atlas)
+		earth_tm.erase_cell(coords)
 
 func light_up_around_coords(coords):
 	var light_edge_radius = light_radius - LIGHT_EDGE_SIZE
@@ -383,9 +415,9 @@ func light_up_around_coords(coords):
 			else:
 				light_level = 15 - floor(min(((tile_distance - (light_radius + 1 - light_edge_radius)) / light_edge_radius), 1) * 15)
 			
-			light_level = max(light_level, min(DIM_LIGHT, tilemap.get_cell_atlas_coords(LIGHT_LAYER, tile_pos, light_source_id).x))
-			if tilemap.get_cell_source_id(LIGHT_LAYER, tile_pos) != - 1:
-				tilemap.set_cell(LIGHT_LAYER, tile_pos, light_source_id, Vector2i(light_level, 0))
+			light_level = max(light_level, min(DIM_LIGHT, light_tm.get_cell_atlas_coords(tile_pos).x))
+			if light_tm.get_cell_source_id(tile_pos) != - 1:
+				light_tm.set_cell(tile_pos, light_source_id, Vector2i(light_level, 0))
 
 #TODO: figure out why this doesn't work for dirt!
 func tile_has_data(coords):
@@ -414,7 +446,6 @@ func damage_tile(coords, amount):
 	var tile_data = get_tile_data(coords)
 	if tile_exists(coords):
 		if tile_has_data(coords):
-			#print(tile_data[coords.x][coords.y]["health"])
 			tile_data["health"] -= amount
 			if tile_data["health"] <= 0:
 				
@@ -444,14 +475,14 @@ func damage_tile(coords, amount):
 				mine_tile(coords, tile_data["gen"])
 
 func tile_exists(coords):
-	return (tilemap.get_cell_source_id(GROUND_LAYER, coords) != - 1) and coords.y >= 0
+	return (earth_tm.get_cell_source_id(coords) != - 1) and coords.y >= 0
 
 func get_points(added_points):
 	score += added_points
 	%Score.text = str(floor(score))
 
 func pixel_coords_to_map_coords(pixel_coords):
-	return tilemap.local_to_map(pixel_coords)
+	return earth_tm.local_to_map(pixel_coords)
 
 func coords_to_chunk(coords: Vector2i):
 	return floor(Vector2(coords) / Vector2(DEFAULT_CHUNK))

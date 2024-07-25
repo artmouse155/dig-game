@@ -32,5 +32,4 @@ func _input(event):
 	and event.button_index == MOUSE_BUTTON_LEFT\
 	and event.pressed\
 	and sprite.get_rect().has_point(get_local_mouse_position()):
-		pass
-		#clicked.emit()
+		clicked.emit()

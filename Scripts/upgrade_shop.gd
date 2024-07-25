@@ -14,7 +14,7 @@ var all_driller_component_groups : Array[DrillerComponentGroup]
 var extra_scale : float = 1.5
 
 func _ready():
-	all_driller_component_groups = Game.all_data.all_driller_component_groups
+	all_driller_component_groups = (Game.all_data.all_driller_component_groups as Array[DrillerComponentGroup])
 	
 	for i in range(len(all_driller_component_groups)):
 		var driller_component_group_panel = preload("res://Scenes/driller_component_group_panel.tscn").instantiate()

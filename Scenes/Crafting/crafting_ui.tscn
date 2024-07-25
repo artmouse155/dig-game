@@ -92,10 +92,9 @@ text = "Sort By"
 [node name="OptionButton" type="OptionButton" parent="Base/MarginContainer/PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-item_count = 2
 selected = 0
+item_count = 2
 popup/item_0/text = "Date Found"
-popup/item_0/id = 0
 popup/item_1/text = "Age"
 popup/item_1/id = 1
 
@@ -168,11 +167,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_arclr")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_arclr")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_arclr")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_arclr")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_arclr")
 icon = ExtResource("4_c7auf")
 
 [node name="Recipe Panel" type="PanelContainer" parent="Base/PanelContainer/VBoxContainer/MarginContainer3/HBoxContainer" node_paths=PackedStringArray("icons_center", "left_button", "right_button", "left_gear", "right_gear", "sort_method_node", "show_prev_crafted_Node", "ingredient_list_node", "recipe_name_node", "desc_node", "craft_button", "all_recipes_crafted_node")]
@@ -227,11 +226,11 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y5esn")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_y5esn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_y5esn")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_y5esn")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_y5esn")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y5esn")
 icon = ExtResource("6_2b5d7")
 
 [node name="MarginContainer4" type="MarginContainer" parent="Base/PanelContainer/VBoxContainer"]

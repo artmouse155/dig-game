@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Gen" load_steps=2 format=3 uid="uid://dpxlog0lsmgf6"]
+
+[ext_resource type="Script" path="res://Resources/gen.gd" id="1_0p5qd"]
+
+[resource]
+script = ExtResource("1_0p5qd")
+name = "grass"
+health = 8
+value = 0.1
+atlas = Array[Vector2i]([Vector2i(7, 3)])
+min_depth = 0
+max_depth = 0
+min_freq = 1.0
+max_freq = 1.0
+curve = "constant"
+noise = "smooth"
+group = ""

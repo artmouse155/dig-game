@@ -1,10 +1,11 @@
-[gd_scene load_steps=53 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=51 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
+[ext_resource type="Script" path="res://Resources/gen.gd" id="2_rbmvb"]
 [ext_resource type="Texture2D" uid="uid://cnxtm8x6ihkhb" path="res://Assets/Textures/UI/drill_broken.png" id="3_6s8mq"]
+[ext_resource type="Resource" uid="uid://dpxlog0lsmgf6" path="res://Resources/World Generation/grass.tres" id="3_perxp"]
 [ext_resource type="Resource" uid="uid://camjt31i8lv7f" path="res://Resources/World Generation/Gems/red_gem.tres" id="3_t0cxn"]
-[ext_resource type="Texture2D" uid="uid://bjff7rjw6jch0" path="res://Assets/Textures/Tiles/fade.png" id="3_vvgrb"]
 [ext_resource type="Resource" uid="uid://dhgb8piyw87hi" path="res://Resources/World Generation/coal.tres" id="4_4i2cs"]
 [ext_resource type="Script" path="res://Scripts/world_Player.gd" id="4_5n57c"]
 [ext_resource type="Resource" uid="uid://bjhha8o23j1yo" path="res://Resources/World Generation/Gems/green_gem.tres" id="4_uwscm"]
@@ -12,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://cvdy283dpp2t6" path="res://Assets/Textures/UI/box.png" id="5_cok10"]
 [ext_resource type="Resource" uid="uid://bpfbmwfxadoq8" path="res://Resources/World Generation/silver.tres" id="5_sf4cn"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="5_uf3c3"]
-[ext_resource type="Texture2D" uid="uid://pfwsfufu3bwd" path="res://Assets/Textures/grass.png" id="5_weegd"]
 [ext_resource type="Resource" uid="uid://l4uis2th1llt" path="res://Resources/World Generation/gold.tres" id="6_if1ct"]
 [ext_resource type="Resource" uid="uid://bjw3aic4v8nip" path="res://Resources/World Generation/Powerups/extra_energy.tres" id="6_jutqh"]
 [ext_resource type="Resource" uid="uid://dumdgi4t5c0cb" path="res://Resources/World Generation/Powerups/extra_durability.tres" id="6_xowi1"]
@@ -28,7 +28,8 @@
 [ext_resource type="Resource" uid="uid://jac2xmbuvln5" path="res://Resources/World Generation/Gems/plasma.tres" id="13_gw8xf"]
 [ext_resource type="PackedScene" uid="uid://b0bo4y5hiomht" path="res://Scenes/player.tscn" id="15_8pfsl"]
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
-[ext_resource type="Texture2D" uid="uid://bfybnidl4pm7w" path="res://Assets/Textures/Tiles/world_1_tiles.png" id="16_lkowb"]
+[ext_resource type="TileSet" uid="uid://mm6kqtjqenr8" path="res://Resources/World Generation/world_1_tileset.tres" id="17_u5ghe"]
+[ext_resource type="TileSet" uid="uid://byfado2ql7hne" path="res://Resources/World Generation/light_tileset.tres" id="18_4lsik"]
 [ext_resource type="Texture2D" uid="uid://clppqwcfu2cxv" path="res://Assets/Textures/GameWorld/sky.png" id="21_eubkt"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="23_ps24a"]
 [ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
@@ -64,117 +65,6 @@ domain_warp_fractal_type = 0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6w0px"]
 frequency = 0.15
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imo1k"]
-resource_name = "GROUND"
-texture = ExtResource("16_lkowb")
-texture_region_size = Vector2i(32, 32)
-0:0/next_alternative_id = 2
-0:0/0 = 0
-1:0/next_alternative_id = 2
-1:0/0 = 0
-2:0/next_alternative_id = 2
-2:0/0 = 0
-3:0/next_alternative_id = 2
-3:0/0 = 0
-4:0/next_alternative_id = 2
-4:0/0 = 0
-5:0/next_alternative_id = 2
-5:0/0 = 0
-6:0/next_alternative_id = 2
-6:0/0 = 0
-7:0/next_alternative_id = 2
-7:0/0 = 0
-0:1/next_alternative_id = 2
-0:1/0 = 0
-1:1/next_alternative_id = 2
-1:1/0 = 0
-2:1/next_alternative_id = 2
-2:1/0 = 0
-3:1/next_alternative_id = 2
-3:1/0 = 0
-4:1/next_alternative_id = 2
-4:1/0 = 0
-5:1/next_alternative_id = 2
-5:1/0 = 0
-6:1/next_alternative_id = 2
-6:1/0 = 0
-7:1/next_alternative_id = 2
-7:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-7:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-0:6/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-5:6/0 = 0
-6:6/0 = 0
-7:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-2:7/0 = 0
-3:7/0 = 0
-4:7/0 = 0
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vg1tg"]
-resource_name = "<null>"
-texture = ExtResource("3_vvgrb")
-texture_region_size = Vector2i(32, 32)
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-7:0/0 = 0
-8:0/0 = 0
-9:0/0 = 0
-10:0/0 = 0
-11:0/0 = 0
-12:0/0 = 0
-13:0/0 = 0
-14:0/0 = 0
-15:0/0 = 0
-0:0/0 = 0
-1:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_pfbys"]
-tile_size = Vector2i(32, 32)
-sources/1 = SubResource("TileSetAtlasSource_imo1k")
-sources/2 = SubResource("TileSetAtlasSource_vg1tg")
 
 [sub_resource type="Curve" id="Curve_mcinw"]
 _data = [Vector2(0, 0), 0.0, 0.2, 0, 1, Vector2(0.5, 0.1), 0.2, 0.666667, 1, 1, Vector2(0.8, 0.3), 0.666667, 3.0, 1, 1, Vector2(0.9, 0.6), 3.0, 4.0, 1, 1, Vector2(1, 1), 4.0, 4.0, 1, 1]
@@ -228,7 +118,7 @@ constant_curve = SubResource("Curve_xfmaw")
 randf_noise = SubResource("FastNoiseLite_wa7yg")
 smooth_noise = SubResource("FastNoiseLite_6w0px")
 day_number_label = NodePath("SubViewportContainer/SubViewport/Control2/Control/Day Number")
-gen_data = Array[Resource("res://Resources/gen.gd")]([ExtResource("2_r1251"), ExtResource("3_t0cxn"), ExtResource("4_uwscm"), ExtResource("5_707rn"), ExtResource("6_xowi1"), ExtResource("7_5e5g1"), ExtResource("8_mi6a4"), ExtResource("6_jutqh"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("13_gw8xf"), ExtResource("7_jx3ys")])
+gen_data = Array[ExtResource("2_rbmvb")]([ExtResource("3_perxp"), ExtResource("2_r1251"), ExtResource("3_t0cxn"), ExtResource("4_uwscm"), ExtResource("5_707rn"), ExtResource("6_xowi1"), ExtResource("7_5e5g1"), ExtResource("8_mi6a4"), ExtResource("6_jutqh"), ExtResource("4_4i2cs"), ExtResource("5_sf4cn"), ExtResource("6_if1ct"), ExtResource("13_gw8xf"), ExtResource("7_jx3ys")])
 iconAndTextParticle = ExtResource("15_mp0r6")
 notificationSystem = NodePath("UI/MarginContainer/NotificationMargin/Control/NotificationSystem")
 throttle = NodePath("UI/Throttle")
@@ -252,6 +142,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
@@ -285,11 +176,19 @@ theme_override_font_sizes/font_size = 64
 text = "Day 1"
 horizontal_alignment = 1
 
-[node name="TileMap" type="TileMap" parent="SubViewportContainer/SubViewport"]
+[node name="TileMap" type="Node2D" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-tile_set = SubResource("TileSet_pfbys")
-format = 2
-layer_0/tile_data = PackedInt32Array(-131066, 458753, 4, -131065, 458753, 4, -131064, 458753, 4, -131060, 458753, 4, -131059, 458753, 4, -131055, 458753, 4, -131052, 458753, 4, -131051, 458753, 4, -131047, 458753, 4, -131043, 458753, 4, -131040, 458753, 4, -131039, 458753, 4, -131038, 458753, 4, -131037, 458753, 4, -131030, 458753, 4, -131025, 458753, 4, -131024, 458753, 4, -131020, 458753, 4, -131019, 458753, 4, -131018, 458753, 4, -131017, 458753, 4, -131013, 458753, 4, -131012, 458753, 4, -131011, 458753, 4, -131010, 458753, 4, -131009, 458753, 4, -131008, 458753, 4, -65539, 458753, 4, -65538, 458753, 4, -65537, 458753, 4, -131072, 458753, 4, -131071, 458753, 4, -131070, 458753, 4, -131069, 458753, 4, -65543, 458753, 4, -65544, 458753, 4, -9, 458753, 4, -131001, 458753, 4, -131000, 458753, 4, -130999, 458753, 4, -130998, 458753, 4)
+
+[node name="Background" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+tile_set = ExtResource("17_u5ghe")
+
+[node name="Earth" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+tile_set = ExtResource("17_u5ghe")
+
+[node name="Light" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+tile_set = ExtResource("18_4lsik")
+
+[node name="Structure" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
 
 [node name="Player" type="Node2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture")]
 unique_name_in_owner = true
@@ -374,13 +273,6 @@ z_index = 1
 points = PackedVector2Array(0, 0, 1920, 0)
 width = 2.0
 default_color = Color(1, 0, 0, 1)
-
-[node name="Grass" type="TextureRect" parent="SubViewportContainer/SubViewport/HFollow"]
-layout_mode = 0
-offset_top = -32.0
-offset_right = 1920.0
-texture = ExtResource("5_weegd")
-stretch_mode = 2
 
 [node name="UI" type="Control" parent="."]
 z_index = 5

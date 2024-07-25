@@ -13,13 +13,16 @@ const PLAYER_STARTING_POS = Vector2(960,-200)
 
 enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS, CRAFTING, STATISTICS}
 
-const SCENES = {
-	MAIN_MENU : preload("res://Scenes/main_menu.tscn"),
-	WORLD_1 : preload("res://Scenes/world.tscn"),
-	SHOP : preload("res://Scenes/upgrade_shop.tscn"),
-	ACHIEVEMENTS : preload("res://Scenes/UI/achievement_display.tscn"),
-	CRAFTING : preload("res://Scenes/Crafting/crafting_ui.tscn"),
-	STATISTICS : preload("res://Scenes/statistics_screen.tscn")
+#NOTE: If TRANSITION_WITH_LOAD or NO_TRANSITION_WITH_LOAD picked, scene must emit signal "loaded" to continue
+enum TRANSITION_TYPES {TRANSITION, TRANSITION_WITH_LOAD, NO_TRANSITION, NO_TRANSITION_WITH_LOAD}
+
+var SCENES = {
+	MAIN_MENU : load("res://Scenes/main_menu.tscn"),
+	WORLD_1 : load("res://Scenes/world.tscn"),
+	SHOP : load("res://Scenes/upgrade_shop.tscn"),
+	ACHIEVEMENTS : load("res://Scenes/UI/achievement_display.tscn"),
+	CRAFTING : load("res://Scenes/Crafting/crafting_ui.tscn"),
+	STATISTICS : load("res://Scenes/statistics_screen.tscn")
 }
 
 var paused = false
@@ -90,7 +93,7 @@ func get_main_scene():
 
 func new_day():
 	player_data.increase_stat("day_number", 1)
-	main_scene.switch_scene(WORLD_1, true, true)
+	main_scene.switch_scene(WORLD_1, Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD, true)
 
 func end_day():
 	
@@ -135,7 +138,7 @@ func get_all_game_objects() -> Array[DrillerComponentObject]:
 
 
 func get_all_achievements()-> Array[Achievement]:
-	return all_data.all_achievements
+	return (all_data.all_achievements as Array[Achievement])
 
 func _input(_ev):
 	#NOTE "`/~" key

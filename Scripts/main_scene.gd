@@ -28,9 +28,9 @@ func get_current_scene():
 	return get_tree().get_nodes_in_group("scenes")[0]
 	#if you get an error here, it is because the scene you tried to load isn't in the group "scenes". Fix this in the editor and you should be fine.
 
-func switch_scene(scene, do_transition=true, force_reload=false):
+func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, force_reload=false):
 	if (scene != current_scene) or (force_reload):
-		if do_transition:
+		if (trans_type == Game.TRANSITION_TYPES.TRANSITION) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			Game.is_transition_running = true
 			Game.paused = true
@@ -40,12 +40,18 @@ func switch_scene(scene, do_transition=true, force_reload=false):
 				await fade_node.fade_in()
 		var old_scene = get_current_scene()
 		var new_scene = await Game.SCENES[scene].instantiate()
+		
+		#var new_scene = load("res://Scenes/main_menu.tscn").instantiate()
 		add_child(new_scene)
 		move_child(new_scene, 0)
+		if (trans_type == Game.TRANSITION_TYPES.NO_TRANSITION_WITH_LOAD) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
+			if not new_scene.is_loaded:
+				await new_scene.loaded
 		old_scene.queue_free()
 		await old_scene.tree_exited
 		current_scene = scene
-		if do_transition:
+		
+		if (trans_type == Game.TRANSITION_TYPES.TRANSITION) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			await fade_node.fade_out()
 			Game.is_transition_running = false

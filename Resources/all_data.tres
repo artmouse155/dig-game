@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="AllData" load_steps=9 format=3 uid="uid://dn1qfq6qbmait"]
+[gd_resource type="Resource" script_class="AllData" load_steps=11 format=3 uid="uid://dn1qfq6qbmait"]
 
 [ext_resource type="Resource" uid="uid://cfg30q0b26xgc" path="res://Resources/Shop Data/all_hulls.tres" id="1_fe05c"]
 [ext_resource type="Script" path="res://Resources/all_data.gd" id="1_ito6i"]
+[ext_resource type="Script" path="res://Resources/achievement.gd" id="1_qcnup"]
 [ext_resource type="Resource" uid="uid://bjyy5sk0tq5uj" path="res://Resources/Achievements/go_fast.tres" id="1_ueakh"]
 [ext_resource type="Resource" uid="uid://ck0wrxlg7g5en" path="res://Resources/Shop Data/all_drills.tres" id="2_06lv5"]
+[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="3_1y56a"]
 [ext_resource type="Resource" uid="uid://dacu2ehjgdglb" path="res://Resources/Shop Data/all_batteries.tres" id="3_ibo24"]
 [ext_resource type="Resource" uid="uid://cynh4k6te4lun" path="res://Resources/Shop Data/all_engines.tres" id="4_8bday"]
 [ext_resource type="Resource" uid="uid://dd5p2bjojj2jq" path="res://Resources/Shop Data/all_boosts.tres" id="5_6l14v"]
@@ -11,5 +13,5 @@
 
 [resource]
 script = ExtResource("1_ito6i")
-all_driller_component_groups = Array[Resource("res://Resources/driller_component_group.gd")]([ExtResource("1_fe05c"), ExtResource("2_06lv5"), ExtResource("3_ibo24"), ExtResource("4_8bday"), ExtResource("5_6l14v"), ExtResource("6_j7to7")])
-all_achievements = Array[Resource("res://Resources/achievement.gd")]([ExtResource("1_ueakh")])
+all_driller_component_groups = Array[ExtResource("3_1y56a")]([ExtResource("1_fe05c"), ExtResource("2_06lv5"), ExtResource("3_ibo24"), ExtResource("4_8bday"), ExtResource("5_6l14v"), ExtResource("6_j7to7")])
+all_achievements = Array[ExtResource("1_qcnup")]([ExtResource("1_ueakh")])
