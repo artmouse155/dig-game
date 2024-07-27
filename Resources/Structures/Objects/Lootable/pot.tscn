@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://blv7564hoijoj"]
+
+[ext_resource type="Texture2D" uid="uid://c7edvxauab3wo" path="res://Assets/Textures/Tiles/Rooms/pot.png" id="1_m8tyj"]
+
+[node name="Pot" type="Sprite2D"]
+position = Vector2(462, 239)
+texture = ExtResource("1_m8tyj")

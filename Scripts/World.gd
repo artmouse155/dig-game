@@ -56,6 +56,9 @@ var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 @onready var bg_tm = %TileMap/Background
 @onready var earth_tm = %TileMap/Earth
 @onready var light_tm = %TileMap/Light
+@onready var structure_fg_tm = %TileMap/StructureFG
+@onready var structure_bg_tm = %TileMap/StructureBG
+
 @onready var chunk_path = %Player/ChunkRegion/PathFollow2D
 
 const BACKGROUND_LAYER = -1
@@ -122,6 +125,9 @@ func _ready():
 	start_time_ms = Time.get_ticks_msec()
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
+	%LightRect.set_grid_offset(%Player.position / (Game.TILE_WIDTH * Vector2.ONE))
+	%LightRect.set_light_pixel_center(%LightRect.size / 2)
+	%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
 
 	for i in gen_data:
 		match i.noise:
@@ -178,6 +184,8 @@ func check_chunk_regions():
 func generate_world():
 	for chunk in preloaded_chunks:
 		generate_chunk(chunk)
+		
+	generate_structure(preload("res://test_room.tres"), Vector2i(2,2), Vector2i(0,0))
 
 func generate_chunk(chunk_coords: Vector2i):
 	var start_time = Time.get_ticks_msec()
@@ -243,10 +251,20 @@ func generate_chunk(chunk_coords: Vector2i):
 	var elapsed_time = end_time - start_time
 	print("Chunk generated in ", elapsed_time, "ms (", mid_elapsed_time, "ms + ", (end_time - mid_time), "ms)")
 
-func generate_structure(structure: PackedScene, chunk_coords: Vector2i, tile_coords: Vector2i):
-	structure = preload("res://Scenes/Rooms/sample_room.tscn")
+func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_coords: Vector2i):
+	pass
+	#structure = preload("res://Scenes/Rooms/ro.tscn")
 	#check if structure can be placed at the location
 	#check if structure intersects with any existing structures
+	if not structure_fg_tm.tile_set == structure.tile_set:
+		print("ERROR: Tileset of StructureFG is different from the one is the room we want to load")
+	
+	var real_coords: Vector2i = (chunk_coords * CHUNK_RESOLUTION) + tile_coords
+	
+	structure_bg_tm.set_pattern(real_coords + structure.bg_origin, structure.bg_tiles)
+	structure_fg_tm.set_pattern(real_coords + structure.fg_origin, structure.fg_tiles)
+	
+	
 func draw_chunk(chunk_coords: Vector2i):
 	#print("CHUNK: " + str(chunks[0][0]))
 	
@@ -337,7 +355,8 @@ func mine_and_move(delta):
 		%DEBUG.text = "max_damage_ratio:  " + str(max_damage_ratio)
 		%Player.complete_stop = complete_stop_threshold_met
 		%Player.move(delta)
-		
+		%LightRect.set_grid_offset(%Player.position / (Game.TILE_WIDTH * Vector2.ONE))
+		%LightRect.set_light_pixel_center(%LightRect.size / 2)
 func _input(ev):
 	
 	if Input.is_key_pressed(KEY_8):

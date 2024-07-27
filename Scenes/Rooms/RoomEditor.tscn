@@ -1,74 +1,66 @@
-[gd_scene load_steps=11 format=4 uid="uid://dubne73h0l0o4"]
+[gd_scene load_steps=16 format=4 uid="uid://dubne73h0l0o4"]
 
-[ext_resource type="TileSet" uid="uid://dsq8jxh6ktmkr" path="res://Resources/World Generation/Tilesets/room_0_tileset.tres" id="1_f70tn"]
-[ext_resource type="Texture2D" uid="uid://c3kdlvphxpd8x" path="res://Assets/Textures/Tiles/Rooms/crate.png" id="2_2xqqw"]
-[ext_resource type="Texture2D" uid="uid://c7edvxauab3wo" path="res://Assets/Textures/Tiles/Rooms/pot.png" id="3_nke4i"]
-[ext_resource type="Texture2D" uid="uid://wc3jxcq8ldoj" path="res://Assets/Textures/Tiles/Rooms/vase.png" id="4_ycres"]
-[ext_resource type="Texture2D" uid="uid://cqdg1xwaefuoa" path="res://Assets/Textures/Tiles/Rooms/torch.png" id="5_227ah"]
-[ext_resource type="Texture2D" uid="uid://bc13qgbpccv0k" path="res://Assets/Textures/Tiles/Rooms/fire.png" id="6_1o4o1"]
-[ext_resource type="Shader" path="res://Scenes/Rooms/torch_light.gdshader" id="6_5ivdg"]
-[ext_resource type="Shader" path="res://Scenes/Rooms/funky.gdshader" id="8_3ddob"]
+[ext_resource type="Script" path="res://Scripts/room_editor.gd" id="1_av4om"]
+[ext_resource type="TileSet" uid="uid://dsq8jxh6ktmkr" path="res://Resources/World Generation/Tilesets/room_0_tileset.tres" id="2_v28ld"]
+[ext_resource type="PackedScene" uid="uid://c5s42f148lm4m" path="res://Resources/Structures/Objects/Lights/torch.tscn" id="3_v1tbw"]
+[ext_resource type="Texture2D" uid="uid://cqdg1xwaefuoa" path="res://Assets/Textures/Tiles/Rooms/torch.png" id="4_147d7"]
+[ext_resource type="Texture2D" uid="uid://bc13qgbpccv0k" path="res://Assets/Textures/Tiles/Rooms/fire.png" id="5_35bob"]
+[ext_resource type="Shader" path="res://Scenes/Rooms/torch_light.gdshader" id="6_f8wwc"]
+[ext_resource type="PackedScene" uid="uid://c776gy42n3if" path="res://Resources/Structures/Objects/Lootable/crate.tscn" id="7_vhx61"]
+[ext_resource type="Texture2D" uid="uid://c3kdlvphxpd8x" path="res://Assets/Textures/Tiles/Rooms/crate.png" id="8_k33tn"]
+[ext_resource type="PackedScene" uid="uid://blv7564hoijoj" path="res://Resources/Structures/Objects/Lootable/pot.tscn" id="9_kavnx"]
+[ext_resource type="Texture2D" uid="uid://wc3jxcq8ldoj" path="res://Assets/Textures/Tiles/Rooms/vase.png" id="10_j7qo1"]
+[ext_resource type="Shader" path="res://Scenes/Rooms/funky.gdshader" id="11_u2gao"]
+[ext_resource type="Shader" path="res://Scenes/Rooms/light.gdshader" id="12_76lio"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bebox"]
-shader = ExtResource("6_5ivdg")
+shader = ExtResource("6_f8wwc")
 shader_parameter/light_color = Color(0.776471, 0.337255, 0.152941, 1)
 shader_parameter/intensity = 0.75
 shader_parameter/flickeryness = 0.2
 shader_parameter/flicker_speed = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vmkiv"]
-shader = ExtResource("8_3ddob")
+shader = ExtResource("11_u2gao")
 shader_parameter/box_size = Vector2(128, 128)
 shader_parameter/swirl_amount = 1.0
 
-[node name="SampleRoom" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4rja"]
+shader = ExtResource("12_76lio")
+shader_parameter/pixel_resolution = Vector2(960, 960)
+shader_parameter/tile_resolution = Vector2(32, 32)
+shader_parameter/light_rect_pixel_center = Vector2(20, 20)
+shader_parameter/tile_offset = Vector2(0, 0)
+shader_parameter/light_radius = 9.0
+shader_parameter/light_edge_size = 3.0
+
+[node name="RoomEditor" type="Node2D"]
+script = ExtResource("1_av4om")
 
 [node name="Tiles" type="Node2D" parent="."]
 
 [node name="Back" type="TileMapLayer" parent="Tiles"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAABAAEAAAAFAAAAAAABAAIAAAAFAAAAAAABAAMAAAAFAAAAAAABAAQAAAAFAAAAAAABAAUAAAAFAAAAAAABAAYAAAAFAAAAAAABAAcAAAAFAAAAAAACAAEAAAAFAAAAAAACAAIAAAAFAAAAAAACAAMAAAAFAAAAAAACAAQAAAAFAAAAAAACAAUAAAAFAAAAAAACAAYAAAAHAAAAAAACAAcAAAAFAAAAAAADAAEAAAAFAAAAAAADAAIAAAAHAAAAAAADAAMAAAAFAAAAAAADAAQAAAAFAAAAAAADAAUAAAAFAAAAAAADAAYAAAAFAAAAAAADAAcAAAAFAAAAAAAEAAEAAAAFAAAAAAAEAAIAAAAFAAAAAAAEAAMAAAAFAAAAAAAEAAQAAAAFAAAAAAAEAAUAAAAFAAAAAAAEAAYAAAAFAAAAAAAEAAcAAAAFAAAAAAAFAAEAAAAFAAAAAAAFAAIAAAAFAAAAAAAFAAMAAAAFAAAAAAAFAAQAAAAFAAAAAAAFAAUAAAAFAAAAAAAFAAYAAAAGAAAAAAAFAAcAAAAFAAAAAAAGAAEAAAAGAAAAAAAGAAIAAAAFAAAAAAAGAAMAAAAFAAAAAAAGAAQAAAAFAAAAAAAGAAUAAAAFAAAAAAAGAAYAAAAFAAAAAAAGAAcAAAAFAAAAAAAHAAEAAAAFAAAAAAAHAAIAAAAFAAAAAAAHAAMAAAAFAAAAAAAHAAQAAAAFAAAAAAAHAAUAAAAFAAAAAAAHAAYAAAAFAAAAAAAHAAcAAAAFAAAAAAAIAAEAAAAFAAAAAAAIAAIAAAAFAAAAAAAIAAMAAAAFAAAAAAAIAAQAAAAGAAAAAAAIAAUAAAAFAAAAAAAIAAYAAAAFAAAAAAAIAAcAAAAFAAAAAAAJAAEAAAAFAAAAAAAJAAIAAAAFAAAAAAAJAAMAAAAFAAAAAAAJAAQAAAAFAAAAAAAJAAUAAAAGAAAAAAAJAAYAAAAFAAAAAAAJAAcAAAAFAAAAAAAKAAEAAAAFAAAAAAAKAAIAAAAFAAAAAAAKAAMAAAAFAAAAAAAKAAQAAAAFAAAAAAAKAAUAAAAFAAAAAAAKAAYAAAAFAAAAAAAKAAcAAAAFAAAAAAALAAEAAAAFAAAAAAALAAIAAAAFAAAAAAALAAMAAAAFAAAAAAALAAQAAAAFAAAAAAALAAUAAAAFAAAAAAALAAYAAAAFAAAAAAALAAcAAAAFAAAAAAAMAAEAAAAFAAAAAAAMAAIAAAAFAAAAAAAMAAMAAAAFAAAAAAAMAAQAAAAFAAAAAAAMAAUAAAAFAAAAAAAMAAYAAAAFAAAAAAAMAAcAAAAFAAAAAAANAAEAAAAFAAAAAAANAAIAAAAFAAAAAAANAAMAAAAFAAAAAAANAAQAAAAFAAAAAAANAAUAAAAFAAAAAAANAAYAAAAFAAAAAAANAAcAAAAGAAAAAAAOAAEAAAAGAAAAAAAOAAIAAAAFAAAAAAAOAAMAAAAGAAAAAAAOAAQAAAAFAAAAAAAOAAUAAAAFAAAAAAAOAAYAAAAGAAAAAAAOAAcAAAAFAAAAAAAPAAEAAAAFAAAAAAAPAAIAAAAFAAAAAAAPAAMAAAAFAAAAAAAPAAQAAAAFAAAAAAAPAAUAAAAFAAAAAAAPAAYAAAAFAAAAAAAPAAcAAAAFAAAAAAAQAAEAAAAGAAAAAAAQAAIAAAAFAAAAAAAQAAMAAAAFAAAAAAAQAAQAAAAFAAAAAAAQAAUAAAAFAAAAAAAQAAYAAAAFAAAAAAAQAAcAAAAFAAAAAAARAAEAAAAGAAAAAAARAAIAAAAFAAAAAAARAAMAAAAFAAAAAAARAAQAAAAFAAAAAAARAAUAAAAFAAAAAAARAAYAAAAFAAAAAAARAAcAAAAFAAAAAAASAAEAAAAFAAAAAAASAAIAAAAFAAAAAAASAAMAAAAFAAAAAAASAAQAAAAFAAAAAAASAAUAAAAHAAAAAAASAAYAAAAFAAAAAAASAAcAAAAFAAAAAAA=")
-tile_set = ExtResource("1_f70tn")
+tile_set = ExtResource("2_v28ld")
 
 [node name="Front" type="TileMapLayer" parent="Tiles"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAABAAAAAAAAAAQAAAABAAAAAAAAAAUAAAABAAAAAAAAAAYAAAABAAAAAAAAAAcAAAABAAAAAAAAAAgAAAAAAAAAAAABAAAAAAABAAAAAAABAAEAAAACAAAAAAABAAgAAAAEAAAAAAACAAAAAAABAAAAAAACAAgAAAAEAAAAAAADAAAAAAABAAAAAAADAAgAAAAEAAAAAAAEAAAAAAABAAAAAAAEAAEAAAADAAAAAAAEAAgAAAAEAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAABAAAAAAAFAAIAAAABAAAAAAAFAAMAAAABAAAAAAAFAAgAAAAEAAAAAAAGAAAAAAABAAAAAAAGAAEAAAACAAAAAAAGAAgAAAAEAAAAAAAHAAAAAAABAAAAAAAHAAgAAAAEAAAAAAAIAAAAAAABAAAAAAAIAAgAAAAEAAAAAAAJAAAAAAABAAAAAAAJAAgAAAAEAAAAAAAKAAAAAAABAAAAAAAKAAgAAAAEAAAAAAALAAAAAAABAAAAAAALAAgAAAAEAAAAAAAMAAAAAAABAAAAAAAMAAgAAAAEAAAAAAANAAAAAAABAAAAAAANAAEAAAADAAAAAAANAAgAAAAEAAAAAAAOAAAAAAAAAAAAAAAOAAEAAAABAAAAAAAOAAIAAAABAAAAAAAOAAMAAAABAAAAAAAOAAgAAAAEAAAAAAAPAAAAAAABAAAAAAAPAAEAAAACAAAAAAAPAAgAAAAEAAAAAAAQAAAAAAABAAAAAAAQAAgAAAAEAAAAAAARAAAAAAABAAAAAAARAAgAAAAEAAAAAAASAAAAAAABAAAAAAASAAEAAAADAAAAAAASAAgAAAAEAAAAAAATAAAAAAAAAAAAAAATAAEAAAABAAAAAAATAAIAAAABAAAAAAATAAMAAAABAAAAAAATAAQAAAABAAAAAAATAAUAAAABAAAAAAATAAYAAAABAAAAAAATAAcAAAABAAAAAAATAAgAAAAAAAAAAAA=")
-tile_set = ExtResource("1_f70tn")
+tile_set = ExtResource("2_v28ld")
 
 [node name="Lights" type="Node2D" parent="."]
 
-[node name="Torch" type="Sprite2D" parent="Lights"]
-position = Vector2(93, 211)
-texture = ExtResource("5_227ah")
-
-[node name="Fire" type="Sprite2D" parent="Lights/Torch"]
-show_behind_parent = true
-position = Vector2(0, -39)
-texture = ExtResource("6_1o4o1")
-
-[node name="Light" type="ColorRect" parent="Lights/Torch/Fire"]
-show_behind_parent = true
-material = SubResource("ShaderMaterial_bebox")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -67.0
-offset_top = -88.0
-offset_right = 53.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Torch" parent="Lights" instance=ExtResource("3_v1tbw")]
 
 [node name="Torch2" type="Sprite2D" parent="Lights"]
 position = Vector2(535, 216)
-texture = ExtResource("5_227ah")
+texture = ExtResource("4_147d7")
 
 [node name="Fire" type="Sprite2D" parent="Lights/Torch2"]
 show_behind_parent = true
 position = Vector2(0, -39)
-texture = ExtResource("6_1o4o1")
+texture = ExtResource("5_35bob")
 
 [node name="Light" type="ColorRect" parent="Lights/Torch2/Fire"]
 show_behind_parent = true
@@ -87,29 +79,25 @@ grow_vertical = 2
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Crate" type="Sprite2D" parent="Items"]
-position = Vector2(258, 239)
-texture = ExtResource("2_2xqqw")
+[node name="Crate" parent="Items" instance=ExtResource("7_vhx61")]
 
 [node name="Crate2" type="Sprite2D" parent="Items"]
 position = Vector2(290, 239)
-texture = ExtResource("2_2xqqw")
+texture = ExtResource("8_k33tn")
 
 [node name="Crate3" type="Sprite2D" parent="Items"]
 position = Vector2(275, 209)
-texture = ExtResource("2_2xqqw")
+texture = ExtResource("8_k33tn")
 
-[node name="Pot" type="Sprite2D" parent="Items"]
-position = Vector2(462, 239)
-texture = ExtResource("3_nke4i")
+[node name="Pot" parent="Items" instance=ExtResource("9_kavnx")]
 
 [node name="Vase" type="Sprite2D" parent="Items"]
 position = Vector2(144, 226)
-texture = ExtResource("4_ycres")
+texture = ExtResource("10_j7qo1")
 
 [node name="Vase2" type="Sprite2D" parent="Items"]
 position = Vector2(114, 226)
-texture = ExtResource("4_ycres")
+texture = ExtResource("10_j7qo1")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -118,3 +106,17 @@ offset_left = 347.0
 offset_top = -13.0
 offset_right = 475.0
 offset_bottom = 115.0
+
+[node name="LightRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_m4rja")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -480.0
+offset_right = 480.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2

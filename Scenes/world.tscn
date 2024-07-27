@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=55 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -30,8 +30,11 @@
 [ext_resource type="PackedScene" uid="uid://dvlvltyclbpa5" path="res://Scenes/icon_and_text_particle.tscn" id="15_mp0r6"]
 [ext_resource type="TileSet" uid="uid://mm6kqtjqenr8" path="res://Resources/World Generation/world_1_tileset.tres" id="17_u5ghe"]
 [ext_resource type="TileSet" uid="uid://byfado2ql7hne" path="res://Resources/World Generation/light_tileset.tres" id="18_4lsik"]
+[ext_resource type="TileSet" uid="uid://dsq8jxh6ktmkr" path="res://Resources/World Generation/Tilesets/room_0_tileset.tres" id="19_olpaf"]
+[ext_resource type="Shader" path="res://Scenes/Rooms/light.gdshader" id="21_cul3l"]
 [ext_resource type="Texture2D" uid="uid://clppqwcfu2cxv" path="res://Assets/Textures/GameWorld/sky.png" id="21_eubkt"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="23_ps24a"]
+[ext_resource type="Script" path="res://Scripts/light_rect.gd" id="25_d7cxq"]
 [ext_resource type="Script" path="res://Scripts/throttle.gd" id="28_hdspb"]
 [ext_resource type="PackedScene" uid="uid://c5fja8c8jinkc" path="res://Scenes/UI/notification_system.tscn" id="28_xbrhy"]
 [ext_resource type="Texture2D" uid="uid://bti7s36oi67xb" path="res://Assets/Textures/UI/throttle/throttle_base.png" id="29_417t6"]
@@ -76,6 +79,15 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -32, -32, 0, 0, 0, 0, 32, -32, 0, 0, 0, 0, 32, 32, 0, 0, 0, 0, -32, 32, 0, 0, 0, 0, -32, -32)
 }
 point_count = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1pn2"]
+shader = ExtResource("21_cul3l")
+shader_parameter/pixel_resolution = Vector2(1920, 1080)
+shader_parameter/tile_resolution = Vector2(32, 32)
+shader_parameter/light_rect_pixel_center = Vector2(20, 20)
+shader_parameter/tile_offset = Vector2(0, 0)
+shader_parameter/light_radius = 9.0
+shader_parameter/light_edge_size = 3.0
 
 [sub_resource type="Gradient" id="Gradient_fnkcb"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -124,6 +136,7 @@ notificationSystem = NodePath("UI/MarginContainer/NotificationMargin/Control/Not
 throttle = NodePath("UI/Throttle")
 
 [node name="Darkness" type="ColorRect" parent="."]
+visible = false
 z_index = -10
 z_as_relative = false
 layout_mode = 1
@@ -182,13 +195,20 @@ unique_name_in_owner = true
 [node name="Background" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
 tile_set = ExtResource("17_u5ghe")
 
+[node name="StructureBG" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+tile_set = ExtResource("19_olpaf")
+
 [node name="Earth" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
 tile_set = ExtResource("17_u5ghe")
+
+[node name="StructureFG" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+tile_set = ExtResource("19_olpaf")
 
 [node name="Light" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
 tile_set = ExtResource("18_4lsik")
 
-[node name="Structure" type="TileMapLayer" parent="SubViewportContainer/SubViewport/TileMap"]
+[node name="LightRectParent" type="Node2D" parent="SubViewportContainer/SubViewport/TileMap/Light"]
+position = Vector2(480, -680)
 
 [node name="Player" type="Node2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture")]
 unique_name_in_owner = true
@@ -197,6 +217,10 @@ script = ExtResource("4_5n57c")
 world = NodePath("../../..")
 player_texture = NodePath("Player")
 intermediate_damage_curve = SubResource("Curve_mcinw")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Player"]
+position = Vector2(-480, -480)
+remote_path = NodePath("../../TileMap/Light/LightRectParent")
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Player" instance=ExtResource("15_8pfsl")]
 
@@ -273,6 +297,17 @@ z_index = 1
 points = PackedVector2Array(0, 0, 1920, 0)
 width = 2.0
 default_color = Color(1, 0, 0, 1)
+
+[node name="LightRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_q1pn2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("25_d7cxq")
 
 [node name="UI" type="Control" parent="."]
 z_index = 5
