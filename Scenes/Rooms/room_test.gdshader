@@ -1,7 +1,5 @@
 shader_type canvas_item;
 
-//uniform sampler2D light_gridmap_texture;
-
 uniform vec2 pixel_resolution = vec2(40, 40);
 uniform vec2 tile_resolution = vec2(16, 16);
 
@@ -14,7 +12,6 @@ uniform float light_radius = 9.0;
 
 //inside of light_radius
 uniform float light_edge_size = 3.0;
-uniform float trail_light_alpha = 0.5;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -50,23 +47,10 @@ void fragment() {
 		alpha = 1.0;
 	}
 	*/
-	if (COLOR.a == 0.0) //should be darkness
-	{
 	
-	//COLOR = vec4(1.0, 0.0, 0.0, 0.2);
-	COLOR = vec4(0.0, 0.0, 0.0, min(1.0, alpha));
-	}
+	COLOR = vec4(0.0, 0.0, 0.0, alpha);
+	COLOR = vec4(1.0, 1.0, 1.0, alpha);
 	
-	else if (COLOR.a == 1.0) //should be no darkness
-	{
-	
-	COLOR = vec4(1.0, 0.0, 0.0, 0.0);
-	
-	} else //should be fade
-	{
-	
-	COLOR = vec4(0.0, 0.0, 0.0, min(trail_light_alpha, alpha));
-	}
 
 }
 

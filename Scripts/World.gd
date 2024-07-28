@@ -44,6 +44,24 @@ var preloaded_chunks: Array[Vector2i] = [
 	Vector2i(2,0),
 	Vector2i(3,0),
 	Vector2i(4,0),
+	Vector2i(-4,-1),
+	Vector2i(-3,-1),
+	Vector2i(-2,-1),
+	Vector2i(-1,-1),
+	Vector2i(0,-1),
+	Vector2i(1,-1),
+	Vector2i(2,-1),
+	Vector2i(3,-1),
+	Vector2i(4,-1),
+	Vector2i(-4,-2),
+	Vector2i(-3,-2),
+	Vector2i(-2,-2),
+	Vector2i(-1,-2),
+	Vector2i(0,-2),
+	Vector2i(1,-2),
+	Vector2i(2,-2),
+	Vector2i(3,-2),
+	Vector2i(4,-2),
 ]
 var pregeneration_completed = false
 
@@ -55,7 +73,7 @@ var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 #tm is tile map
 @onready var bg_tm = %TileMap/Background
 @onready var earth_tm = %TileMap/Earth
-@onready var light_tm = %TileMap/Light
+@onready var light_tm = %Light
 @onready var structure_fg_tm = %TileMap/StructureFG
 @onready var structure_bg_tm = %TileMap/StructureBG
 
@@ -65,7 +83,8 @@ const BACKGROUND_LAYER = -1
 const GROUND_LAYER = 0
 const LIGHT_LAYER = 1
 
-const DIM_LIGHT = 9
+const DIM_LIGHT = Vector2i(1, 0)
+const FULL_BRIGHT_LIGHT = Vector2i(0, 0)
 
 var camera_pos = Vector2.ZERO # Vector2(1920,1080)
 
@@ -125,10 +144,12 @@ func _ready():
 	start_time_ms = Time.get_ticks_msec()
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
-	%LightRect.set_grid_offset(%Player.position / (Game.TILE_WIDTH * Vector2.ONE))
+	%LightRect.set_grid_offset(%Player/camera.global_position / (Game.TILE_WIDTH * Vector2.ONE))
+	
+	#TODO: Should change with camera
 	%LightRect.set_light_pixel_center(%LightRect.size / 2)
 	%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
-
+	%LightRect.visible = !Debug.settings.fullbright
 	for i in gen_data:
 		match i.noise:
 			"randf":
@@ -136,11 +157,6 @@ func _ready():
 			"smooth":
 				i.noise_res = smooth_noise.duplicate()
 		i.noise_res.seed = randi()
-
-	#tilemap.add_layer(LIGHT_LAYER)
-	#tilemap.set_layer_z_index(LIGHT_LAYER, LIGHT_LAYER)
-	#tilemap.add_layer(BACKGROUND_LAYER)
-	#tilemap.set_layer_z_index(BACKGROUND_LAYER, BACKGROUND_LAYER)
 	
 	day_number_label.text = "Day " + str(Game.player_data.get_stat("day_number"))
 	day_number_label.position.y = DAY_NUMBER_Y_OFFSET
@@ -266,7 +282,10 @@ func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_c
 	
 	
 func draw_chunk(chunk_coords: Vector2i):
-	#print("CHUNK: " + str(chunks[0][0]))
+	print("CHUNK: " + str(chunk_coords))
+	
+	if (chunk_coords.y < 0):
+		print("chunk coords less than zero")
 	
 	for x in range(DEFAULT_CHUNK.x):
 		for y in range(DEFAULT_CHUNK.y):
@@ -277,8 +296,12 @@ func draw_chunk(chunk_coords: Vector2i):
 					earth_tm.set_cell(coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
 					if !Debug.settings.fullbright:
 						#dont put light on topmost layer
-						if coords.y != 0:
-							light_tm.set_cell(coords, light_source_id, Vector2i(0, 0))
+						
+						if coords.y == 0:
+							light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
+			
+			if (chunk_coords.y < 0) and (coords.y < 0):
+				light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
 
 func _process(delta):
 	print("Speed: ",%Player.speed)
@@ -355,7 +378,7 @@ func mine_and_move(delta):
 		%DEBUG.text = "max_damage_ratio:  " + str(max_damage_ratio)
 		%Player.complete_stop = complete_stop_threshold_met
 		%Player.move(delta)
-		%LightRect.set_grid_offset(%Player.position / (Game.TILE_WIDTH * Vector2.ONE))
+		%LightRect.set_grid_offset(%Player/camera.global_position / (Game.TILE_WIDTH * Vector2.ONE))
 		%LightRect.set_light_pixel_center(%LightRect.size / 2)
 func _input(ev):
 	
@@ -428,15 +451,12 @@ func light_up_around_coords(coords):
 		for y in range(1 + (2 * light_radius)):
 			var tile_pos = center_tile - Vector2i(x, y) + Vector2i(Vector2i.ONE * floor(light_radius))
 			var tile_distance = Vector2(tile_pos).distance_to(Vector2(center_tile))
-			var light_level = 7
-			if tile_distance <= (light_radius - light_edge_radius):
-				light_level = 15
-			else:
-				light_level = 15 - floor(min(((tile_distance - (light_radius + 1 - light_edge_radius)) / light_edge_radius), 1) * 15)
+			#var light_level = 15 - floor(min(((tile_distance - (light_radius + 1 - light_edge_radius)) / light_edge_radius), 1) * 15)
 			
-			light_level = max(light_level, min(DIM_LIGHT, light_tm.get_cell_atlas_coords(tile_pos).x))
-			if light_tm.get_cell_source_id(tile_pos) != - 1:
-				light_tm.set_cell(tile_pos, light_source_id, Vector2i(light_level, 0))
+			#light_level = max(light_level, min(DIM_LIGHT, light_tm.get_cell_atlas_coords(tile_pos).x))
+			if tile_distance <= light_edge_radius:
+				if light_tm.get_cell_atlas_coords(tile_pos) != FULL_BRIGHT_LIGHT:
+					light_tm.set_cell(tile_pos, light_source_id, DIM_LIGHT)
 
 #TODO: figure out why this doesn't work for dirt!
 func tile_has_data(coords):
