@@ -144,8 +144,15 @@ func _input(_ev):
 	#NOTE "`/~" key
 	if Input.is_action_just_pressed("toggle_debug"):
 		Debug.toggle()
+	if Input.is_action_just_pressed("pause"):
+		set_paused(not paused)
 	if Input.is_key_pressed(KEY_ESCAPE):
 		quit_game()
 
 func quit_game():
 	get_tree().quit()
+
+func set_paused(b: bool, show_pause_screen: bool = true):
+	paused = b
+	if show_pause_screen and main_scene:
+		main_scene.pause_screen.visible = b

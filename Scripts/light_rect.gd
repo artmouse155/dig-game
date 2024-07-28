@@ -28,4 +28,5 @@ func set_light_pixel_center(c: Vector2):
 		shader_material.set_shader_parameter("light_rect_pixel_center", c)
 
 func was_resized():
+	#set_grid_offset((size / -2) / Game.TILE_WIDTH)
 	set_shader_size(size)

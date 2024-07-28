@@ -23,6 +23,8 @@ var score: float = 0.0
 
 @export var gen_data: Array[Gen]
 
+@export var air_gen: Gen
+
 @onready var subviewport = $SubViewportContainer/SubViewport
 @onready var gameover = $GameOver
 
@@ -44,24 +46,6 @@ var preloaded_chunks: Array[Vector2i] = [
 	Vector2i(2,0),
 	Vector2i(3,0),
 	Vector2i(4,0),
-	Vector2i(-4,-1),
-	Vector2i(-3,-1),
-	Vector2i(-2,-1),
-	Vector2i(-1,-1),
-	Vector2i(0,-1),
-	Vector2i(1,-1),
-	Vector2i(2,-1),
-	Vector2i(3,-1),
-	Vector2i(4,-1),
-	Vector2i(-4,-2),
-	Vector2i(-3,-2),
-	Vector2i(-2,-2),
-	Vector2i(-1,-2),
-	Vector2i(0,-2),
-	Vector2i(1,-2),
-	Vector2i(2,-2),
-	Vector2i(3,-2),
-	Vector2i(4,-2),
 ]
 var pregeneration_completed = false
 
@@ -144,11 +128,8 @@ func _ready():
 	start_time_ms = Time.get_ticks_msec()
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
-	%LightRect.set_grid_offset(%Player/camera.global_position / (Game.TILE_WIDTH * Vector2.ONE))
-	
-	#TODO: Should change with camera
-	%LightRect.set_light_pixel_center(%LightRect.size / 2)
 	%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
+	update_light_rect()
 	%LightRect.visible = !Debug.settings.fullbright
 	for i in gen_data:
 		match i.noise:
@@ -201,22 +182,13 @@ func generate_world():
 	for chunk in preloaded_chunks:
 		generate_chunk(chunk)
 		
-	generate_structure(preload("res://test_room.tres"), Vector2i(2,2), Vector2i(0,0))
+	generate_structure(preload("res://test_room.tres"), Vector2i(0,0), Vector2i(0,10))
+	generate_structure(preload("res://test_room.tres"), Vector2i(-1,10), Vector2i(10,10))
 
 func generate_chunk(chunk_coords: Vector2i):
 	var start_time = Time.get_ticks_msec()
 	
-	var temp_chunk = []
-
-	for x in range(DEFAULT_CHUNK.x):
-		temp_chunk.append([])
-		for y in range(DEFAULT_CHUNK.y):
-			temp_chunk[x].append(null)
-	
-	if !(chunk_coords.x in chunks.keys()):
-		chunks[chunk_coords.x] = {}
-	if !(chunk_coords.y in chunks[chunk_coords.x].keys()):
-		chunks[chunk_coords.x][chunk_coords.y] = temp_chunk
+	var temp_chunk = get_chunk_data(chunk_coords, true)
 
 	for i in gen_data:
 		if ((DEFAULT_CHUNK.y * chunk_coords.y) >= i.min_depth) or ((DEFAULT_CHUNK.y * (chunk_coords.y + 1)) - 1 <= i.max_depth):
@@ -252,12 +224,17 @@ func generate_chunk(chunk_coords: Vector2i):
 					for x in range(DEFAULT_CHUNK.x):
 						var coords = Vector2i(x, y) + Vector2i(chunk_coords.x * DEFAULT_CHUNK.x, chunk_coords.y * DEFAULT_CHUNK.y)
 						var noise_value = (noise.get_noise_2d(coords.x, coords.y) - noise_min) / (noise_max - noise_min)
+						
 						if (!temp_chunk[x][y]) and (noise_value <= threshold_value):
-							#tilemap.set_cell(GROUND_LAYER, coords, ground_source_id, i.atlas[randi_range(0,atlas_size-1)])
-							temp_chunk[x][y] = {"health" = i.health, "gen" = i}
-							set_tile_data(coords, temp_chunk[x][y])
-						#if !Debug.fullbright:
-							#tilemap.set_cell(LIGHT_LAYER, coords, light_source_id, Vector2i(0,0))
+							#below line is for when there is already data within the chunks (specifically when there is a structure that already exists before the full chunk gen)
+							#if !get_tile_data(coords):
+							
+								#this modifies the "chunks" dict because of pass by ref!
+								#temp_chunk[x][y] = {"health" = i.health, "gen" = i}
+								set_tile_data(coords, {"health" = i.health, "gen" = i}, false)
+						elif temp_chunk[x][y]:
+							print(temp_chunk[x][y]["gen"].name)
+							
 	var mid_time = Time.get_ticks_msec()
 	var mid_elapsed_time = mid_time - start_time
 
@@ -279,7 +256,25 @@ func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_c
 	
 	structure_bg_tm.set_pattern(real_coords + structure.bg_origin, structure.bg_tiles)
 	structure_fg_tm.set_pattern(real_coords + structure.fg_origin, structure.fg_tiles)
-	
+	for cell in structure.bg_tiles.get_used_cells():
+		var coords = real_coords + structure.bg_origin + cell
+		var cell_chunk_coords = coords_to_chunk(coords)
+		if !chunk_has_data(cell_chunk_coords):
+			generate_chunk(cell_chunk_coords)
+
+		set_tile_data(coords, {"health" = 0, "gen" = air_gen}, true, true)
+		#print("just made a structure! ", get_tile_data(coords))
+		earth_tm.erase_cell(coords)
+		light_tm.set_cell(real_coords + structure.bg_origin + cell, light_source_id, FULL_BRIGHT_LIGHT)
+	for cell in structure.fg_tiles.get_used_cells():
+		var coords = real_coords + structure.fg_origin + cell
+		var cell_chunk_coords = coords_to_chunk(coords)
+		if !chunk_has_data(cell_chunk_coords):
+			generate_chunk(cell_chunk_coords)
+		
+		set_tile_data(coords, {"health" = 0, "gen" = air_gen}, true, true)
+		earth_tm.erase_cell(coords)
+		light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
 	
 func draw_chunk(chunk_coords: Vector2i):
 	print("CHUNK: " + str(chunk_coords))
@@ -292,19 +287,23 @@ func draw_chunk(chunk_coords: Vector2i):
 			var coords = Vector2i(x, y) + Vector2i(chunk_coords.x * DEFAULT_CHUNK.x, chunk_coords.y * DEFAULT_CHUNK.y)
 			if tile_has_data(coords):
 				if get_tile_data(coords):
-					var gen = get_chunk_data(chunk_coords)[x][y]["gen"]
+					var gen: Gen = get_chunk_data(chunk_coords)[x][y]["gen"]
 					earth_tm.set_cell(coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
 					if !Debug.settings.fullbright:
 						#dont put light on topmost layer
-						
 						if coords.y == 0:
+							light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
+							
+						if Debug.settings.see_ores and (gen.group == "ore"):
+							light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
+						
+						if Debug.settings.see_powerups and (gen.group == "powerup"):
 							light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
 			
 			if (chunk_coords.y < 0) and (coords.y < 0):
 				light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
 
 func _process(delta):
-	print("Speed: ",%Player.speed)
 	
 	if not Game.paused:
 		if is_loaded:
@@ -328,8 +327,8 @@ func mine_and_move(delta):
 		#Code for mining
 		#%Sky.position.x = %Player.position.x - resolution.x/2
 		
-		var center_tile = earth_tm.local_to_map( %Player.position)
-		light_up_around_coords(center_tile)
+		#var center_tile = earth_tm.local_to_map( %Player.position)
+		light_up_around_pixel_coords(%Player.position)
 		
 		var drill_tile = earth_tm.local_to_map( %Player.player_texture.get_drill_center().global_position)
 		
@@ -378,8 +377,13 @@ func mine_and_move(delta):
 		%DEBUG.text = "max_damage_ratio:  " + str(max_damage_ratio)
 		%Player.complete_stop = complete_stop_threshold_met
 		%Player.move(delta)
-		%LightRect.set_grid_offset(%Player/camera.global_position / (Game.TILE_WIDTH * Vector2.ONE))
-		%LightRect.set_light_pixel_center(%LightRect.size / 2)
+		update_light_rect()
+
+func update_light_rect():
+	#%LightRect.set_grid_offset((%LightRect.size / 1))
+	%LightRect.set_grid_offset(((%LightRect.size / -2) + %Player/camera.global_position) / Game.TILE_WIDTH)
+	%LightRect.set_light_pixel_center(%LightRect.size / 2)
+
 func _input(ev):
 	
 	if Input.is_key_pressed(KEY_8):
@@ -444,23 +448,23 @@ func mine_tile(coords, tileGen: Gen):
 		bg_tm.set_cell(coords, ground_source_id, background_atlas)
 		earth_tm.erase_cell(coords)
 
-func light_up_around_coords(coords):
+func light_up_around_pixel_coords(pixel_coords):
 	var light_edge_radius = light_radius - LIGHT_EDGE_SIZE
-	var center_tile = coords
+	var center_tile = pixel_coords_to_map_coords(pixel_coords)
 	for x in range(1 + (2 * light_radius)):
 		for y in range(1 + (2 * light_radius)):
 			var tile_pos = center_tile - Vector2i(x, y) + Vector2i(Vector2i.ONE * floor(light_radius))
-			var tile_distance = Vector2(tile_pos).distance_to(Vector2(center_tile))
+			var tile_distance = Vector2(earth_tm.map_to_local(tile_pos)).distance_to(Vector2(pixel_coords))
 			#var light_level = 15 - floor(min(((tile_distance - (light_radius + 1 - light_edge_radius)) / light_edge_radius), 1) * 15)
 			
 			#light_level = max(light_level, min(DIM_LIGHT, light_tm.get_cell_atlas_coords(tile_pos).x))
-			if tile_distance <= light_edge_radius:
+			if (tile_distance / Game.TILE_WIDTH) <= light_edge_radius:
 				if light_tm.get_cell_atlas_coords(tile_pos) != FULL_BRIGHT_LIGHT:
 					light_tm.set_cell(tile_pos, light_source_id, DIM_LIGHT)
 
 #TODO: figure out why this doesn't work for dirt!
-func tile_has_data(coords):
-	return chunk_has_data(coords_to_chunk(coords))
+func tile_has_data(coords, force_chunk_generation: bool = false):
+	return chunk_has_data(coords_to_chunk(coords), force_chunk_generation)
 	#if !(coords.x in tile_data.keys()):
 	#		return false
 	#if !(coords.y in tile_data[coords.x].keys()):
@@ -470,12 +474,19 @@ func tile_has_data(coords):
 func get_tile_data(coords):
 	if tile_has_data(coords):
 		var adjusted_coords = Vector2(int(coords.x) % DEFAULT_CHUNK.x, int(coords.y) % DEFAULT_CHUNK.y)
-		return get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y]
+		var data_to_return = get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y]
+		#if data_to_return:
+		#	print("Data to return: ", data_to_return, data_to_return["gen"].name)
+		return data_to_return
 	else:
 		return null
 
-func set_tile_data(coords, data):
-	if tile_has_data(coords):
+func set_tile_data(coords, data, override: bool = true, force_chunk_generation: bool = false):
+	if tile_has_data(coords, force_chunk_generation):
+		if not override:
+			if get_tile_data(coords):
+				print("NO TILE DATA SET, SOME ALREADY EXISTED")
+				return null
 		var adjusted_coords = Vector2(int(coords.x) % DEFAULT_CHUNK.x, int(coords.y) % DEFAULT_CHUNK.y)
 		get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y] = data
 	else:
@@ -526,19 +537,39 @@ func pixel_coords_to_map_coords(pixel_coords):
 func coords_to_chunk(coords: Vector2i):
 	return floor(Vector2(coords) / Vector2(DEFAULT_CHUNK))
 
-func chunk_has_data(chunk_coords: Vector2i):
+func chunk_has_data(chunk_coords: Vector2i, force_chunk_data: bool = false):
 	#if chunk_coords.y < 0:
 		#return true
 	if chunk_coords.x in chunks.keys():
 		if chunk_coords.y in chunks[chunk_coords.x].keys():
 			return true
 		else:
+			if force_chunk_data:
+				create_empty_chunk_data(chunk_coords)
+				return true
 			return false
 	else:
+		if force_chunk_data:
+			create_empty_chunk_data(chunk_coords)
+			return true
+		
 		return false
 
-func get_chunk_data(chunk_coords: Vector2i) -> Array:
-	if chunk_has_data(chunk_coords):
+func create_empty_chunk_data(chunk_coords):
+	var temp_chunk = []
+	
+	for x in range(DEFAULT_CHUNK.x):
+		temp_chunk.append([])
+		for y in range(DEFAULT_CHUNK.y):
+			temp_chunk[x].append(null)
+
+	if !(chunk_coords.x in chunks.keys()):
+		chunks[chunk_coords.x] = {}
+	if !(chunk_coords.y in chunks[chunk_coords.x].keys()):
+		chunks[chunk_coords.x][chunk_coords.y] = temp_chunk
+
+func get_chunk_data(chunk_coords: Vector2i, force_chunk_generation: bool = false) -> Array:
+	if chunk_has_data(chunk_coords, force_chunk_generation):
 		return chunks[chunk_coords.x][chunk_coords.y]
 	print("error: chunk had no data!")
 	return []

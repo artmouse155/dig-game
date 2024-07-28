@@ -1,6 +1,8 @@
 extends Control
 class_name MainScene
 
+@export var pause_screen: Control
+
 @onready var fade_node = $FadeWipe
 
 @onready var current_scene = -1
@@ -33,7 +35,7 @@ func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, for
 		if (trans_type == Game.TRANSITION_TYPES.TRANSITION) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			Game.is_transition_running = true
-			Game.paused = true
+			Game.set_paused(true, false)
 			if (current_scene == -1):
 				await fade_node.instant_fade_in()
 			else:
@@ -55,7 +57,7 @@ func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, for
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			await fade_node.fade_out()
 			Game.is_transition_running = false
-			Game.paused = false
+			Game.set_paused(false, false)
 
 func get_camera_center():
 	var cameras = get_tree().get_nodes_in_group("camera")

@@ -11,6 +11,8 @@ extends Node
 
 var DEFAULT_SETTINGS: Dictionary = {
 	fullbright = false,
+	see_ores = false,
+	see_powerups = false,
 	best_driller = false,
 	override_player_durability_and_energy = false,
 	infinite_boosts = false,

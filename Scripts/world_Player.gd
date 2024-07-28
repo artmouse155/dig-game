@@ -93,8 +93,8 @@ func _ready():
 	
 	position = starting_pos
 	set_sprite_rotation()
-	if not Debug.settings.override_player_durability_and_energy:
-		calc_base_variables()
+	#if not Debug.settings.override_player_durability_and_energy:
+	calc_base_variables()
 	recalc_driller_variables()
 		
 	update_bars()
@@ -121,8 +121,13 @@ func calc_base_variables():
 	degrees_of_freedom = calc_deg_freedom(agility)
 	
 	if Debug.settings.best_driller:
+		print("🔥")
 		base_engine_power = 1000
 		base_max_speed = 4000
+		total_durability = 9999999999
+		total_energy = 9999999999
+	
+	if Debug.settings.override_player_durability_and_energy:
 		total_durability = 9999999999
 		total_energy = 9999999999
 	
@@ -246,5 +251,6 @@ func update_hud():
 	%Turbo.text = str(turbos)
 	
 func change_speed(amount : int = 1):
+	print("Speed: ",%Player.speed)
 	speed = clamp(speed + amount, -1, 3)
 	world.throttle.update(speed)	
