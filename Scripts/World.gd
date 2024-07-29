@@ -10,6 +10,8 @@ extends Control
 const SMOOTH_NOISE_MIN = -.75
 const SMOOTH_NOISE_MAX = .75
 
+const LIGHT_RADIUS_CHANGE_SPEED = .02
+
 const RANDF_NOISE_MIN = -1
 const RANDF_NOISE_MAX = 1
 
@@ -47,7 +49,9 @@ var preloaded_chunks: Array[Vector2i] = [
 	Vector2i(3,0),
 	Vector2i(4,0),
 ]
+
 var pregeneration_completed = false
+var change_light_radius_tween
 
 #TODO: make all resolution changes dynamic
 const CHUNK_RESOLUTION: int = 16
@@ -391,6 +395,17 @@ func update_light_rect():
 	%LightRect.set_grid_offset(((%LightRect.size / -2) + %Player/camera.global_position) / Game.TILE_WIDTH)
 	%LightRect.set_light_pixel_center(%LightRect.size / 2)
 
+func change_light_radius(new_light_radus: float, do_tweening: bool = true):
+	if change_light_radius_tween:
+		change_light_radius_tween.kill()
+	change_light_radius_tween = create_tween()
+	change_light_radius_tween.tween_method(internal_set_light_radius, light_radius, new_light_radus, (LIGHT_RADIUS_CHANGE_SPEED * abs(new_light_radus - light_radius))).set_trans(Tween.TRANS_SINE)
+
+#only for use by tween!
+func internal_set_light_radius(radius: float):
+	light_radius = radius
+	%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
+
 func _input(ev):
 	
 	if Input.is_key_pressed(KEY_8):
@@ -411,6 +426,12 @@ func _input(ev):
 
 		if Input.is_action_pressed("turbo"):
 			%Player.turbo()
+			
+		if Input.is_action_just_pressed("debug_increase_light"):
+			change_light_radius(light_radius + 3)
+			
+		if Input.is_action_just_pressed("debug_decrease_light"):
+			change_light_radius(light_radius - 3)
 
 		if ev is InputEventMouseButton:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
