@@ -128,7 +128,14 @@ func _ready():
 	start_time_ms = Time.get_ticks_msec()
 	
 	%Player/ChunkRegion.scale = DEFAULT_CHUNK
-	%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
+	if Debug.settings.smooth_lighting:
+		%LightRect.set_tile_resolution(Vector2.ONE)
+		%LightRect.set_light(Game.TILE_WIDTH * light_radius, Game.TILE_WIDTH * LIGHT_EDGE_SIZE)
+	else:
+		%LightRect.set_tile_resolution(Game.TILE_WIDTH * Vector2.ONE)
+		%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
+	
+		
 	update_light_rect()
 	%LightRect.visible = !Debug.settings.fullbright
 	for i in gen_data:
