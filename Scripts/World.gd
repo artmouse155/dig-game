@@ -25,6 +25,7 @@ var score: float = 0.0
 
 @export var gen_data: Array[Gen]
 
+#used in structure placement
 @export var air_gen: Gen
 
 @onready var subviewport = $SubViewportContainer/SubViewport
@@ -39,6 +40,7 @@ var chunks = {}
 
 #the radius of my chunk rendering distance
 var render_distance = 4
+var chunk_tick_rate = 1
 
 #ID's of chunks to load when the game is first started.
 var preloaded_chunks: Array[Vector2i] = [
@@ -71,7 +73,7 @@ var DEFAULT_CHUNK = CHUNK_RESOLUTION * Vector2i.ONE
 @onready var structure_fg_tm = %TileMap/StructureFG
 @onready var structure_bg_tm = %TileMap/StructureBG
 
-@onready var chunk_path = %Player/ChunkRegion/PathFollow2D
+#@onready var chunk_path = %Player/ChunkRegion/PathFollow2D
 
 const BACKGROUND_LAYER = -1
 const GROUND_LAYER = 0
@@ -91,7 +93,7 @@ var light_radius = 9
 
 var drill_radius = 1.8
 var player_radius = 1.5
-const BOMB_RADIUS = 9
+const BOMB_RADIUS = 12
 
 #inside of light_radius
 const LIGHT_EDGE_SIZE = 3
@@ -137,7 +139,7 @@ var is_loaded = false
 func _ready():
 	start_time_ms = Time.get_ticks_msec()
 	
-	%Player/ChunkRegion.scale = DEFAULT_CHUNK
+	#%Player/ChunkRegion.scale = DEFAULT_CHUNK
 	if Debug.settings.smooth_lighting:
 		%LightRect.set_tile_resolution(Vector2.ONE)
 		%LightRect.set_light(Game.TILE_WIDTH * light_radius, Game.TILE_WIDTH * LIGHT_EDGE_SIZE)
@@ -197,8 +199,12 @@ func check_chunk_regions():
 				if not chunk_has_data(chunk_coordinate):
 					if not (chunk_coordinate in chunks_to_load):
 						chunks_to_load.append(chunk_coordinate)
-	if not chunks_to_load.is_empty():
-		generate_chunk(chunks_to_load.pop_front())
+	
+	for i in range(chunk_tick_rate):
+		if not chunks_to_load.is_empty():
+			#could be pop back to be more mem efficient but pop front keeps loaded chunks clustered
+			generate_chunk(chunks_to_load.pop_front())
+	#TODO: If you are moving so fast that a chunk actually leaves player proximity, either don't load it or unload it?
 
 func generate_world():
 	for chunk in preloaded_chunks:
