@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5s42f148lm4m"]
+[gd_scene load_steps=6 format=3 uid="uid://c5s42f148lm4m"]
 
 [ext_resource type="Texture2D" uid="uid://cqdg1xwaefuoa" path="res://Assets/Textures/Tiles/Rooms/torch.png" id="1_4gdlo"]
+[ext_resource type="Script" path="res://Scripts/structure_object_node.gd" id="2_s41bi"]
 [ext_resource type="Texture2D" uid="uid://bc13qgbpccv0k" path="res://Assets/Textures/Tiles/Rooms/fire.png" id="2_y2g71"]
 [ext_resource type="Shader" path="res://Scenes/Rooms/torch_light.gdshader" id="3_t7kuc"]
 
@@ -12,8 +13,9 @@ shader_parameter/flickeryness = 0.2
 shader_parameter/flicker_speed = 5.0
 
 [node name="Torch" type="Sprite2D"]
-position = Vector2(93, 211)
 texture = ExtResource("1_4gdlo")
+script = ExtResource("2_s41bi")
+structure_object_name = "torch"
 
 [node name="Fire" type="Sprite2D" parent="."]
 show_behind_parent = true

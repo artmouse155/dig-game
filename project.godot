@@ -30,6 +30,7 @@ config/icon="res://Assets/Textures/logo.png"
 
 Game="*res://Scripts/Autoload/game.gd"
 Debug="*res://Scripts/Autoload/debug.gd"
+StructureObjectDB="*res://Scripts/Autoload/structure_object_db.gd"
 
 [display]
 

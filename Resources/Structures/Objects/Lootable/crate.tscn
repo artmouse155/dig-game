@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://c776gy42n3if"]
+[gd_scene load_steps=3 format=3 uid="uid://c776gy42n3if"]
 
 [ext_resource type="Texture2D" uid="uid://c3kdlvphxpd8x" path="res://Assets/Textures/Tiles/Rooms/crate.png" id="1_ff14o"]
+[ext_resource type="Script" path="res://Scripts/structure_object_node.gd" id="2_7ikbr"]
 
 [node name="Crate" type="Sprite2D"]
-position = Vector2(258, 239)
 texture = ExtResource("1_ff14o")
+script = ExtResource("2_7ikbr")
+structure_object_name = "crate"

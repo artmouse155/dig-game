@@ -345,6 +345,9 @@ points = PackedVector2Array(0, 0, 1920, 0)
 width = 2.0
 default_color = Color(1, 0, 0, 1)
 
+[node name="StructureObjects" type="Node2D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+
 [node name="LightRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false

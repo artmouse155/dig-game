@@ -304,6 +304,13 @@ func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_c
 		earth_tm.erase_cell(coords)
 		light_tm.set_cell(coords, light_source_id, FULL_BRIGHT_LIGHT)
 	
+	
+		#finally, add objects
+		for object in structure.room_objects:
+			var temp_object = StructureObjectDB.get_sprite_scene(object.name).instantiate()
+			temp_object.position = object.position + (Game.TILE_WIDTH * Vector2(real_coords))
+			%StructureObjects.add_child(temp_object)
+		
 func draw_chunk(chunk_coords: Vector2i):
 	print("CHUNK: " + str(chunk_coords))
 	

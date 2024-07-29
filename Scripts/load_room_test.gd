@@ -14,3 +14,8 @@ func _ready():
 	fg_tiles.tile_set = structure_data.tile_set
 	fg_tiles.set_pattern(structure_data.fg_origin, structure_data.fg_tiles)
 	add_child(fg_tiles)
+	
+	for object in structure_data.room_objects:
+		var temp_object = StructureObjectDB.get_sprite_scene(object.name).instantiate()
+		temp_object.position = object.position
+		add_child(temp_object)
