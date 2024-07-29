@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=56 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -74,12 +74,6 @@ frequency = 0.15
 _data = [Vector2(0, 0), 0.0, 0.2, 0, 1, Vector2(0.5, 0.1), 0.2, 0.666667, 1, 1, Vector2(0.8, 0.3), 0.666667, 3.0, 1, 1, Vector2(0.9, 0.6), 3.0, 4.0, 1, 1, Vector2(1, 1), 4.0, 4.0, 1, 1]
 point_count = 5
 metadata/_snap_enabled = true
-
-[sub_resource type="Curve2D" id="Curve2D_enevc"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -32, -32, 0, 0, 0, 0, 32, -32, 0, 0, 0, 0, 32, 32, 0, 0, 0, 0, -32, 32, 0, 0, 0, 0, -32, -32)
-}
-point_count = 5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q1pn2"]
 resource_local_to_scene = true
@@ -304,12 +298,6 @@ remote_path = NodePath("../../../TileMap/SubViewportContainer/SubViewport/Light/
 visible = false
 z_index = 1
 texture = ExtResource("5_uf3c3")
-
-[node name="ChunkRegion" type="Path2D" parent="SubViewportContainer/SubViewport/Player"]
-curve = SubResource("Curve2D_enevc")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="SubViewportContainer/SubViewport/Player/ChunkRegion"]
-position = Vector2(-32, -32)
 
 [node name="HFollow" type="Control" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true

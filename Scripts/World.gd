@@ -37,6 +37,9 @@ var score: float = 0.0
 
 var chunks = {}
 
+#the radius of my chunk rendering distance
+var render_distance = 4
+
 #ID's of chunks to load when the game is first started.
 var preloaded_chunks: Array[Vector2i] = [
 	Vector2i(-4,0),
@@ -49,6 +52,9 @@ var preloaded_chunks: Array[Vector2i] = [
 	Vector2i(3,0),
 	Vector2i(4,0),
 ]
+
+#a constantly changing buffer of chunks to load
+var chunks_to_load: Array[Vector2i] = []
 
 var pregeneration_completed = false
 var change_light_radius_tween
@@ -182,12 +188,17 @@ func update_h_follow_pos():
 
 #TODO: Doesn't need to happen every single tick?
 func check_chunk_regions():
-	for ratio in [0.0, 1 / 8.0, 0.25, 3 / 8.0, 0.5, 5 / 8.0, 0.75, 7 / 8.0]:
-		#get the point, then tile coordinate, then chunk
-		chunk_path.set_progress_ratio(ratio)
-		var chunk_coordinate = coords_to_chunk(pixel_coords_to_map_coords(chunk_path.global_position))
-		if not chunk_has_data(chunk_coordinate):
-			generate_chunk(chunk_coordinate)
+	var player_chunk_coordinate = coords_to_chunk(pixel_coords_to_map_coords(%Player.position))
+	for x in range((-1 * render_distance), 1 + (1 * render_distance)):
+		for y in range((-1 * render_distance), 1 + (1 * render_distance)):
+			var offset_chunk_coords = Vector2i(x,y)
+			if offset_chunk_coords.length() <= render_distance:
+				var chunk_coordinate = player_chunk_coordinate + Vector2i(x,y)
+				if not chunk_has_data(chunk_coordinate):
+					if not (chunk_coordinate in chunks_to_load):
+						chunks_to_load.append(chunk_coordinate)
+	if not chunks_to_load.is_empty():
+		generate_chunk(chunks_to_load.pop_front())
 
 func generate_world():
 	for chunk in preloaded_chunks:
@@ -399,8 +410,10 @@ func change_light_radius(new_light_radus: float, do_tweening: bool = true):
 	if change_light_radius_tween:
 		change_light_radius_tween.kill()
 	change_light_radius_tween = create_tween()
-	change_light_radius_tween.tween_method(internal_set_light_radius, light_radius, new_light_radus, (LIGHT_RADIUS_CHANGE_SPEED * abs(new_light_radus - light_radius))).set_trans(Tween.TRANS_SINE)
-
+	if do_tweening:
+		change_light_radius_tween.tween_method(internal_set_light_radius, light_radius, new_light_radus, (LIGHT_RADIUS_CHANGE_SPEED * abs(new_light_radus - light_radius))).set_trans(Tween.TRANS_SINE)
+	else:
+		internal_set_light_radius(new_light_radus)
 #only for use by tween!
 func internal_set_light_radius(radius: float):
 	light_radius = radius
@@ -563,7 +576,7 @@ func pixel_coords_to_map_coords(pixel_coords):
 	return earth_tm.local_to_map(pixel_coords)
 
 func coords_to_chunk(coords: Vector2i):
-	return floor(Vector2(coords) / Vector2(DEFAULT_CHUNK))
+	return Vector2i(floor(Vector2(coords) / Vector2(DEFAULT_CHUNK)))
 
 func chunk_has_data(chunk_coords: Vector2i, force_chunk_data: bool = false):
 	#if chunk_coords.y < 0:
