@@ -10,6 +10,7 @@ const all_data : AllData = preload("res://Resources/all_data.tres")
 
 const TILE_WIDTH = 32
 const PLAYER_STARTING_POS = Vector2(960,-200)
+enum DrillerMode {DRILL, TREADS}
 
 enum {MAIN_MENU, WORLD_1, SHOP, ACHIEVEMENTS, CRAFTING, STATISTICS}
 

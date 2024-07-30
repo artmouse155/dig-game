@@ -261,7 +261,8 @@ func generate_chunk(chunk_coords: Vector2i):
 								#temp_chunk[x][y] = {"health" = i.health, "gen" = i}
 								set_tile_data(coords, {"health" = i.health, "gen" = i}, false)
 						elif temp_chunk[x][y]:
-							print(temp_chunk[x][y]["gen"].name)
+							pass
+							#print(temp_chunk[x][y]["gen"].name)
 							
 	var mid_time = Time.get_ticks_msec()
 	var mid_elapsed_time = mid_time - start_time
@@ -270,7 +271,7 @@ func generate_chunk(chunk_coords: Vector2i):
 	#print("drew chunk at ", chunk_coords)
 	var end_time = Time.get_ticks_msec()
 	var elapsed_time = end_time - start_time
-	print("Chunk generated in ", elapsed_time, "ms (", mid_elapsed_time, "ms + ", (end_time - mid_time), "ms)")
+	#print("Chunk generated in ", elapsed_time, "ms (", mid_elapsed_time, "ms + ", (end_time - mid_time), "ms)")
 
 func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_coords: Vector2i):
 	pass
@@ -312,10 +313,11 @@ func generate_structure(structure: StructureData, chunk_coords: Vector2i, tile_c
 			%StructureObjects.add_child(temp_object)
 		
 func draw_chunk(chunk_coords: Vector2i):
-	print("CHUNK: " + str(chunk_coords))
+	#print("CHUNK: " + str(chunk_coords))
 	
 	if (chunk_coords.y < 0):
-		print("chunk coords less than zero")
+		pass
+		#print("chunk coords less than zero")
 	
 	for x in range(DEFAULT_CHUNK.x):
 		for y in range(DEFAULT_CHUNK.y):
@@ -348,7 +350,8 @@ func _process(delta):
 				%Player.change_speed(-1)
 			update_h_follow_pos()
 			mine_and_move(delta)
-
+			if %Player.position.y > 0:
+				check_for_inside_structure()
 			check_chunk_regions()
 			%Player/Radar.update_radar_circles()
 			check_triggers()
@@ -357,6 +360,14 @@ func _process(delta):
 			day_stats["max_depth"] = max(day_stats["max_depth"], %Player.depth)
 			#damage_tile(center_tile, %Player.drill_speed * delta)
 			#tile_break_particle.position = get_global_mouse_position()
+
+func check_for_inside_structure():
+	var intersects = %Player.player_texture.area_2d.has_overlapping_bodies()
+	print("intersects:", str(intersects))
+	if (not intersects) and (not Input.is_action_pressed("exit_treads_mode")):
+		%Player.set_driller_mode(Game.DrillerMode.TREADS)
+	else:
+		%Player.set_driller_mode(Game.DrillerMode.DRILL)
 
 func mine_and_move(delta):
 		#Code for mining
@@ -458,7 +469,10 @@ func _input(ev):
 			
 		if Input.is_action_just_pressed("debug_decrease_light"):
 			change_light_radius(light_radius - 3)
-
+		
+		if Input.is_action_just_pressed("exit_treads_mode"):
+			%Player.set_driller_mode(Game.DrillerMode.DRILL)
+		
 		if ev is InputEventMouseButton:
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 				var center_tile = earth_tm.local_to_map( %Player.get_local_mouse_position() + %Player.position)
@@ -529,8 +543,6 @@ func get_tile_data(coords):
 	if tile_has_data(coords):
 		var adjusted_coords = Vector2(int(coords.x) % DEFAULT_CHUNK.x, int(coords.y) % DEFAULT_CHUNK.y)
 		var data_to_return = get_chunk_data(coords_to_chunk(coords))[adjusted_coords.x][adjusted_coords.y]
-		#if data_to_return:
-		#	print("Data to return: ", data_to_return, data_to_return["gen"].name)
 		return data_to_return
 	else:
 		return null

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=10 format=3 uid="uid://cbbivvv3u6r2e"]
+
+[ext_resource type="Texture2D" uid="uid://bywj7boebnl6m" path="res://Assets/Textures/Driller/Components/Treads/treads.png" id="1_cegbx"]
+[ext_resource type="Script" path="res://Resources/buff_item.gd" id="1_fbpif"]
+[ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="2_l1ojk"]
+[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_6muld"]
+[ext_resource type="Resource" uid="uid://dkv6wnebvibrw" path="res://Resources/Driller/ten_ore.tres" id="4_k0d76"]
+[ext_resource type="Resource" uid="uid://c5s4w4lfyvhra" path="res://Resources/Driller/default_trigger.tres" id="5_uppn8"]
+[ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="6_t0xau"]
+[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="7_hve3a"]
+[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="8_6cgll"]
+
+[resource]
+script = ExtResource("7_hve3a")
+component_object_name = "Navigator"
+parent_group_name = "tread"
+component_object_tile_image = ExtResource("2_l1ojk")
+actual_texture = ExtResource("1_cegbx")
+offset = Vector2(0, 0)
+desc = ""
+locked_desc = ""
+upgrade_lists = Array[ExtResource("8_6cgll")]([])
+base_buffs = Array[ExtResource("1_fbpif")]([])
+recipe_found_trigger = ExtResource("5_uppn8")
+crafting_recipe = Array[ExtResource("3_6muld")]([ExtResource("4_k0d76")])
+recipe_image = ExtResource("6_t0xau")
+in_game_age = 0

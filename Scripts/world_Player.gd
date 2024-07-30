@@ -104,8 +104,8 @@ func calc_base_variables():
 	var drill_scale = Game.player_data.hull.drill_scale
 	
 	
-	print("new drill radius: " + str(world.drill_radius))
-	print("new player radius: " + str(world.player_radius))
+	#print("new drill radius: " + str(world.drill_radius))
+	#print("new player radius: " + str(world.player_radius))
 	world.player_radius =  drill_scale * Game.player_data.hull.actual_texture.get_height() / float(Game.TILE_WIDTH)
 	world.drill_radius = drill_scale * Game.player_data.drill.actual_texture.get_height() / float(Game.TILE_WIDTH)
 	
@@ -254,3 +254,6 @@ func change_speed(amount : int = 1):
 	print("Speed: ",%Player.speed)
 	speed = clamp(speed + amount, -1, 3)
 	world.throttle.update(speed)	
+
+func set_driller_mode(mode: int):
+	player_texture.set_driller_mode(mode)

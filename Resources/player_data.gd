@@ -6,6 +6,7 @@ class_name PlayerData
 @export var battery : DrillerComponentObject
 @export var engine : DrillerComponentObject
 @export var boost : DrillerComponentObject
+@export var treads : DrillerComponentObject
 @export var misc : DrillerComponentObject
 
 @export var saved_component_data : Array[ComponentObjectSaveData]
@@ -63,15 +64,15 @@ class_name PlayerData
 
 @export var achievement_completed_data : Dictionary = {}
 
-func _init(p_hull = null, p_drill = null, p_battery = null, p_engine = null, p_boost = null, p_misc = null, p_saved_component_data : Array[ComponentObjectSaveData] = [], p_player_inventory : Array[ResourceData] = []):
-	hull = p_hull
-	drill = p_drill
-	battery = p_battery
-	engine = p_engine
-	boost = p_boost
-	misc = p_misc
-	saved_component_data = p_saved_component_data
-	player_inventory = p_player_inventory
+#func _init(p_hull = null, p_drill = null, p_battery = null, p_engine = null, p_boost = null, p_misc = null, p_saved_component_data : Array[ComponentObjectSaveData] = [], p_player_inventory : Array[ResourceData] = []):
+#	hull = p_hull
+#	drill = p_drill
+#	battery = p_battery
+#	engine = p_engine
+#	boost = p_boost
+#	misc = p_misc
+#	saved_component_data = p_saved_component_data
+#	player_inventory = p_player_inventory
 
 func get_resource_amount(p_res_name : String):
 	for i in range(len(player_inventory)):

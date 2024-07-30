@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b0bo4y5hiomht"]
+[gd_scene load_steps=20 format=3 uid="uid://b0bo4y5hiomht"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ob06n"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Components/Boosts/nova_accelerator.png" id="3_ss5ih"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Components/Engines/hermes.png" id="6_ycbx2"]
 [ext_resource type="Material" uid="uid://g8c5tekf5d2o" path="res://Assets/Textures/Player/turbo_anim.tres" id="7_gpo5t"]
 [ext_resource type="Texture2D" uid="uid://ddi748kmcgycf" path="res://Assets/Textures/Player/fire_particle.png" id="8_t5kh6"]
+[ext_resource type="Texture2D" uid="uid://bywj7boebnl6m" path="res://Assets/Textures/Driller/Components/Treads/treads.png" id="9_kposa"]
 
 [sub_resource type="Curve" id="Curve_6xpxa"]
 min_value = -1.0
@@ -36,16 +37,113 @@ hue_variation_curve = SubResource("CurveTexture_luqg8")
 anim_speed_min = 0.25
 anim_speed_max = 0.5
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon", "turbo_particles")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uieh5"]
+size = Vector2(105, 73)
+
+[sub_resource type="Animation" id="Animation_06770"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -60)]
+}
+
+[sub_resource type="Animation" id="Animation_ifp5t"]
+resource_name = "drill_to_treads"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -60), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5j3dh"]
+resource_name = "treads_to_drill"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -60), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -60)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gofex"]
+_data = {
+"RESET": SubResource("Animation_06770"),
+"drill_to_treads": SubResource("Animation_ifp5t"),
+"treads_to_drill": SubResource("Animation_5j3dh")
+}
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "treads_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon", "turbo_particles", "animation_player", "area_2d", "collision_shape")]
 script = ExtResource("1_ob06n")
 hull_node = NodePath("HBoxContainer/VBoxContainer/HullTexture")
-drill_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture")
+drill_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor/DrillAnchor/DrillTexture")
+treads_node = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor/TreadsAnchor/TreadsTexture")
 battery_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Left/Left_Control/BatteryAnchor/BatteryTexture")
 engine_node = NodePath("HBoxContainer/VBoxContainer/HullTexture/Right/Right_Control/EngineAnchor/EngineTexture")
 boost_node = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/BoostTexture")
 drill_center = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control")
-polygon = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture/Polygon2D")
+polygon = NodePath("HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor/DrillAnchor/DrillTexture/Polygon2D")
 turbo_particles = NodePath("HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor/GPUParticles2D")
+animation_player = NodePath("AnimationPlayer")
+area_2d = NodePath("HBoxContainer/VBoxContainer/HullTexture/Control/Area2D")
+collision_shape = NodePath("HBoxContainer/VBoxContainer/HullTexture/Control/Area2D/CollisionShape2D")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 8
@@ -106,6 +204,26 @@ z_index = 1
 layout_mode = 2
 texture = ExtResource("3_ws7a0")
 stretch_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Area2D" type="Area2D" parent="HBoxContainer/VBoxContainer/HullTexture/Control"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HBoxContainer/VBoxContainer/HullTexture/Control/Area2D"]
+shape = SubResource("RectangleShape2D_uieh5")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="HBoxContainer/VBoxContainer/HullTexture/Control"]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 100
 
 [node name="Left" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture"]
 layout_mode = 1
@@ -179,10 +297,13 @@ anchor_left = 0.5
 anchor_right = 0.5
 grow_horizontal = 2
 
-[node name="DrillAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control"]
+[node name="AnimPlayerDrillAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control"]
 anchors_preset = 0
 
-[node name="DrillTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor"]
+[node name="DrillAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor"]
+anchors_preset = 0
+
+[node name="DrillTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor/DrillAnchor"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -193,7 +314,30 @@ offset_bottom = 54.0
 grow_horizontal = 2
 texture = ExtResource("5_fw63p")
 
-[node name="Polygon2D" type="Polygon2D" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/DrillAnchor/DrillTexture"]
+[node name="Polygon2D" type="Polygon2D" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerDrillAnchor/DrillAnchor/DrillTexture"]
+visible = false
+polygon = PackedVector2Array(80, 0, 0, 0, 5, 30, 40, 55, 75, 30)
+
+[node name="AnimPlayerTreadsAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control"]
+anchors_preset = 0
+offset_top = -60.0
+offset_bottom = -60.0
+
+[node name="TreadsAnchor" type="Control" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor"]
+anchors_preset = 0
+
+[node name="TreadsTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor/TreadsAnchor"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_right = 42.0
+offset_bottom = 30.0
+grow_horizontal = 2
+texture = ExtResource("9_kposa")
+
+[node name="Polygon2D" type="Polygon2D" parent="HBoxContainer/VBoxContainer/Bottom/Bottom_Control/AnimPlayerTreadsAnchor/TreadsAnchor/TreadsTexture"]
 visible = false
 polygon = PackedVector2Array(80, 0, 0, 0, 5, 30, 40, 55, 75, 30)
 
@@ -281,3 +425,8 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 border_color = Color(1, 0.65098, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gofex")
+}
