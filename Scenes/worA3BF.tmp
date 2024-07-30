@@ -296,7 +296,6 @@ position = Vector2(0, 60)
 remote_path = NodePath("../../../TileMap/SubViewportContainer/SubViewport/Light/Node2D")
 
 [node name="Radar" type="Sprite2D" parent="SubViewportContainer/SubViewport/Player"]
-self_modulate = Color(1, 1, 1, 0.243137)
 texture = ExtResource("25_aassv")
 script = ExtResource("26_s5n2v")
 

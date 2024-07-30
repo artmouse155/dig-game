@@ -350,7 +350,7 @@ func _process(delta):
 			mine_and_move(delta)
 
 			check_chunk_regions()
-
+			%Player/Radar.update_radar_circles()
 			check_triggers()
 
 			day_stats["max_speed"] = max(day_stats["max_speed"], %Player.velocity)
