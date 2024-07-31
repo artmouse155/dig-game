@@ -1,7 +1,8 @@
-extends Node2D
+extends RigidBody2D
 
 @export var world : Control
 @export var player_texture : Node2D
+@export var collision_shape : CollisionShape2D
 
 @export var intermediate_damage_curve : Curve
 
@@ -99,6 +100,8 @@ func _ready():
 		
 	update_bars()
 	update_hud()
+	
+	collision_shape.shape.size = player_texture.hull_node.texture.get_size()
 
 func calc_base_variables():
 	var drill_scale = Game.player_data.hull.drill_scale
@@ -153,40 +156,41 @@ func recalc_driller_variables():
 
 func move(delta):
 	if not Game.paused:
-		if complete_stop:
-			durability -= DURABILITY_DECAY_RATE * delta
-			screenshake()
-			velocity = clamp(velocity - (stop_acceleration * delta), 0, max_speed)
-		#elif experiencing_resistance:
-		#	velocity = clamp(velocity - (resistance_acceleration * delta), 0, max_speed)
-		#	durability -= DURABILITY_DECAY_RATE * delta
-		elif global_position.y < 0:
-			velocity = clamp(velocity + (falling_acceleration * delta), 0, max_speed)
-		else:
-			durability -= DURABILITY_DECAY_RATE * delta
-			#velocity = clamp(velocity + (acceleration * delta), 0, max_speed * (1 - intermediate_damage_curve.sample(max_damage_ratio)))
-			velocity = clamp(velocity + ((acceleration - ((10 * base_acceleration) * max_damage_ratio)) * delta), 0, max_speed)
-		position += (Vector2.DOWN * velocity * float(Game.TILE_WIDTH) * delta).rotated(driller_angle)
-		if position.y > 0:
-			if Input.is_action_pressed("player_turn_left"):
-				driller_angle = clamp(driller_angle - (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+		if player_texture.current_driller_mode == Game.DrillerMode.DRILL:
+			if complete_stop:
+				durability -= DURABILITY_DECAY_RATE * delta
+				screenshake()
+				velocity = clamp(velocity - (stop_acceleration * delta), 0, max_speed)
+			#elif experiencing_resistance:
+			#	velocity = clamp(velocity - (resistance_acceleration * delta), 0, max_speed)
+			#	durability -= DURABILITY_DECAY_RATE * delta
+			elif global_position.y < 0:
+				velocity = clamp(velocity + (falling_acceleration * delta), 0, max_speed)
+			else:
+				durability -= DURABILITY_DECAY_RATE * delta
+				#velocity = clamp(velocity + (acceleration * delta), 0, max_speed * (1 - intermediate_damage_curve.sample(max_damage_ratio)))
+				velocity = clamp(velocity + ((acceleration - ((10 * base_acceleration) * max_damage_ratio)) * delta), 0, max_speed)
+			position += (Vector2.DOWN * velocity * float(Game.TILE_WIDTH) * delta).rotated(driller_angle)
+			if position.y > 0:
+				if Input.is_action_pressed("player_turn_left"):
+					driller_angle = clamp(driller_angle - (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+				
+				elif Input.is_action_pressed("player_turn_right"):
+					driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+				
+				set_sprite_rotation()
 			
-			elif Input.is_action_pressed("player_turn_right"):
-				driller_angle = clamp(driller_angle + (rotational_velocity * delta), -degrees_of_freedom, degrees_of_freedom)
+			if (position.y > 0):
+				energy -= ENERGY_DECAY_RATE * delta
 			
-			set_sprite_rotation()
-		
-		if (position.y > 0):
-			energy -= ENERGY_DECAY_RATE * delta
-		
-		depth = floor(max(0,(player_texture.get_drill_center().global_position.y / Game.TILE_WIDTH)))
-			
-		update_bars()
-		update_hud()
-		if energy < 0:
-			world.game_over("energy", true)
-		if durability < 0:
-			world.game_over("durability", true)
+			depth = floor(max(0,(player_texture.get_drill_center().global_position.y / Game.TILE_WIDTH)))
+				
+			update_bars()
+			update_hud()
+			if energy < 0:
+				world.game_over("energy", true)
+			if durability < 0:
+				world.game_over("durability", true)
 
 func screenshake(duration : float = SCREENSHAKE_DEFAULT_DURATION, intensity : int = 4):
 	var tweener = create_tween()
@@ -200,6 +204,7 @@ func screenshake(duration : float = SCREENSHAKE_DEFAULT_DURATION, intensity : in
 
 func set_sprite_rotation():
 	player_texture.rotation = driller_angle
+	collision_shape.rotation = driller_angle
 
 func set_turbo_active(b : bool = true):
 	am_turboing = b
@@ -257,3 +262,11 @@ func change_speed(amount : int = 1):
 
 func set_driller_mode(mode: int):
 	player_texture.set_driller_mode(mode)
+	if mode == Game.DrillerMode.DRILL:
+		driller_angle += rotation
+		set_sprite_rotation()
+		rotation = 0
+		freeze = true
+		
+	elif mode == Game.DrillerMode.TREADS:
+		freeze = false

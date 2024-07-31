@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://yre8wvqiht01"]
+[gd_scene load_steps=58 format=3 uid="uid://yre8wvqiht01"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_tt843"]
 [ext_resource type="Resource" uid="uid://bn0gqk43amlmn" path="res://Resources/World Generation/rock.tres" id="2_r1251"]
@@ -75,6 +75,8 @@ frequency = 0.15
 _data = [Vector2(0, 0), 0.0, 0.2, 0, 1, Vector2(0.5, 0.1), 0.2, 0.666667, 1, 1, Vector2(0.8, 0.3), 0.666667, 3.0, 1, 1, Vector2(0.9, 0.6), 3.0, 4.0, 1, 1, Vector2(1, 1), 4.0, 4.0, 1, 1]
 point_count = 5
 metadata/_snap_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4s53r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q1pn2"]
 resource_local_to_scene = true
@@ -274,12 +276,14 @@ position = Vector2(960, -200)
 
 [node name="light_camera" type="Camera2D" parent="SubViewportContainer/SubViewport/TileMap/SubViewportContainer/SubViewport/Light/Node2D"]
 
-[node name="Player" type="Node2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture")]
+[node name="Player" type="RigidBody2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture", "collision_shape")]
 unique_name_in_owner = true
 position = Vector2(960, -200)
+freeze = true
 script = ExtResource("4_5n57c")
 world = NodePath("../../..")
 player_texture = NodePath("Player")
+collision_shape = NodePath("CollisionShape2D")
 intermediate_damage_curve = SubResource("Curve_mcinw")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Player"]
@@ -299,6 +303,9 @@ remote_path = NodePath("../../../TileMap/SubViewportContainer/SubViewport/Light/
 self_modulate = Color(1, 1, 1, 0.243137)
 texture = ExtResource("25_aassv")
 script = ExtResource("26_s5n2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Player"]
+shape = SubResource("RectangleShape2D_4s53r")
 
 [node name="HFollow" type="Control" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true

@@ -366,8 +366,8 @@ func check_for_inside_structure():
 	print("intersects:", str(intersects))
 	if (not intersects) and (not Input.is_action_pressed("exit_treads_mode")):
 		%Player.set_driller_mode(Game.DrillerMode.TREADS)
-	else:
-		%Player.set_driller_mode(Game.DrillerMode.DRILL)
+	#else:
+		#%Player.set_driller_mode(Game.DrillerMode.DRILL)
 
 func mine_and_move(delta):
 		#Code for mining
