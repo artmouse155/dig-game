@@ -203,8 +203,8 @@ func screenshake(duration : float = SCREENSHAKE_DEFAULT_DURATION, intensity : in
 	tweener.tween_property($camera, "position", camera_pos, SCREENSHAKE_INTER_DURATION)
 
 func set_sprite_rotation():
-	player_texture.rotation = driller_angle
-	collision_shape.rotation = driller_angle
+	rotation = driller_angle
+	#collision_shape.rotation = driller_angle
 
 func set_turbo_active(b : bool = true):
 	am_turboing = b

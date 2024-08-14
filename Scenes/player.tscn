@@ -222,11 +222,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HBoxContainer/VBoxContainer/HullTexture/Control/Area2D"]
 shape = SubResource("RectangleShape2D_uieh5")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="HBoxContainer/VBoxContainer/HullTexture/Control"]
-gravity_scale = 0.0
-contact_monitor = true
-max_contacts_reported = 100
-
 [node name="Left" type="Control" parent="HBoxContainer/VBoxContainer/HullTexture"]
 layout_mode = 1
 anchors_preset = 0

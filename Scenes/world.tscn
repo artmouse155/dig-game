@@ -286,9 +286,6 @@ player_texture = NodePath("Player")
 collision_shape = NodePath("CollisionShape2D")
 intermediate_damage_curve = SubResource("Curve_mcinw")
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Player"]
-use_global_coordinates = false
-
 [node name="Player" parent="SubViewportContainer/SubViewport/Player" instance=ExtResource("15_8pfsl")]
 
 [node name="DrillCenter" type="Node2D" parent="SubViewportContainer/SubViewport/Player/Player"]
