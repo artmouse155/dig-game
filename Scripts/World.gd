@@ -34,6 +34,7 @@ var score: float = 0.0
 @export var iconAndTextParticle: PackedScene
 @export var notificationSystem: Node2D
 @export var throttle: Control
+@export var radar: Sprite2D
 #var tile_data = {}
 
 var chunks = {}
@@ -148,7 +149,7 @@ func _ready():
 		%LightRect.set_light(light_radius, LIGHT_EDGE_SIZE)
 	
 		
-	update_light_rect()
+	await update_light_rect()
 	%LightRect.visible = !Debug.settings.fullbright
 	for i in gen_data:
 		match i.noise:
@@ -164,11 +165,22 @@ func _ready():
 	if Game.player_data.get_stat("max_depth") != 0:
 		%HFollow/PB.position.y = Game.player_data.get_stat("max_depth") * Game.TILE_WIDTH
 	
-	update_h_follow_pos()
+	await update_h_follow_pos()
 
-	setup_triggers()
-	generate_world()
+	await setup_triggers()
+	await generate_world()
+	await radar.update_radar_circles()
 	print("pregeneration_completed.")
+	#ALERT TODO: Get rid of this arbitrary waiting time
+	#await get_tree().create_timer(.5).timeout
+	#print("it has been .5 seconds.")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	call_deferred("set_loaded")
+
+func set_loaded():
+	#await get_tree().create_timer(1).timeout
+	#print("it has been 1 second.")
 	is_loaded = true
 	loaded.emit()
 	
@@ -208,10 +220,11 @@ func check_chunk_regions():
 
 func generate_world():
 	for chunk in preloaded_chunks:
-		generate_chunk(chunk)
+		await generate_chunk(chunk)
 		
-	generate_structure(preload("res://test_room.tres"), Vector2i(0,0), Vector2i(0,10))
-	generate_structure(preload("res://test_room.tres"), Vector2i(-1,10), Vector2i(10,10))
+	#await generate_structure(preload("res://test_room.tres"), Vector2i(0,0), Vector2i(0,10))
+	#await generate_structure(preload("res://test_room.tres"), Vector2i(-1,10), Vector2i(10,10))
+	pass
 
 func generate_chunk(chunk_coords: Vector2i):
 	var start_time = Time.get_ticks_msec()
@@ -263,11 +276,11 @@ func generate_chunk(chunk_coords: Vector2i):
 						elif temp_chunk[x][y]:
 							pass
 							#print(temp_chunk[x][y]["gen"].name)
-							
+	
 	var mid_time = Time.get_ticks_msec()
 	var mid_elapsed_time = mid_time - start_time
 
-	draw_chunk(chunk_coords)
+	call_deferred("draw_chunk",chunk_coords)
 	#print("drew chunk at ", chunk_coords)
 	var end_time = Time.get_ticks_msec()
 	var elapsed_time = end_time - start_time
@@ -325,6 +338,7 @@ func draw_chunk(chunk_coords: Vector2i):
 			if tile_has_data(coords):
 				if get_tile_data(coords):
 					var gen: Gen = get_chunk_data(chunk_coords)[x][y]["gen"]
+					
 					earth_tm.set_cell(coords, ground_source_id, gen.atlas[randi_range(0, gen.atlas.size() - 1)])
 					if !Debug.settings.fullbright:
 						#dont put light on topmost layer
@@ -353,7 +367,7 @@ func _process(delta):
 			if %Player.position.y > 0:
 				check_for_inside_structure()
 			check_chunk_regions()
-			%Player/Radar.update_radar_circles()
+			radar.update_radar_circles()
 			check_triggers()
 
 			day_stats["max_speed"] = max(day_stats["max_speed"], %Player.velocity)
@@ -446,7 +460,7 @@ func internal_set_light_radius(radius: float):
 func _input(ev):
 	
 	if Input.is_key_pressed(KEY_8):
-		loaded.emit()
+		set_loaded()
 	
 	if not Game.paused:
 		if Input.is_action_just_pressed("shop"):

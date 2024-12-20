@@ -20,8 +20,8 @@ float fancy_sin(in float x) {
 }
 
 void fragment() {
-	
-	
+
+
 	float d = sqrt(((UV.x - 0.5) * (UV.x - 0.5)) + ((UV.y - 0.5) * (UV.y - 0.5)));
 	vec2 centered_coords = 2.0 * vec2(UV.x - 0.5, UV.y - 0.5);
 	float angle = atan2(centered_coords.y, centered_coords.x);

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvo74v4p1vl5s"]
+[gd_scene load_steps=6 format=3 uid="uid://bvo74v4p1vl5s"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
 [ext_resource type="Script" path="res://Scripts/debug_settings.gd" id="3_tgtwy"]
+[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="4_kye34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjuix"]
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 0.847059)
@@ -35,8 +36,28 @@ layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="DebugSettings" type="PanelContainer" parent="." node_paths=PackedStringArray("debug_v_box", "debug_check_box")]
+[node name="Paused" type="Label" parent="."]
+visible = false
 z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -229.0
+offset_top = -88.0
+offset_right = 229.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DebugSettings" type="PanelContainer" parent="." node_paths=PackedStringArray("debug_v_box", "debug_check_box")]
+z_index = 100
 layout_mode = 0
 offset_left = 112.0
 offset_top = 310.0
@@ -47,6 +68,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jjuix")
 script = ExtResource("3_tgtwy")
 debug_v_box = NodePath("MarginContainer/VBoxContainer/MarginContainer/DebugVBox")
 debug_check_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/DebugCheckBox")
+
+[node name="MarginContainer2" type="MarginContainer" parent="DebugSettings"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = -20
+
+[node name="FPS Counter" type="Label" parent="DebugSettings/MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "FPS: -0"
+script = ExtResource("4_kye34")
 
 [node name="MarginContainer" type="MarginContainer" parent="DebugSettings"]
 layout_mode = 2
@@ -78,26 +110,6 @@ theme_override_constants/margin_top = 20
 
 [node name="DebugVBox" type="VBoxContainer" parent="DebugSettings/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
-
-[node name="Paused" type="Label" parent="."]
-visible = false
-z_index = 10
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -229.0
-offset_top = -88.0
-offset_right = 229.0
-offset_bottom = 88.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 128
-text = "PAUSED"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="gui_input" from="DebugSettings" to="DebugSettings" method="gui_input_func"]
 [connection signal="mouse_entered" from="DebugSettings" to="DebugSettings" method="mouse_entered_func"]

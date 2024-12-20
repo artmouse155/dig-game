@@ -46,16 +46,19 @@ func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, for
 		#var new_scene = load("res://Scenes/main_menu.tscn").instantiate()
 		add_child(new_scene)
 		move_child(new_scene, 0)
+		old_scene.queue_free()
+		await old_scene.tree_exited
 		if (trans_type == Game.TRANSITION_TYPES.NO_TRANSITION_WITH_LOAD) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			if not new_scene.is_loaded:
 				await new_scene.loaded
-		old_scene.queue_free()
-		await old_scene.tree_exited
-		current_scene = scene
 		
+		current_scene = scene
+		print("beginning fade out!")
 		if (trans_type == Game.TRANSITION_TYPES.TRANSITION) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			await fade_node.fade_out()
+			#await fade_node.anim_completed
+			print("ended fade out!")
 			Game.is_transition_running = false
 			Game.set_paused(false, false)
 

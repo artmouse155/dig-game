@@ -116,7 +116,7 @@ height = 200
 fill_to = Vector2(0, 1)
 metadata/_snap_enabled = true
 
-[node name="World" type="Control" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle") groups=["scenes"]]
+[node name="World" type="Control" node_paths=PackedStringArray("day_number_label", "notificationSystem", "throttle", "radar") groups=["scenes"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,6 +138,7 @@ air_gen = ExtResource("17_ipeck")
 iconAndTextParticle = ExtResource("15_mp0r6")
 notificationSystem = NodePath("UI/MarginContainer/NotificationMargin/Control/NotificationSystem")
 throttle = NodePath("UI/Throttle")
+radar = NodePath("SubViewportContainer/SubViewport/Radar")
 
 [node name="Sky" type="TextureRect" parent="."]
 z_index = -5
@@ -272,19 +273,26 @@ unique_name_in_owner = true
 tile_set = ExtResource("18_4lsik")
 
 [node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport/TileMap/SubViewportContainer/SubViewport/Light"]
-position = Vector2(960, -200)
 
 [node name="light_camera" type="Camera2D" parent="SubViewportContainer/SubViewport/TileMap/SubViewportContainer/SubViewport/Light/Node2D"]
 
+[node name="Radar" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+self_modulate = Color(1, 1, 1, 0.243137)
+texture = ExtResource("25_aassv")
+script = ExtResource("26_s5n2v")
+
 [node name="Player" type="RigidBody2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("world", "player_texture", "collision_shape")]
 unique_name_in_owner = true
-position = Vector2(960, -200)
 freeze = true
 script = ExtResource("4_5n57c")
 world = NodePath("../../..")
 player_texture = NodePath("Player")
 collision_shape = NodePath("CollisionShape2D")
 intermediate_damage_curve = SubResource("Curve_mcinw")
+
+[node name="RadarRemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Player"]
+remote_path = NodePath("../../Radar")
+update_rotation = false
 
 [node name="Player" parent="SubViewportContainer/SubViewport/Player" instance=ExtResource("15_8pfsl")]
 
@@ -295,11 +303,6 @@ position = Vector2(0, 60)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Player/camera"]
 remote_path = NodePath("../../../TileMap/SubViewportContainer/SubViewport/Light/Node2D")
-
-[node name="Radar" type="Sprite2D" parent="SubViewportContainer/SubViewport/Player"]
-self_modulate = Color(1, 1, 1, 0.243137)
-texture = ExtResource("25_aassv")
-script = ExtResource("26_s5n2v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport/Player"]
 shape = SubResource("RectangleShape2D_4s53r")

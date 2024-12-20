@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Aller_It.ttf-f786f4f1ac4e588d4013b479c7da9035
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

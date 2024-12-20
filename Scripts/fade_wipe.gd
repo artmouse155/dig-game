@@ -27,6 +27,7 @@ func fade_in():
 	tween.tween_method(set_shader_progress, 0.0, 1.0, ANIM_DURATION)#.set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(emit_completed_signal)
 	await anim_completed
+	print("fade progress: ", shader_material.get_shader_parameter("progress"))
 
 func instant_fade_in():
 	show()
@@ -53,3 +54,7 @@ func set_shader_flipped(b):
 
 func emit_completed_signal():
 	anim_completed.emit()
+
+func _input(ev):
+	if Input.is_key_pressed(KEY_7):
+		print(shader_material.get_shader_parameter("progress"))

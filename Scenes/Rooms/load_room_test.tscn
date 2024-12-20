@@ -1,8 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://clc53dpdc0mbo"]
+[gd_scene load_steps=5 format=3 uid="uid://clc53dpdc0mbo"]
 
 [ext_resource type="Script" path="res://Scripts/load_room_test.gd" id="1_hwjej"]
 [ext_resource type="Resource" uid="uid://bcrffusf62wvx" path="res://test_room.tres" id="2_o10jj"]
+[ext_resource type="Texture2D" uid="uid://cimttef5icmnw" path="res://Assets/Textures/UI/space_bg.jpg" id="3_s8hh7"]
+[ext_resource type="Script" path="res://tween_test.gd" id="4_ygfhx"]
 
 [node name="LoadRoomTest" type="Node2D"]
 script = ExtResource("1_hwjej")
 structure_data = ExtResource("2_o10jj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_s8hh7")
+script = ExtResource("4_ygfhx")

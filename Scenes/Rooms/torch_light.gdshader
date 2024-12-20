@@ -20,29 +20,29 @@ void fragment() {
 	float angle = atan2(centered_coords.y, centered_coords.x);
 	float angle_norm = (angle + (PI)) / (2.0 * PI);
 	float d = distance(centered_coords, vec2(0.0, 0.0));
-	
+
 	float alpha = (1.0 - d);
-	
+
 	// Get the current screen UV coordinates
     vec2 screen_uv = SCREEN_UV;
-    
+
     // Sample the screen texture at the current UV coordinates
     vec4 screen_color = texture(SCREEN_TEXTURE, screen_uv);
-    
+
     // Output the screen color
     vec4 c1 = screen_color;
-	
+
 	float flicker_intensity = (1.0 - flickeryness) + (flickeryness * fract(sin(flicker_speed * TIME)));
-	
+
 	vec4 c2 = (intensity * flicker_intensity) * light_color;
-	
+
 	vec4 c3 = clamp(c1 + c2, 0.0, 1.0);
-	
+
 	alpha = clamp(alpha, 0.0, 1.0);
-	
+
 	COLOR = mix(c1, c3, alpha);
-	
-	
+
+
 }
 
 //void light() {

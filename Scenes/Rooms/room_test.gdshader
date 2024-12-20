@@ -20,37 +20,37 @@ void vertex() {
 void fragment() {
 	//vec2 new_tile_offset = fract(vec2(1.0, 1.0) * TIME);
 	vec2 new_tile_offset = fract(tile_offset);
-	
+
 	float alpha = 0.0;
 	vec2 pixel_tile_resolution = (pixel_resolution / tile_resolution);
 	vec2 grid_cor = floor((UV * pixel_tile_resolution) + new_tile_offset);
-	
+
 	//vec2 light_rect_pixel_center = pixel_resolution / 2.0;
 	vec2 grid_cor_pixel_center = tile_resolution * ((grid_cor - new_tile_offset) + vec2(0.5, 0.5));
-	
+
 	float dist_from_center = distance(light_rect_pixel_center, grid_cor_pixel_center);
 	alpha = clamp((dist_from_center - ((light_radius - light_edge_size) * tile_resolution.x)) / (tile_resolution.x * float(light_edge_size)), 0.0, 1.0);
-	
+
 	/*
 	if (mod(grid_cor.x, 2.0) == 1.0)
 	{
 		alpha = 1.0;
-		
+
 		if (mod(grid_cor.y, 2.0) == 1.0)
 	{
 		alpha = 0.0;
 	}
 	}
-	
+
 	else if (mod(grid_cor.y, 2.0) == 1.0)
 	{
 		alpha = 1.0;
 	}
 	*/
-	
+
 	COLOR = vec4(0.0, 0.0, 0.0, alpha);
 	COLOR = vec4(1.0, 1.0, 1.0, alpha);
-	
+
 
 }
 

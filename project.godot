@@ -40,6 +40,7 @@ window/size/window_width_override=1728
 window/size/window_height_override=972
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/vsync/vsync_mode=0
 
 [dotnet]
 
