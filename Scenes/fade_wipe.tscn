@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://mhr3vityo3r3"]
 
-[ext_resource type="Shader" path="res://Assets/Shaders/fade_transition.gdshader" id="1_77h6d"]
-[ext_resource type="Script" path="res://Scripts/fade_wipe.gd" id="2_hhtht"]
+[ext_resource type="Shader" uid="uid://bh6n7luoth7ut" path="res://Assets/Shaders/fade_transition.gdshader" id="1_77h6d"]
+[ext_resource type="Script" uid="uid://b47jfow3ife2g" path="res://Scripts/fade_wipe.gd" id="2_hhtht"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wxfmw"]
 shader = ExtResource("1_77h6d")
 shader_parameter/animation_duration = 1.0
-shader_parameter/progress = null
+shader_parameter/progress = 0.0
 shader_parameter/flipped = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_goqqm"]

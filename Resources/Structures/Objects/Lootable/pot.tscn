@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://blv7564hoijoj"]
 
 [ext_resource type="Texture2D" uid="uid://c7edvxauab3wo" path="res://Assets/Textures/Tiles/Rooms/pot.png" id="1_m8tyj"]
-[ext_resource type="Script" path="res://Scripts/structure_object_node.gd" id="2_blqg5"]
+[ext_resource type="Script" uid="uid://c7px3akpi2vqm" path="res://Scripts/structure_object_node.gd" id="2_blqg5"]
 
 [node name="Pot" type="Sprite2D"]
 texture = ExtResource("1_m8tyj")

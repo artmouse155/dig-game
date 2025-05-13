@@ -1,10 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://chg1324c1yonf"]
 
-[ext_resource type="Script" path="res://addons/godot_conventions_cheat_sheet/dock.gd" id="1_7664f"]
+[ext_resource type="Script" uid="uid://d0uischamsweu" path="res://addons/godot_conventions_cheat_sheet/dock.gd" id="1_7664f"]
 
 [sub_resource type="SystemFont" id="SystemFont_7lalx"]
 font_names = PackedStringArray("Sans-Serif")
 font_weight = 750
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxnjg"]
 bg_color = Color(0.344076, 0.344076, 0.344076, 1)
@@ -12,12 +13,14 @@ bg_color = Color(0.344076, 0.344076, 0.344076, 1)
 [sub_resource type="SystemFont" id="SystemFont_y81wk"]
 font_names = PackedStringArray("Sans-Serif")
 font_weight = 600
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7hir"]
 bg_color = Color(0.226707, 0.226708, 0.226707, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_ikcu4"]
 font_names = PackedStringArray("Sans-Serif")
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7q4td"]
 bg_color = Color(0.226707, 0.226708, 0.226707, 1)
@@ -25,6 +28,7 @@ bg_color = Color(0.226707, 0.226708, 0.226707, 1)
 [sub_resource type="SystemFont" id="SystemFont_na874"]
 font_names = PackedStringArray("Sans-Serif")
 font_italic = true
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trwgu"]
 bg_color = Color(0.226707, 0.226708, 0.226707, 1)
@@ -32,21 +36,26 @@ bg_color = Color(0.226707, 0.226708, 0.226707, 1)
 [sub_resource type="SystemFont" id="SystemFont_3wr7d"]
 font_names = PackedStringArray("Monospace")
 font_weight = 600
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_4ss6l"]
 font_names = PackedStringArray("Sans-Serif")
 font_weight = 750
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_78em2"]
 font_names = PackedStringArray("Monospace")
 font_weight = 600
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_hgm6b"]
 font_names = PackedStringArray("Monospace")
 font_weight = 600
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_262gx"]
 font_names = PackedStringArray("Sans-Serif")
+subpixel_positioning = 0
 
 [node name="Dock" type="ScrollContainer"]
 offset_right = 697.0

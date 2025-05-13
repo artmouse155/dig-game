@@ -23,7 +23,7 @@ resources_spreadsheet_view/context_menu_on_leftclick=false
 config/name="Deepest Earth"
 config/version="1.0.0"
 run/main_scene="res://Scenes/main_scene.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://Assets/Textures/logo.png"
 
 [autoload]

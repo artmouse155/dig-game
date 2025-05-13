@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=4 uid="uid://dubne73h0l0o4"]
 
-[ext_resource type="Script" path="res://Scripts/room_editor.gd" id="1_av4om"]
+[ext_resource type="Script" uid="uid://c1hw4a5k2sum" path="res://Scripts/room_editor.gd" id="1_av4om"]
 [ext_resource type="TileSet" uid="uid://dsq8jxh6ktmkr" path="res://Resources/World Generation/Tilesets/room_0_tileset.tres" id="2_v28ld"]
 [ext_resource type="PackedScene" uid="uid://c5s42f148lm4m" path="res://Resources/Structures/Objects/Lights/torch.tscn" id="3_v1tbw"]
 [ext_resource type="PackedScene" uid="uid://c776gy42n3if" path="res://Resources/Structures/Objects/Lootable/crate.tscn" id="7_vhx61"]
 [ext_resource type="PackedScene" uid="uid://me8i18kpa114" path="res://Resources/Structures/Objects/Lootable/vase.tscn" id="9_62bni"]
 [ext_resource type="PackedScene" uid="uid://blv7564hoijoj" path="res://Resources/Structures/Objects/Lootable/pot.tscn" id="9_kavnx"]
-[ext_resource type="Shader" path="res://Scenes/Rooms/funky.gdshader" id="11_u2gao"]
-[ext_resource type="Shader" path="res://Scenes/Rooms/light.gdshader" id="12_76lio"]
+[ext_resource type="Shader" uid="uid://6levocqu2h20" path="res://Scenes/Rooms/funky.gdshader" id="11_u2gao"]
+[ext_resource type="Shader" uid="uid://itmtc5t1k6lh" path="res://Scenes/Rooms/light.gdshader" id="12_76lio"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vmkiv"]
 shader = ExtResource("11_u2gao")

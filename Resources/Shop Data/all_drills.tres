@@ -2,16 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://dvshq2d8jj6l3" path="res://Assets/Textures/Driller/Components/Drills/mark_1.png" id="1_3g5rv"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="1_m141h"]
-[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="2_ohbp3"]
-[ext_resource type="Script" path="res://Resources/buff_item.gd" id="3_5ugr3"]
+[ext_resource type="Script" uid="uid://bes6jysfg860t" path="res://Resources/driller_component_object.gd" id="2_ohbp3"]
+[ext_resource type="Script" uid="uid://cv3frscri0lhy" path="res://Resources/buff_item.gd" id="3_5ugr3"]
 [ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/Shop Data/durability.tres" id="3_6mvr2"]
-[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_48vk5"]
-[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="4_4ind6"]
+[ext_resource type="Script" uid="uid://c3g6m0l7eb5b8" path="res://Resources/resource_data.gd" id="3_48vk5"]
+[ext_resource type="Script" uid="uid://dceycg6xqhwd4" path="res://Resources/driller_component_group.gd" id="4_4ind6"]
 [ext_resource type="Resource" uid="uid://c5s4w4lfyvhra" path="res://Resources/Driller/default_trigger.tres" id="4_426id"]
 [ext_resource type="Resource" uid="uid://6mf1sues0fv0" path="res://Resources/Driller/Drills/mark_1.tres" id="4_adpgl"]
 [ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="5_gk6vi"]
 [ext_resource type="Resource" uid="uid://dkv6wnebvibrw" path="res://Resources/Driller/ten_ore.tres" id="8_3kqye"]
-[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="8_ajnss"]
+[ext_resource type="Script" uid="uid://cinw6n5cjefww" path="res://Resources/upgrade_list.gd" id="8_ajnss"]
 
 [sub_resource type="Resource" id="Resource_gvvse"]
 script = ExtResource("3_48vk5")

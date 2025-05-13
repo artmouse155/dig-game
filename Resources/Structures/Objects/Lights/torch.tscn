@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://c5s42f148lm4m"]
 
 [ext_resource type="Texture2D" uid="uid://cqdg1xwaefuoa" path="res://Assets/Textures/Tiles/Rooms/torch.png" id="1_4gdlo"]
-[ext_resource type="Script" path="res://Scripts/structure_object_node.gd" id="2_s41bi"]
+[ext_resource type="Script" uid="uid://c7px3akpi2vqm" path="res://Scripts/structure_object_node.gd" id="2_s41bi"]
 [ext_resource type="Texture2D" uid="uid://bc13qgbpccv0k" path="res://Assets/Textures/Tiles/Rooms/fire.png" id="2_y2g71"]
-[ext_resource type="Shader" path="res://Scenes/Rooms/torch_light.gdshader" id="3_t7kuc"]
+[ext_resource type="Shader" uid="uid://7aoake6ww7w" path="res://Scenes/Rooms/torch_light.gdshader" id="3_t7kuc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bebox"]
 shader = ExtResource("3_t7kuc")

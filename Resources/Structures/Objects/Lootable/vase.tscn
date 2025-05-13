@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://me8i18kpa114"]
 
 [ext_resource type="Texture2D" uid="uid://wc3jxcq8ldoj" path="res://Assets/Textures/Tiles/Rooms/vase.png" id="1_xeb1x"]
-[ext_resource type="Script" path="res://Scripts/structure_object_node.gd" id="2_krf1r"]
+[ext_resource type="Script" uid="uid://c7px3akpi2vqm" path="res://Scripts/structure_object_node.gd" id="2_krf1r"]
 
 [node name="Vase" type="Sprite2D"]
 texture = ExtResource("1_xeb1x")

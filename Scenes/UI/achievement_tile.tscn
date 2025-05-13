@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c18ouqtifciee"]
 
-[ext_resource type="Script" path="res://Scripts/achievement_tile.gd" id="1_kf8ht"]
+[ext_resource type="Script" uid="uid://o530e0vhss04" path="res://Scripts/achievement_tile.gd" id="1_kf8ht"]
 
 [node name="AchievementTile" type="PanelContainer" node_paths=PackedStringArray("texture_panel")]
 script = ExtResource("1_kf8ht")

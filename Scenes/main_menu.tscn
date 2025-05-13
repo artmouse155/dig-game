@@ -1,16 +1,16 @@
 [gd_scene load_steps=13 format=3 uid="uid://bcvxetxrlr5ax"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
+[ext_resource type="Script" uid="uid://dw7kjhma3lvlo" path="res://Scripts/main_menu.gd" id="1_dkxu4"]
 [ext_resource type="Texture2D" uid="uid://bl16hy1l7qrb3" path="res://Assets/Textures/Main Menu/bg.png" id="2_gnmwa"]
 [ext_resource type="Texture2D" uid="uid://1414ge0bm65x" path="res://Assets/Textures/Main Menu/title.png" id="2_rbirt"]
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="4_7jqty"]
-[ext_resource type="Script" path="res://Scripts/save_select_screen.gd" id="4_0713j"]
+[ext_resource type="Script" uid="uid://b2g6x52ncqirr" path="res://Scripts/save_select_screen.gd" id="4_0713j"]
 [ext_resource type="FontFile" uid="uid://be52u2oaw7iyq" path="res://Assets/Fonts/Aller_Bd.ttf" id="4_ffl0i"]
 [ext_resource type="Texture2D" uid="uid://b25ddw1h7acff" path="res://Assets/Textures/UI/garbage.png" id="7_11gcl"]
 [ext_resource type="Texture2D" uid="uid://bl8efy5hinc7f" path="res://Assets/Textures/UI/ok.png" id="8_n1ta6"]
 [ext_resource type="PackedScene" uid="uid://bew8orgykthfo" path="res://Scenes/UI/savePanel.tscn" id="9_a24rv"]
-[ext_resource type="Script" path="res://Scripts/ConfirmationBox.gd" id="9_m7866"]
-[ext_resource type="Script" path="res://Scripts/SettingsScreen.gd" id="11_08ha8"]
+[ext_resource type="Script" uid="uid://bcsvkpoglfmwh" path="res://Scripts/ConfirmationBox.gd" id="9_m7866"]
+[ext_resource type="Script" uid="uid://dxnugaqhhf2pi" path="res://Scripts/SettingsScreen.gd" id="11_08ha8"]
 
 [sub_resource type="Theme" id="Theme_6uh8r"]
 default_font = ExtResource("4_ffl0i")

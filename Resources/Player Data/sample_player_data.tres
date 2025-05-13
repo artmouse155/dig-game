@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="PlayerData" load_steps=14 format=3 uid="uid://dic2ov3rjcn0u"]
 
-[ext_resource type="Script" path="res://Resources/player_data.gd" id="1_p7crm"]
+[ext_resource type="Script" uid="uid://ykcqnquxybsu" path="res://Resources/player_data.gd" id="1_p7crm"]
 [ext_resource type="Resource" uid="uid://doqwwsa3h0i6k" path="res://Resources/Driller/Batteries/sapling.tres" id="1_usj8u"]
 [ext_resource type="Resource" uid="uid://beb7qrg7mpqon" path="res://Resources/Driller/Boosts/nova_accelerator.tres" id="2_de07u"]
 [ext_resource type="Resource" uid="uid://6mf1sues0fv0" path="res://Resources/Driller/Drills/mark_1.tres" id="3_3sgge"]
 [ext_resource type="Resource" uid="uid://cf7lwurtkpbcw" path="res://Resources/Driller/Engines/hermes.tres" id="4_h0gvu"]
 [ext_resource type="Resource" uid="uid://dt5jkjk3gkmoq" path="res://Resources/Driller/Hulls/vanguard.tres" id="5_bmpid"]
-[ext_resource type="Script" path="res://Resources/resource_data.gd" id="6_oclc8"]
-[ext_resource type="Script" path="res://Resources/component_object_save_data.gd" id="7_0b2cl"]
+[ext_resource type="Script" uid="uid://c3g6m0l7eb5b8" path="res://Resources/resource_data.gd" id="6_oclc8"]
+[ext_resource type="Script" uid="uid://33c4p3lwd4kv" path="res://Resources/component_object_save_data.gd" id="7_0b2cl"]
 
 [sub_resource type="Resource" id="Resource_645ll"]
 script = ExtResource("6_oclc8")

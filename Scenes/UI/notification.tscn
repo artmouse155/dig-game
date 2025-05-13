@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0oomk4ixnu4m"]
 
-[ext_resource type="Script" path="res://Scripts/notification.gd" id="1_tb3qv"]
+[ext_resource type="Script" uid="uid://dfuoiesed6y5d" path="res://Scripts/notification.gd" id="1_tb3qv"]
 [ext_resource type="Texture2D" uid="uid://b3w6n05hwqamo" path="res://Assets/Textures/logo.png" id="2_tyvtp"]
 
 [node name="Notification" type="PanelContainer" node_paths=PackedStringArray("tex", "title_text", "sub_title_text", "desc_text")]

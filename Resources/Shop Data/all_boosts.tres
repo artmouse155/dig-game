@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="DrillerComponentGroup" load_steps=4 format=3 uid="uid://dd5p2bjojj2jq"]
 
-[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="1_58amg"]
-[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_uiwe1"]
+[ext_resource type="Script" uid="uid://dceycg6xqhwd4" path="res://Resources/driller_component_group.gd" id="1_58amg"]
+[ext_resource type="Script" uid="uid://bes6jysfg860t" path="res://Resources/driller_component_object.gd" id="1_uiwe1"]
 [ext_resource type="Resource" uid="uid://beb7qrg7mpqon" path="res://Resources/Driller/Boosts/nova_accelerator.tres" id="1_uvrsy"]
 
 [resource]

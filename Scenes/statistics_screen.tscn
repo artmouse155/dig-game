@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bghosv226xtpe"]
 
 [ext_resource type="Theme" uid="uid://cp6j15g3jin84" path="res://Assets/Themes/ui_theme_default.tres" id="1_4rr1y"]
-[ext_resource type="Script" path="res://Scripts/statistics_screen.gd" id="2_f6phx"]
+[ext_resource type="Script" uid="uid://braog70pa8fgs" path="res://Scripts/statistics_screen.gd" id="2_f6phx"]
 
 [node name="StatisticsScreen" type="Control" node_paths=PackedStringArray("allTimeLabel", "perDayLabel") groups=["scenes"]]
 layout_mode = 3

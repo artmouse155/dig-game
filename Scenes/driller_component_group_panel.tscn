@@ -1,10 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://0knq0xxsht10"]
+[gd_scene load_steps=14 format=3 uid="uid://0knq0xxsht10"]
 
-[ext_resource type="Script" path="res://Scripts/Shop/driller_component_group_panel.gd" id="1_rsi3u"]
+[ext_resource type="Script" uid="uid://b7shsbokfjm2q" path="res://Scripts/Shop/driller_component_group_panel.gd" id="1_rsi3u"]
 [ext_resource type="Texture2D" uid="uid://c8u8cf4fl0v8e" path="res://Assets/Textures/Player/player.png" id="2_os1gb"]
-[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="3_tf5x7"]
+[ext_resource type="Script" uid="uid://cv3frscri0lhy" path="res://Resources/buff_item.gd" id="3_kujst"]
+[ext_resource type="Script" uid="uid://bes6jysfg860t" path="res://Resources/driller_component_object.gd" id="3_tf5x7"]
 [ext_resource type="Resource" uid="uid://dn5aajdaie2eb" path="res://Resources/Shop Data/durability.tres" id="4_qloq2"]
-[ext_resource type="Script" path="res://Resources/driller_component_group.gd" id="5_w1v8k"]
+[ext_resource type="Script" uid="uid://c3g6m0l7eb5b8" path="res://Resources/resource_data.gd" id="5_o5yft"]
+[ext_resource type="Script" uid="uid://dceycg6xqhwd4" path="res://Resources/driller_component_group.gd" id="5_w1v8k"]
+[ext_resource type="Resource" uid="uid://dkv6wnebvibrw" path="res://Resources/Driller/ten_ore.tres" id="6_klfcu"]
+[ext_resource type="Resource" uid="uid://c5s4w4lfyvhra" path="res://Resources/Driller/default_trigger.tres" id="7_sd6k5"]
+[ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="8_huugd"]
+[ext_resource type="Script" uid="uid://cinw6n5cjefww" path="res://Resources/upgrade_list.gd" id="9_1kmno"]
 
 [sub_resource type="Resource" id="Resource_r3nqt"]
 script = ExtResource("3_tf5x7")
@@ -14,8 +20,12 @@ component_object_tile_image = ExtResource("2_os1gb")
 offset = Vector2(0, 0)
 desc = "The best drill money can buy."
 locked_desc = "Unlock by donating to Chase!"
-upgrade_lists = Array[Resource("res://Resources/upgrade_list.gd")]([ExtResource("4_qloq2"), ExtResource("4_qloq2"), ExtResource("4_qloq2"), ExtResource("4_qloq2")])
-base_buffs = Array[Resource("res://Resources/buff_item.gd")]([])
+upgrade_lists = Array[ExtResource("9_1kmno")]([ExtResource("4_qloq2"), ExtResource("4_qloq2"), ExtResource("4_qloq2"), ExtResource("4_qloq2")])
+base_buffs = Array[ExtResource("3_kujst")]([])
+recipe_found_trigger = ExtResource("7_sd6k5")
+crafting_recipe = Array[ExtResource("5_o5yft")]([ExtResource("6_klfcu")])
+recipe_image = ExtResource("8_huugd")
+in_game_age = 0
 
 [sub_resource type="Resource" id="Resource_81nv3"]
 script = ExtResource("5_w1v8k")

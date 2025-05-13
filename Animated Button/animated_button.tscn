@@ -1,11 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://kw5mocxe0q47"]
 
 [ext_resource type="Theme" uid="uid://ufgv5pisykj6" path="res://Animated Button/game_theme.tres" id="1_l3hv8"]
-[ext_resource type="Script" path="res://Animated Button/animated_button.gd" id="2_8cet3"]
+[ext_resource type="Script" uid="uid://df07vkfdw1ycn" path="res://Animated Button/animated_button.gd" id="2_8cet3"]
 [ext_resource type="Theme" uid="uid://dfqw050d0oiyb" path="res://Animated Button/animated_button.tres" id="3_fpgik"]
-[ext_resource type="Script" path="res://Animated Button/BottomTrim.gd" id="4_cqa1g"]
-[ext_resource type="Script" path="res://Animated Button/ButtonText.gd" id="4_vjqpl"]
-[ext_resource type="Script" path="res://Animated Button/TopPanel.gd" id="5_dh6fy"]
+[ext_resource type="Script" uid="uid://uwaqm7qo3wsi" path="res://Animated Button/BottomTrim.gd" id="4_cqa1g"]
+[ext_resource type="Script" uid="uid://bblk3aui6w48k" path="res://Animated Button/ButtonText.gd" id="4_vjqpl"]
+[ext_resource type="Script" uid="uid://b1ejhf8hn3p04" path="res://Animated Button/TopPanel.gd" id="5_dh6fy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qxhk"]
 bg_color = Color(0.534375, 0, 0, 1)
@@ -200,11 +200,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66iej"]
 _data = {
-"hover": SubResource("Animation_8sjs1"),
-"hover_exit": SubResource("Animation_g2kdc"),
-"pressed": SubResource("Animation_o838e"),
-"pressed_and_exit": SubResource("Animation_0kth2"),
-"released": SubResource("Animation_v67v0")
+&"hover": SubResource("Animation_8sjs1"),
+&"hover_exit": SubResource("Animation_g2kdc"),
+&"pressed": SubResource("Animation_o838e"),
+&"pressed_and_exit": SubResource("Animation_0kth2"),
+&"released": SubResource("Animation_v67v0")
 }
 
 [node name="AnimatedButton" type="MarginContainer"]

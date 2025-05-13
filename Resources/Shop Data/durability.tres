@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="UpgradeList" load_steps=8 format=3 uid="uid://dn5aajdaie2eb"]
 
-[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="1_jt2fs"]
-[ext_resource type="Script" path="res://Resources/upgrade.gd" id="2_b1bp3"]
-[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_x87jq"]
-[ext_resource type="Script" path="res://Resources/resource_data.gd" id="3_pwni5"]
+[ext_resource type="Script" uid="uid://cinw6n5cjefww" path="res://Resources/upgrade_list.gd" id="1_jt2fs"]
+[ext_resource type="Script" uid="uid://bbi1cnpkawupf" path="res://Resources/upgrade.gd" id="2_b1bp3"]
+[ext_resource type="Script" uid="uid://cv3frscri0lhy" path="res://Resources/buff_item.gd" id="2_x87jq"]
+[ext_resource type="Script" uid="uid://c3g6m0l7eb5b8" path="res://Resources/resource_data.gd" id="3_pwni5"]
 
 [sub_resource type="Resource" id="Resource_mw7yg"]
 script = ExtResource("2_x87jq")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://bvo74v4p1vl5s"]
 
-[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_q33fh"]
+[ext_resource type="Script" uid="uid://dssbg7v02yfuf" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
-[ext_resource type="Script" path="res://Scripts/debug_settings.gd" id="3_tgtwy"]
-[ext_resource type="Script" path="res://Scenes/fps_counter.gd" id="4_kye34"]
+[ext_resource type="Script" uid="uid://b068diab80y6p" path="res://Scripts/debug_settings.gd" id="3_tgtwy"]
+[ext_resource type="Script" uid="uid://dro34f6mr7uyo" path="res://Scenes/fps_counter.gd" id="4_kye34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jjuix"]
 bg_color = Color(0.0901961, 0.0901961, 0.0901961, 0.847059)

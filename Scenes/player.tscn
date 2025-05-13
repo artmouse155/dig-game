@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://b0bo4y5hiomht"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ob06n"]
+[ext_resource type="Script" uid="uid://csqbc8mjipsbw" path="res://Scripts/player.gd" id="1_ob06n"]
 [ext_resource type="Texture2D" uid="uid://vuwqikuepk3y" path="res://Assets/Textures/Driller/Components/Boosts/nova_accelerator.png" id="3_ss5ih"]
 [ext_resource type="Texture2D" uid="uid://bysshbq0p3ksm" path="res://Assets/Textures/Driller/Components/Hulls/vanguard.png" id="3_ws7a0"]
 [ext_resource type="Texture2D" uid="uid://7lod7ahlh8pk" path="res://Assets/Textures/Driller/Components/Batteries/sapling.png" id="5_c5mxx"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bywj7boebnl6m" path="res://Assets/Textures/Driller/Components/Treads/treads.png" id="9_kposa"]
 
 [sub_resource type="Curve" id="Curve_6xpxa"]
-min_value = -1.0
+_limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -125,9 +125,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gofex"]
 _data = {
-"RESET": SubResource("Animation_06770"),
-"drill_to_treads": SubResource("Animation_ifp5t"),
-"treads_to_drill": SubResource("Animation_5j3dh")
+&"RESET": SubResource("Animation_06770"),
+&"drill_to_treads": SubResource("Animation_ifp5t"),
+&"treads_to_drill": SubResource("Animation_5j3dh")
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("hull_node", "drill_node", "treads_node", "battery_node", "engine_node", "boost_node", "drill_center", "polygon", "turbo_particles", "animation_player", "area_2d", "collision_shape")]

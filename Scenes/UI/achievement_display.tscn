@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6vuqyxxasmw4"]
 
-[ext_resource type="Script" path="res://Scripts/achievement_display.gd" id="1_d6eyx"]
+[ext_resource type="Script" uid="uid://jcxfedgmjnhl" path="res://Scripts/achievement_display.gd" id="1_d6eyx"]
 [ext_resource type="PackedScene" uid="uid://c18ouqtifciee" path="res://Scenes/UI/achievement_tile.tscn" id="2_5toe0"]
 [ext_resource type="PackedScene" uid="uid://dve3ug7r4vxj0" path="res://Scenes/tooltip.tscn" id="3_nr0la"]
 [ext_resource type="PackedScene" uid="uid://kw5mocxe0q47" path="res://Animated Button/animated_button.tscn" id="4_t4ocj"]

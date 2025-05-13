@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=11 format=3 uid="uid://cf7lwurtkpbcw"]
 
-[ext_resource type="Script" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
+[ext_resource type="Script" uid="uid://bes6jysfg860t" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Components/Engines/hermes.png" id="1_s23tu"]
-[ext_resource type="Script" path="res://Resources/buff_item.gd" id="2_8brhn"]
+[ext_resource type="Script" uid="uid://cv3frscri0lhy" path="res://Resources/buff_item.gd" id="2_8brhn"]
 [ext_resource type="Texture2D" uid="uid://f8uf84um8jwr" path="res://Assets/Textures/UI/buy_tile_back.png" id="3_432a0"]
 [ext_resource type="Texture2D" uid="uid://8lioqfng1fhg" path="res://Assets/Textures/Driller/Recipes/sample_recipe.png" id="4_4drih"]
 [ext_resource type="Resource" uid="uid://gq6ijo3765sv" path="res://Resources/Driller/null_trigger.tres" id="4_alpde"]
-[ext_resource type="Script" path="res://Resources/resource_data.gd" id="4_k8n7o"]
-[ext_resource type="Script" path="res://Resources/upgrade_list.gd" id="8_eyfp5"]
+[ext_resource type="Script" uid="uid://c3g6m0l7eb5b8" path="res://Resources/resource_data.gd" id="4_k8n7o"]
+[ext_resource type="Script" uid="uid://cinw6n5cjefww" path="res://Resources/upgrade_list.gd" id="8_eyfp5"]
 
 [sub_resource type="Resource" id="Resource_mqdvs"]
 script = ExtResource("2_8brhn")

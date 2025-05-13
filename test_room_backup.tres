@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StructureData" load_steps=6 format=3 uid="uid://br2agas12xb4x"]
 
-[ext_resource type="Script" path="res://Resources/Structures/structure_object.gd" id="1_1ph1j"]
-[ext_resource type="Script" path="res://Resources/Structures/structure_data.gd" id="2_usmlb"]
+[ext_resource type="Script" uid="uid://cehtimw1kbho6" path="res://Resources/Structures/structure_object.gd" id="1_1ph1j"]
+[ext_resource type="Script" uid="uid://cidk0ofr5jeul" path="res://Resources/Structures/structure_data.gd" id="2_usmlb"]
 [ext_resource type="TileSet" uid="uid://dsq8jxh6ktmkr" path="res://Resources/World Generation/Tilesets/room_0_tileset.tres" id="3_xwww1"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_uyjhc"]
