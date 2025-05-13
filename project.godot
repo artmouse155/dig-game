@@ -36,6 +36,7 @@ StructureObjectDB="*res://Scripts/Autoload/structure_object_db.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/size/window_width_override=1728
 window/size/window_height_override=972
 window/stretch/mode="canvas_items"

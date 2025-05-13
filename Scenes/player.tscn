@@ -180,9 +180,9 @@ anchors_preset = 0
 material = ExtResource("7_gpo5t")
 emitting = false
 amount = 32
-process_material = SubResource("ParticleProcessMaterial_cqkbh")
 texture = ExtResource("8_t5kh6")
 lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_cqkbh")
 
 [node name="BoostTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/Top/Top_Control/BoostAnchor"]
 layout_mode = 1
@@ -425,5 +425,5 @@ border_color = Color(1, 0.65098, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_gofex")
+&"": SubResource("AnimationLibrary_gofex")
 }

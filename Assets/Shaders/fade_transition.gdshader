@@ -8,12 +8,12 @@ void fragment() {
 	vec2 uv = UV;
     // Example animation: fade from black to white
 	float uv_x = uv.x;
-	
+
 	if (flipped)
 	{
 		uv_x = 1.0 - uv_x;
 	}
-	
+
 	float true_progress = max(min(uv_x + ((2.0 * progress) - 1.0), 1.0), 0.0);
     vec4 color = vec4(vec3(COLOR.xyz), true_progress);
 
@@ -21,7 +21,7 @@ void fragment() {
     COLOR = color;
 	/* Calculate animation progress from time
     float progress = min(TIME / animation_duration, 1.0);
-	
+
 	vec2 uv = UV;
 	uv.y += wave_strength * sin((UV.x / wave_width) + (TIME*(2.0*PI) / wave_time)) / texture_height;
 	vec4 color = texture(TEXTURE, uv);
