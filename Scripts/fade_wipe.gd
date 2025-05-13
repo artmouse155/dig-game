@@ -7,7 +7,7 @@ const ANIM_DURATION = .2
 signal anim_completed
 
 @onready var tween
-
+@export var label: Label
 func _ready():
 	# Check if the sprite has a shader material
 	if self.material is ShaderMaterial:
@@ -58,3 +58,6 @@ func emit_completed_signal():
 func _input(ev):
 	if Input.is_key_pressed(KEY_7):
 		print(shader_material.get_shader_parameter("progress"))
+
+func set_label_text(text):
+	Label.text = text

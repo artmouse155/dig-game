@@ -174,8 +174,8 @@ func _ready():
 	#ALERT TODO: Get rid of this arbitrary waiting time
 	#await get_tree().create_timer(.5).timeout
 	#print("it has been .5 seconds.")
-	await get_tree().process_frame
-	await get_tree().process_frame
+	#await get_tree().process_frame
+	#await get_tree().process_frame
 	call_deferred("set_loaded")
 
 func set_loaded():

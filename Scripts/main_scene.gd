@@ -40,6 +40,7 @@ func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, for
 				await fade_node.instant_fade_in()
 			else:
 				await fade_node.fade_in()
+			fade_node.label.text = "Loading: 0%"
 		var old_scene = get_current_scene()
 		var new_scene = await Game.SCENES[scene].instantiate()
 		
@@ -54,9 +55,11 @@ func switch_scene(scene, trans_type: int = Game.TRANSITION_TYPES.TRANSITION, for
 		
 		current_scene = scene
 		print("beginning fade out!")
+		fade_node.label.text = "Loading: 100%"
 		if (trans_type == Game.TRANSITION_TYPES.TRANSITION) or (trans_type == Game.TRANSITION_TYPES.TRANSITION_WITH_LOAD):
 			#fade_node.position = Game.FADE_OFFSET[current_scene]
 			await fade_node.fade_out()
+			fade_node.label.text = "Loading: 0%"
 			#await fade_node.anim_completed
 			print("ended fade out!")
 			Game.is_transition_running = false
