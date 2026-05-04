@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UpgradeList" load_steps=8 format=3 uid="uid://dn5aajdaie2eb"]
+[gd_resource type="Resource" script_class="UpgradeList" format=3 uid="uid://dn5aajdaie2eb"]
 
 [ext_resource type="Script" uid="uid://cinw6n5cjefww" path="res://Resources/upgrade_list.gd" id="1_jt2fs"]
 [ext_resource type="Script" uid="uid://bbi1cnpkawupf" path="res://Resources/upgrade.gd" id="2_b1bp3"]

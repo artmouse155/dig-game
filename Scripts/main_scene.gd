@@ -3,7 +3,7 @@ class_name MainScene
 
 @export var pause_screen: Control
 
-@onready var fade_node = $FadeWipe
+@onready var fade_node = %FadeWipe
 
 @onready var current_scene = -1
 

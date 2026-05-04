@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DrillerComponentObject" load_steps=11 format=3 uid="uid://cf7lwurtkpbcw"]
+[gd_resource type="Resource" script_class="DrillerComponentObject" format=3 uid="uid://cf7lwurtkpbcw"]
 
 [ext_resource type="Script" uid="uid://bes6jysfg860t" path="res://Resources/driller_component_object.gd" id="1_nsnyq"]
 [ext_resource type="Texture2D" uid="uid://v2vavy77oqd2" path="res://Assets/Textures/Driller/Components/Engines/hermes.png" id="1_s23tu"]
@@ -23,14 +23,9 @@ amount = 1.5
 script = ExtResource("1_nsnyq")
 component_object_name = "Hermes"
 parent_group_name = "engine"
-component_object_tile_image = ExtResource("3_432a0")
 actual_texture = ExtResource("1_s23tu")
 offset = Vector2(-15, 0)
 desc = "A humble engine of humble origins."
-locked_desc = ""
-upgrade_lists = Array[ExtResource("8_eyfp5")]([])
 base_buffs = Array[ExtResource("2_8brhn")]([SubResource("Resource_mqdvs"), SubResource("Resource_yp7bb")])
 recipe_found_trigger = ExtResource("4_alpde")
 crafting_recipe = Array[ExtResource("4_k8n7o")]([])
-recipe_image = ExtResource("4_4drih")
-in_game_age = 0

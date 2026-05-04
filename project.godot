@@ -23,7 +23,7 @@ resources_spreadsheet_view/context_menu_on_leftclick=false
 config/name="Deepest Earth"
 config/version="1.0.0"
 run/main_scene="res://Scenes/main_scene.tscn"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://Assets/Textures/logo.png"
 
 [autoload]
@@ -36,7 +36,6 @@ StructureObjectDB="*res://Scripts/Autoload/structure_object_db.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 window/size/window_width_override=1728
 window/size/window_height_override=972
 window/stretch/mode="canvas_items"
@@ -47,10 +46,6 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="Deepest Earth"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot_conventions_cheat_sheet/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
-
 [file_customization]
 
 folder_colors={
@@ -58,8 +53,7 @@ folder_colors={
 "res://Assets/": "red",
 "res://Resources/": "yellow",
 "res://Scenes/": "blue",
-"res://Scripts/": "green",
-"res://addons/": "gray"
+"res://Scripts/": "green"
 }
 
 [gui]

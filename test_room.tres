@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StructureData" load_steps=16 format=3 uid="uid://bcrffusf62wvx"]
+[gd_resource type="Resource" script_class="StructureData" format=3 uid="uid://bcrffusf62wvx"]
 
 [ext_resource type="Script" uid="uid://cehtimw1kbho6" path="res://Resources/Structures/structure_object.gd" id="1_su0fj"]
 [ext_resource type="Script" uid="uid://cidk0ofr5jeul" path="res://Resources/Structures/structure_data.gd" id="2_1g025"]

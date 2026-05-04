@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://byfado2ql7hne"]
+[gd_resource type="TileSet" format=3 uid="uid://byfado2ql7hne"]
 
 [ext_resource type="Texture2D" uid="uid://tl66lwkkbiyg" path="res://Assets/Textures/Tiles/light_edit.png" id="1_63t5x"]
 

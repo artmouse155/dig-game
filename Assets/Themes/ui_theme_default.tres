@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cp6j15g3jin84"]
+[gd_resource type="Theme" format=3 uid="uid://cp6j15g3jin84"]
 
 [ext_resource type="FontFile" uid="uid://cf4se4uuyd8mj" path="res://Assets/Fonts/AllerDisplay.ttf" id="1_horud"]
 [ext_resource type="Texture2D" uid="uid://c83lrskaqpljl" path="res://Assets/Textures/UI/Default Theme/button_nine_disabled.png" id="2_rbrlr"]

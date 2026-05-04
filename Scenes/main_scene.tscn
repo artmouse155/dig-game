@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvo74v4p1vl5s"]
+[gd_scene format=3 uid="uid://bvo74v4p1vl5s"]
 
 [ext_resource type="Script" uid="uid://dssbg7v02yfuf" path="res://Scripts/main_scene.gd" id="1_q33fh"]
 [ext_resource type="PackedScene" uid="uid://mhr3vityo3r3" path="res://Scenes/fade_wipe.tscn" id="2_k7hjb"]
@@ -14,7 +14,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MainScene" type="Control" node_paths=PackedStringArray("pause_screen") groups=["main scene"]]
+[node name="MainScene" type="Control" unique_id=619736090 node_paths=PackedStringArray("pause_screen") groups=["main scene"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,15 +26,16 @@ size_flags_vertical = 4
 script = ExtResource("1_q33fh")
 pause_screen = NodePath("Paused")
 
-[node name="InitScene" type="Control" parent="." groups=["scenes"]]
+[node name="InitScene" type="Control" parent="." unique_id=2073104389 groups=["scenes"]]
 anchors_preset = 0
 
-[node name="FadeWipe" parent="." instance=ExtResource("2_k7hjb")]
+[node name="FadeWipe" parent="." unique_id=1871974272 instance=ExtResource("2_k7hjb")]
+unique_name_in_owner = true
 visible = false
 z_index = 100
 layout_mode = 1
 
-[node name="Paused" type="Label" parent="."]
+[node name="Paused" type="Label" parent="." unique_id=1158159678]
 visible = false
 z_index = 10
 layout_mode = 1
@@ -54,7 +55,7 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DebugSettings" type="PanelContainer" parent="." node_paths=PackedStringArray("debug_v_box", "debug_check_box")]
+[node name="DebugSettings" type="PanelContainer" parent="." unique_id=667393953 node_paths=PackedStringArray("debug_v_box", "debug_check_box")]
 z_index = 100
 layout_mode = 0
 offset_left = 112.0
@@ -67,46 +68,46 @@ script = ExtResource("3_tgtwy")
 debug_v_box = NodePath("MarginContainer/VBoxContainer/MarginContainer/DebugVBox")
 debug_check_box = NodePath("MarginContainer/VBoxContainer/HBoxContainer/DebugCheckBox")
 
-[node name="MarginContainer2" type="MarginContainer" parent="DebugSettings"]
+[node name="MarginContainer2" type="MarginContainer" parent="DebugSettings" unique_id=1428943602]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = -20
 
-[node name="FPS Counter" type="Label" parent="DebugSettings/MarginContainer2"]
+[node name="FPS Counter" type="Label" parent="DebugSettings/MarginContainer2" unique_id=2142921577]
 layout_mode = 2
 size_flags_vertical = 1
 text = "FPS: -0"
 script = ExtResource("4_kye34")
 
-[node name="MarginContainer" type="MarginContainer" parent="DebugSettings"]
+[node name="MarginContainer" type="MarginContainer" parent="DebugSettings" unique_id=741019823]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugSettings/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugSettings/MarginContainer" unique_id=527276368]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DebugSettings/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="DebugSettings/MarginContainer/VBoxContainer" unique_id=275263128]
 layout_mode = 2
 text = "Debug Settings (Press '1' to toggle window)"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="DebugSettings/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugSettings/MarginContainer/VBoxContainer" unique_id=1611374197]
 layout_mode = 2
 
-[node name="DebugCheckBox" type="CheckBox" parent="DebugSettings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DebugCheckBox" type="CheckBox" parent="DebugSettings/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1755984598]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="DebugSettings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="DebugSettings/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1157338870]
 layout_mode = 2
 text = "DEBUG"
 
-[node name="MarginContainer" type="MarginContainer" parent="DebugSettings/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="DebugSettings/MarginContainer/VBoxContainer" unique_id=1005609702]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
-[node name="DebugVBox" type="VBoxContainer" parent="DebugSettings/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="DebugVBox" type="VBoxContainer" parent="DebugSettings/MarginContainer/VBoxContainer/MarginContainer" unique_id=2084079299]
 layout_mode = 2
 
 [connection signal="gui_input" from="DebugSettings" to="DebugSettings" method="gui_input_func"]

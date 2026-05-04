@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=14 format=3 uid="uid://dgejboa57hga6"]
+[gd_resource type="Resource" script_class="PlayerData" format=3 uid="uid://dgejboa57hga6"]
 
 [ext_resource type="Script" uid="uid://ykcqnquxybsu" path="res://Resources/player_data.gd" id="1_fu111"]
 [ext_resource type="Resource" uid="uid://doqwwsa3h0i6k" path="res://Resources/Driller/Batteries/sapling.tres" id="1_plthn"]
@@ -12,27 +12,22 @@
 [sub_resource type="Resource" id="Resource_645ll"]
 script = ExtResource("6_7pqbo")
 res_name = "ore"
-amount = 0
 
 [sub_resource type="Resource" id="Resource_4v5h1"]
 script = ExtResource("6_7pqbo")
 res_name = "red_gem"
-amount = 0
 
 [sub_resource type="Resource" id="Resource_3te55"]
 script = ExtResource("6_7pqbo")
 res_name = "green_gem"
-amount = 0
 
 [sub_resource type="Resource" id="Resource_3dmof"]
 script = ExtResource("6_7pqbo")
 res_name = "blue_gem"
-amount = 0
 
 [sub_resource type="Resource" id="Resource_hbxro"]
 script = ExtResource("6_7pqbo")
 res_name = "plasma"
-amount = 0
 
 [resource]
 script = ExtResource("1_fu111")
@@ -41,44 +36,4 @@ drill = ExtResource("3_saevo")
 battery = ExtResource("1_plthn")
 engine = ExtResource("4_arght")
 boost = ExtResource("2_nlihs")
-saved_component_data = Array[ExtResource("7_bhdi5")]([])
 player_inventory = Array[Object]([SubResource("Resource_645ll"), SubResource("Resource_4v5h1"), SubResource("Resource_3te55"), SubResource("Resource_3dmof"), SubResource("Resource_hbxro")])
-stats = {
-"all_time": {
-"total_blocks_broken": 0,
-"total_blue_gems": 0,
-"total_boosts_used": 0,
-"total_depth": 0,
-"total_green_gems": 0,
-"total_ore": 0,
-"total_plasma": 0,
-"total_powerups_collected": 0,
-"total_red_gems": 0,
-"total_speed": 0,
-"total_time_mining": 0
-},
-"other": {
-"blue_gems_spent": 0,
-"completed_tutorial": false,
-"day_number": 0,
-"green_gems_spent": 0,
-"ore_spent": 0,
-"plasma_spent": 0,
-"red_gems_spent": 0,
-"upgrades_bought": 0
-},
-"per_day": {
-"max_blocks_broken": 0,
-"max_blue_gems": 0,
-"max_boosts_used": 0,
-"max_depth": 0,
-"max_green_gems": 0,
-"max_ore": 0,
-"max_plasma": 0,
-"max_powerups_collected": 0,
-"max_red_gems": 0,
-"max_speed": 0,
-"max_time_mining": 0
-}
-}
-achievement_completed_data = {}
